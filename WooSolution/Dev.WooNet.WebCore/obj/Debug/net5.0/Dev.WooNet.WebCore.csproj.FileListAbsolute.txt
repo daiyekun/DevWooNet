@@ -1,0 +1,11 @@
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\Dev.WooNet.WebCore.deps.json
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\Dev.WooNet.WebCore.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\ref\Dev.WooNet.WebCore.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\Dev.WooNet.WebCore.pdb
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.GeneratedMSBuildEditorConfig.editorconfig
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.AssemblyInfoInputs.cache
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.AssemblyInfo.cs
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.csproj.CoreCompileInputs.cache
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\ref\Dev.WooNet.WebCore.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.pdb

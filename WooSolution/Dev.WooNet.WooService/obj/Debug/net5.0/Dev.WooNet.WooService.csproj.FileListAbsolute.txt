@@ -1,0 +1,12 @@
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.WooService.deps.json
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.WooService.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\ref\Dev.WooNet.WooService.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.WooService.pdb
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.csprojAssemblyReference.cache
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.GeneratedMSBuildEditorConfig.editorconfig
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.AssemblyInfoInputs.cache
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.AssemblyInfo.cs
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.csproj.CoreCompileInputs.cache
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\ref\Dev.WooNet.WooService.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.pdb
