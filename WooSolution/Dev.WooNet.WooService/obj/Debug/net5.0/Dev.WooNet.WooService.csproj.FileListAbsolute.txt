@@ -10,3 +10,10 @@ E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooServ
 E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.dll
 E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\ref\Dev.WooNet.WooService.dll
 E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.pdb
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.Common.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.IWooService.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.Model.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.Common.pdb
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.IWooService.pdb
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.Model.pdb
+E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.csproj.CopyComplete

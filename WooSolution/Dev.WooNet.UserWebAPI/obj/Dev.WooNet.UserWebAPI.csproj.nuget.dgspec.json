@@ -4,14 +4,14 @@
     "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\Dev.WooNet.UserWebAPI.csproj": {}
   },
   "projects": {
-    "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\Dev.WooNet.UserWebAPI.csproj": {
+    "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\Dev.WooNet.UserWebAPI.csproj",
-        "projectName": "Dev.WooNet.UserWebAPI",
-        "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\Dev.WooNet.UserWebAPI.csproj",
+        "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj",
+        "projectName": "Dev.WooNet.Common",
+        "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\obj\\",
+        "outputPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,7 +40,229 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\WooCode\\WooSolution\\Dev.WooNet.IService\\Dev.WooNet.IWooService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.IService\\Dev.WooNet.IWooService.csproj",
+        "projectName": "Dev.WooNet.IWooService",
+        "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.IService\\Dev.WooNet.IWooService.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.IService\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://packages.nuget.org/v1/FeedService.svc/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj"
+              },
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj",
+        "projectName": "Dev.WooNet.Model",
+        "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://packages.nuget.org/v1/FeedService.svc/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Relational": {
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.4, )"
+            },
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[5.0.0-alpha.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\Dev.WooNet.UserWebAPI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\Dev.WooNet.UserWebAPI.csproj",
+        "projectName": "Dev.WooNet.UserWebAPI",
+        "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\Dev.WooNet.UserWebAPI.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.UserWebAPI\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://packages.nuget.org/v1/FeedService.svc/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj"
+              },
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.IService\\Dev.WooNet.IWooService.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.IService\\Dev.WooNet.IWooService.csproj"
+              },
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj"
+              },
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.WebCore\\Dev.WooNet.WebCore.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebCore\\Dev.WooNet.WebCore.csproj"
+              },
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.WooService\\Dev.WooNet.WooService.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WooService\\Dev.WooNet.WooService.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Pomelo.EntityFrameworkCore.MySql": {
+              "target": "Package",
+              "version": "[5.0.0-alpha.2, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
@@ -60,6 +282,144 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\WooCode\\WooSolution\\Dev.WooNet.WebCore\\Dev.WooNet.WebCore.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebCore\\Dev.WooNet.WebCore.csproj",
+        "projectName": "Dev.WooNet.WebCore",
+        "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebCore\\Dev.WooNet.WebCore.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebCore\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://packages.nuget.org/v1/FeedService.svc/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Formatters.Json": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "E:\\WooCode\\WooSolution\\Dev.WooNet.WooService\\Dev.WooNet.WooService.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.WooService\\Dev.WooNet.WooService.csproj",
+        "projectName": "Dev.WooNet.WooService",
+        "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WooService\\Dev.WooNet.WooService.csproj",
+        "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+        "outputPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WooService\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://packages.nuget.org/v1/FeedService.svc/": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj"
+              },
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.IService\\Dev.WooNet.IWooService.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.IService\\Dev.WooNet.IWooService.csproj"
+              },
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Model\\Dev.WooNet.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

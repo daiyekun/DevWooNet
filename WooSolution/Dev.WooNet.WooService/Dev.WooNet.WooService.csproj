@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dev.WooNet.Common\Dev.WooNet.Common.csproj" />
+    <ProjectReference Include="..\Dev.WooNet.IService\Dev.WooNet.IWooService.csproj" />
+    <ProjectReference Include="..\Dev.WooNet.Model\Dev.WooNet.Model.csproj" />
+  </ItemGroup>
+
 </Project>

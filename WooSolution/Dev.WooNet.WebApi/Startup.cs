@@ -29,7 +29,7 @@ namespace Dev.WooNet.WebApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dev.WooNet.WebApi", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "业务功能API", Version = "v1" });
             });
         }
 
