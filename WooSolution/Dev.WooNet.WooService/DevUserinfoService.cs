@@ -14,10 +14,10 @@ namespace Dev.WooNet.WooService
     public partial class DevUserinfoService: BaseService<DevUserinfo>, IDevUserinfoService
     {
 
-        public DevUserinfoService(DevDbContext DevDb) : base(DevDb)
-        {
+        //public DevUserinfoService(DevDbContext DevDb) : base(DevDb)
+        //{
 
-        }
+        //}
 
     }
 }

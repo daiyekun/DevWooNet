@@ -1,6 +1,7 @@
 ﻿using Dev.WooNet.Common.Models;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.Models;
+using Dev.WooNet.WooService;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,9 @@ namespace Dev.WooNet.UserWebAPI.Controllers
         [HttpGet]
         public JsonResult QueryUser(string uname, string upwd)
         {
-            
+            TestT4.GetFiles();
+
+
             AjaxResult<DevUserinfo> ajaxResult = null;
             DevUserinfo tbUser = _IDevUserinfoService.GetQueryable(a=>a.Name== uname&&a.Pwd==upwd).FirstOrDefault();
 

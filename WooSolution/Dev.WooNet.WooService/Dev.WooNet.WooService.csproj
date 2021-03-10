@@ -10,4 +10,23 @@
     <ProjectReference Include="..\Dev.WooNet.Model\Dev.WooNet.Model.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="DevService.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DevService.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="DevService.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>DevService.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+
 </Project>
