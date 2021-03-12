@@ -14,6 +14,17 @@
       "id": 1
     },
     {
+      "title": "用户管理",
+      "pageURL": "views/role/list.html",
+      "name": "用户管理",
+      "icon": "fa-th-large",
+      "openType": 2,
+      "maxOpen": -1,
+      "extend": false,
+      "childs": null,
+      "id": 50
+    },
+    {
       "title": "打赏作者",
       "pageURL": "/home/reward",
       "name": "打赏作者",

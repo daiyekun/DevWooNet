@@ -10,7 +10,7 @@
     var $ = layui.jquery;
 
     $(function () {
-        winui.window.msg('Welcome To WinAdmin', {
+        winui.window.msg('Welcome To System', {
             time: 4500,
             offset: '40px',
             btn: ['点击进入全屏'],

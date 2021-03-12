@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "oF02fX7l9+WsGsnN5Zz56LWUS+N4ckGwDqRS2w/3XFlIc/N2UwG6DRtm5ouGv/gd2J1Z+1RepHMeVjNxBZoROg==",
+  "dgSpecHash": "IommJvvP2DLgTsKX1BKQ5mOVMh4ruGHbJ8Ehk6sDpXFpA89fWICWmgUEVq6ANrGKZnR5yfsib9R8KFrzBmxXJQ==",
   "success": true,
   "projectFilePath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

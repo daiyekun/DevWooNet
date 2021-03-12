@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HP5hsjSB5VaZaLaJoxPTwvpIDaol98rEPppz8EH2z9xmTfOe3IFhI8+MpnugkaC3jN9k1VZ7Ru/NrNZqpNks0w==",
+  "dgSpecHash": "QV+A9cevcF57KuPfP0CR4cO75hqZe1YjAMXv5eM8KclWTgrNg0V2T3TegfkxKquPVDrp2M0t60tZfpKnUNbDIw==",
   "success": true,
   "projectFilePath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebCore\\Dev.WooNet.WebCore.csproj",
   "expectedPackageFiles": [
@@ -37,7 +37,7 @@
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.platforms\\1.0.1\\microsoft.netcore.platforms.1.0.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.netcore.targets\\1.0.1\\microsoft.netcore.targets.1.0.1.nupkg.sha512",
-    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\runtime.native.system\\4.0.0\\runtime.native.system.4.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\system.appcontext\\4.1.0\\system.appcontext.4.1.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\system.buffers\\4.5.0\\system.buffers.4.5.0.nupkg.sha512",

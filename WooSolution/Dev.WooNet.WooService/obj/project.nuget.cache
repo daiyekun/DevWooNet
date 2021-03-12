@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "57NwCFn6CDEUuXQp3lvUlr6MBZ/2kPLHVUlj8frX/nZha+h5ILToPSConsa/dtP/IidLOA0KVMs+Pn7GxCIfEQ==",
+  "dgSpecHash": "7GGjKyX3JMQvAcAvXAasP4cHkZEF1SThV7gKkRMPtqUFFriPfUHgkVb7HDmegaw2mDMLuZGjQyDOj9jO+8s/qg==",
   "success": true,
   "projectFilePath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WooService\\Dev.WooNet.WooService.csproj",
   "expectedPackageFiles": [
@@ -18,6 +18,7 @@
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\mysqlconnector\\1.1.0\\mysqlconnector.1.1.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\5.0.0-alpha.2\\pomelo.entityframeworkcore.mysql.5.0.0-alpha.2.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\system.collections.immutable\\5.0.0\\system.collections.immutable.5.0.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\system.componentmodel.annotations\\5.0.0\\system.componentmodel.annotations.5.0.0.nupkg.sha512",

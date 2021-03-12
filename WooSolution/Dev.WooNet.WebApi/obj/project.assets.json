@@ -198,9 +198,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebApi\\Dev.WooNet.WebApi.csproj",
-      "projectName": "Dev.WooNet.WebApi",
-      "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebApi\\Dev.WooNet.WebApi.csproj",
+      "projectUniqueName": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebApi\\Dev.WooNet.WebAPI.csproj",
+      "projectName": "Dev.WooNet.WebAPI",
+      "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebApi\\Dev.WooNet.WebAPI.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
       "outputPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.WebApi\\obj\\",
       "projectStyle": "PackageReference",
@@ -255,7 +255,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }
