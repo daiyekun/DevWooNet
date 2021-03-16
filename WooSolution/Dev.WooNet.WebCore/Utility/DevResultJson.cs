@@ -27,6 +27,9 @@ namespace Dev.WooNet.WebCore.Utility
         public Task ExecuteResultAsync(ActionContext context)
         {
             context.HttpContext.Response.ContentType = "application/json";
+            //context.HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:8088");
+            //context.HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "POST");
+            
             byte[] bytes = Encoding.UTF8.GetBytes(JsonUtility.SerializeObject(this.DevData));
             return context.HttpContext.Response.Body.WriteAsync(bytes, 0, bytes.Count());
 

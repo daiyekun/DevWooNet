@@ -10,14 +10,14 @@
 <body>
     <div class="winui-toolbar">
         <div class="winui-tool">
-            <button id="reloadTable" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新数据</button>
-            <button id="addRole" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增角色</button>
-            <button id="deleteRole" class="winui-toolbtn"><i class="fa fa-trash" aria-hidden="true"></i>删除选中</button>
+            <button id="reloadTable" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+            <button id="adddepart" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+            <button id="deletedepart" class="winui-toolbtn"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
         </div>
     </div>
     <div style="margin:auto 10px;">
-        <table id="woouser" lay-filter="usertable"></table>
-        <script type="text/html" id="barUser">
+        <table id="woodepart" lay-filter="departtable"></table>
+        <script type="text/html" id="bardepart">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
@@ -31,11 +31,19 @@
             {{#  } }}
         </script>
     </div>
-    <script src="../../lib/layui/layui.js"></script>
+    <script src="/lib/layui/layui.js"></script>
     <script>
             layui.config({
-                base: '../../js/'
-            }).use('userlist');
+                base: '/js/'
+            }).extend({
+                devindex: 'devindex', //首先加载，包含一些配置
+                departlist:'devdepart/departlist'
+
+            })
+            .use(['departlist'],function(){
+
+
+            });
     </script>
 </body>
 </html>

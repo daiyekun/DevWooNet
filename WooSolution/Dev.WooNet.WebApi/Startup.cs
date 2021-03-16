@@ -1,6 +1,10 @@
+using Dev.WooNet.IWooService;
+using Dev.WooNet.Model.Models;
+using Dev.WooNet.WooService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -31,6 +35,24 @@ namespace Dev.WooNet.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "业务功能API", Version = "v1" });
             });
+           
+            #region 服务注入
+            var connectionString = Configuration.GetConnectionString("MysqlConn");
+            ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
+            services.AddDbContext<DevDbContext>(options =>
+                options.UseMySql(connectionString, serverVersion));
+            //services.AddTransient<DevDbContext, DevDbContext>();
+            services.AddTransient<IDevUserinfoService, DevUserinfoService>();
+            #endregion
+            services.AddCors(options =>
+            {
+                options.AddPolicy("default", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,7 +68,7 @@ namespace Dev.WooNet.WebApi
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseCors("default");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

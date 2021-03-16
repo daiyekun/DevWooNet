@@ -1,4 +1,4 @@
-using Dev.WooNet.Common;
+锘縰sing Dev.WooNet.Common;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.Models;
 using Dev.WooNet.WooService;
@@ -17,6 +17,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Pomelo.EntityFrameworkCore.MySql.Storage;
+using Dev.WooNet.WebCore.Utility;
+using Dev.WooNet.WebCore.Middleware;
+using Dev.WooNet.WebCore.FilterExtend;
+using Dev.WooNet.Common.Utility;
 
 namespace Dev.WooNet.UserWebAPI
 {
@@ -32,15 +36,35 @@ namespace Dev.WooNet.UserWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+           
+            #region Filter
+            services.AddControllers(o =>
+            {
+                //o.Filters.Add(typeof(CORSFilter));
+               // o.Filters.Add(typeof(CustomExceptionFilterAttribute));
+            });
+            #endregion
+            services.AddCors(options =>
+            {
+                options.AddPolicy("any", corsbuilder =>
+                {
+                   // var corsPath = StringHelper.Strint2ArrayString1(Configuration.GetConnectionString("CorsOrigins")).ToArray();
+                    corsbuilder.WithOrigins("http://localhost:8088")
+                  .AllowAnyMethod()
+            .AllowAnyHeader()
+                .SetIsOriginAllowed(_ => true); // =AllowAnyOrigin()
 
-            services.AddControllers();
+                    //.AllowCredentials();//鎸囧畾澶勭悊cookie
+                });
+            });
+            // services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "系统用户API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "绯荤粺鐢ㄦ埛API", Version = "v1" });
             });
 
-            #region 服务注入
-          
+            #region 鏈嶅姟娉ㄥ叆
+
             var connectionString = Configuration.GetConnectionString("MysqlConn");
             ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
             services.AddDbContext<DevDbContext>(options =>
@@ -51,27 +75,38 @@ namespace Dev.WooNet.UserWebAPI
             //services.AddTransient<DevDbContext, DevDbContext>();
             services.AddTransient<IDevUserinfoService, DevUserinfoService>();
             #endregion
+            //娉ㄥ唽璺ㄥ煙璇锋眰鏈嶅姟
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("default", policy =>
+            //    {
+            //        policy.SetIsOriginAllowed(a=>true)
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod();
+            //    });
+            //});
 
-            #region 配置文件注入
-            //services.Configure<MySqlConnOptions>(this.Configuration.GetSection("MysqlConn"));
-            //services.Configure<RedisConnOptions>(this.Configuration.GetSection("RedisConn"));
-            #endregion
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            //
             //if (env.IsDevelopment())
             //{
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "系统用户API v1"));
+            app.UseDeveloperExceptionPage();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "绯荤粺鐢ㄦ埛API v1"));
             //}
+            //app.UseMiddleware<CorsMiddleware>();
 
             app.UseRouting();
 
+            app.UseCors("any");
             app.UseAuthorization();
-
+            //app.UseCors("default");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

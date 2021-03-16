@@ -5,7 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\DevCommon\Data\" />
+    <Folder Include="Areas\DevCommon\Models\" />
+    <Folder Include="Areas\DevCommon\Views\" />
+    <Folder Include="Areas\DevContract\Controllers\" />
+    <Folder Include="Areas\DevContract\Data\" />
+    <Folder Include="Areas\DevContract\Models\" />
+    <Folder Include="Areas\DevContract\Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dev.WooNet.Common\Dev.WooNet.Common.csproj" />
+    <ProjectReference Include="..\Dev.WooNet.IService\Dev.WooNet.IWooService.csproj" />
+    <ProjectReference Include="..\Dev.WooNet.Model\Dev.WooNet.Model.csproj" />
+    <ProjectReference Include="..\Dev.WooNet.WebCore\Dev.WooNet.WebCore.csproj" />
+    <ProjectReference Include="..\Dev.WooNet.WooService\Dev.WooNet.WooService.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,8 +14,30 @@
       "id": 1
     },
     {
+      "title": "数据字典",
+      "pageURL": "views/datadic/list.html",
+      "name": "数据字典",
+      "icon": "fa-info-circle",
+      "openType": 2,
+      "maxOpen": -1,
+      "extend": false,
+      "childs": null,
+      "id": 4
+    },
+    {
+      "title": "机构管理",
+      "pageURL": "views/devdepart/list.html",
+      "name": "机构管理",
+      "icon": "fa-navicon",
+      "openType": 2,
+      "maxOpen": -1,
+      "extend": false,
+      "childs": null,
+      "id": 2
+    },
+    {
       "title": "用户管理",
-      "pageURL": "views/woouser/list.html",
+      "pageURL": "views/devuser/list.html",
       "name": "用户管理",
       "icon": "fa-th-large",
       "openType": 2,
