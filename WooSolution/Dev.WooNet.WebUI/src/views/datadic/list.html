@@ -55,61 +55,10 @@
                 <div class="winui-tab-content">
                     <div class="winui-tab-item layui-show">
                         <blockquote class="layui-elem-quote">
-                            WinAdmin —— 基于Layui打造的一款Win10风格前端模板！
+                            机构类别
                         </blockquote>
-                        <div class="layui-collapse" style="font-size:14px;">
-                            <div class="layui-colla-item">
-                                <h2 class="layui-colla-title">简介</h2>
-                                <div class="layui-colla-content layui-show">
-                                    <blockquote class="layui-elem-quote">
-                                        WinAdmin是由.NET程序员打造的一个Win10风格前端模板。<br />
-                                        由作者基于Layui编写的一个winui.js模块主导。<br />
-                                        winui.js封装了一些常用Api，例如：<br />
-                                        &nbsp;&nbsp;&nbsp;&nbsp;自定义右键菜单；<br />
-                                        &nbsp;&nbsp;&nbsp;&nbsp;窗口的打开、关闭、最大化、最小化、置顶等；<br />
-                                        &nbsp;&nbsp;&nbsp;&nbsp;桌面菜单、开始菜单等数据的动态加载。<br /><br />
-                                        因此，你几乎不用写HTML代码，即可建成一个基本的Win10风格界面。<br />
-                                    </blockquote>
-                                </div>
-                            </div>
-                            <div class="layui-colla-item">
-                                <h2 class="layui-colla-title">兼容性</h2>
-                                <div class="layui-colla-content">
-                                    <blockquote class="layui-elem-quote">
-                                        由于WinAdmin并非职业前端人员打造，因此兼容性并不强！<br />
-                                        目前开发调试全用的Google Chrome浏览器，因此WinCMS并不兼容IE、火狐、以及一些他的浏览器！<br />
-                                        此外，WinAdmin并非响应式，不支持手机，平板等。推荐台式或者笔记本！
-                                    </blockquote>
-                                </div>
-                            </div>
-                            <div class="layui-colla-item">
-                                <h2 class="layui-colla-title">说明</h2>
-                                <div class="layui-colla-content">
-                                    <blockquote class="layui-elem-quote">
-                                        1、无兼容性<br />
-                                        2、非响应式<br />
-                                        3、需一定前端基础才能使用<br />
-                                        4、改套模板几乎不更新，看作者心情。<br />
-                                        5、开始菜单只支持两级。<br />
-                                        6、目前支持桌面菜单和开始菜单的动态渲染，磁贴菜单暂不支持。（你也可以直接在页面写html然后调用window.open()方法来打开窗口）<br />
-                                        7、文档可能整理不全，建议查看源码，或者直接二次开发<br />
-                                        8、请尽量看懂index.js里面的代码，然后自己模仿，不要无脑直接用。<br />
-                                    </blockquote>
-                                </div>
-                            </div>
-                            <div class="layui-colla-item">
-                                <h2 class="layui-colla-title" style="color:#ff6a00">特别注意</h2>
-                                <div class="layui-colla-content">
-                                    <blockquote class="layui-elem-quote">
-                                        1、非独立页面（也就是非iframe）使用layer请配置参数{zIndex:layer.zIndex}<br />
-                                        2、弹窗请尽量使用iframe（type:2）<br />
-                                        3、dektop、window、start等模块请按需加载（不需要就别引入了）<br />
-                                    </blockquote>
-                                </div>
-                            </div>
-                        </div>
-                        <hr />
-                        <blockquote class="layui-elem-quote">更多请看文档：<a style="color:#0094ff" href="http://www.win-ui.com/doc" target="_blank">点击前往</a></blockquote>
+                        <table id="woodepartdic" lay-filter="woodepartdic"></table>
+                        
                     </div>
                     <div class="winui-tab-item">
                         <ul class="layui-timeline">
@@ -136,6 +85,12 @@
                             <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
                         </ol>
                     </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
                 </div>
             </div>
         </div>
@@ -143,12 +98,21 @@
     <script src="../../lib/layui/layui.js"></script>
     <script type="text/javascript">
         layui.config({
-            base: '../../lib/winui/' //指定 winui 路径
-        }).use(['winui']);
+           // base: '../../lib/winui/' //指定 winui 路径
+            base: '/js/'
+        }).extend({
+                devindex: 'devindex', //首先加载，包含一些配置
+                datadic:'datadic/datadiclist'
 
-        window.onload = function () {
-            winui.init();
-        }
+            })
+        .use(['datadic'],function(){
+
+
+        });
+
+       
+
+       
     </script>
 </body>
 </html>

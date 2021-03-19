@@ -1,6 +1,9 @@
+using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.Models;
 using Dev.WooNet.WooService;
+using log4net;
+using log4net.Config;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -29,7 +33,9 @@ namespace Dev.WooNet.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //Ìí¼ÓÈÕÖ¾
+            Log4netHelper.Repository = LogManager.CreateRepository("DevLog4Repository");
+            XmlConfigurator.Configure(Log4netHelper.Repository, new FileInfo(Environment.CurrentDirectory + "/Config/log4net.config"));
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -41,9 +47,11 @@ namespace Dev.WooNet.WebApi
             ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
             services.AddDbContext<DevDbContext>(options =>
                 options.UseMySql(connectionString, serverVersion));
-            //services.AddTransient<DevDbContext, DevDbContext>();
             services.AddTransient<IDevUserinfoService, DevUserinfoService>();
+            services.AddTransient<IDevDatadicService, DevDatadicService>();
             #endregion
+            
+            #region ¿çÓò
             services.AddCors(options =>
             {
                 options.AddPolicy("default", policy =>
@@ -53,6 +61,7 @@ namespace Dev.WooNet.WebApi
                         .AllowAnyMethod();
                 });
             });
+            #endregion ¿çÓò
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +77,7 @@ namespace Dev.WooNet.WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+            //¿çÓò
             app.UseCors("default");
             app.UseEndpoints(endpoints =>
             {

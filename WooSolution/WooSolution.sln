@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{8CD094
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dev.WooNet.UserWebAPI", "Dev.WooNet.UserWebAPI\Dev.WooNet.UserWebAPI.csproj", "{8485CB9C-3071-4AFA-9A57-ABCB4F5B1A98}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackGround", "BackGround", "{7C0EB527-AEE1-4C01-99FF-C7DD506BD2AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dev.WooNet.WorkerService", "Dev.WooNet.WorkerService\Dev.WooNet.WorkerService.csproj", "{A22EE3A0-68D8-440F-9BA6-1A424693B0A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +63,10 @@ Global
 		{8485CB9C-3071-4AFA-9A57-ABCB4F5B1A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8485CB9C-3071-4AFA-9A57-ABCB4F5B1A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8485CB9C-3071-4AFA-9A57-ABCB4F5B1A98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A22EE3A0-68D8-440F-9BA6-1A424693B0A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A22EE3A0-68D8-440F-9BA6-1A424693B0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A22EE3A0-68D8-440F-9BA6-1A424693B0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A22EE3A0-68D8-440F-9BA6-1A424693B0A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +79,7 @@ Global
 		{EA21ECA7-14CE-442F-B7B7-081D38143CD2} = {0054BF6B-2F10-4500-BE3F-EBB38E891164}
 		{ABB8C407-BC22-4AC5-938C-53331F9578DC} = {0054BF6B-2F10-4500-BE3F-EBB38E891164}
 		{8485CB9C-3071-4AFA-9A57-ABCB4F5B1A98} = {8CD094B7-7854-4662-B8DC-B17125C630B1}
+		{A22EE3A0-68D8-440F-9BA6-1A424693B0A7} = {7C0EB527-AEE1-4C01-99FF-C7DD506BD2AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1CDE0CD6-D6BC-4928-95FC-57CB9A84883D}

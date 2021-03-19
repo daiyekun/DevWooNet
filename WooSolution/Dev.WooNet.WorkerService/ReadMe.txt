@@ -1,0 +1,1 @@
+﻿运行：dotnet Dev.WooNet.WorkerService.dll

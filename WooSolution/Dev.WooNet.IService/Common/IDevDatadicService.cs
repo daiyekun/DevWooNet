@@ -10,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace Dev.WooNet.IWooService
 {
+
     /// <summary>
-    /// 用户操作接口
+    /// 数据字典
     /// </summary>
-    public partial interface IDevUserinfoService:IBaseService<DevUserinfo>
+    public partial interface IDevDatadicService
     {
         /// <summary>
         /// 查询用户列表
@@ -24,8 +25,20 @@ namespace Dev.WooNet.IWooService
         /// <param name="orderbyLambda">排序表达式</param>
         /// <param name="isAsc">是否升序</param>
         /// <returns></returns>
-        public DevListInfo<DevUserinfoDTO> GetList<s>(PageInfo<DevUserinfo> pageInfo, Expression<Func<DevUserinfo, bool>> whereLambda,
-            Expression<Func<DevUserinfo, s>> orderbyLambda, bool isAsc);
+         DevListInfo<DevDatadicDTO> GetList<s>(PageInfo<DevDatadic> pageInfo, Expression<Func<DevDatadic, bool>> whereLambda,
+            Expression<Func<DevDatadic, s>> orderbyLambda, bool isAsc);
+
+        /// <summary>
+        /// 查询所有
+        /// </summary>
+        /// <typeparam name="s"></typeparam>
+        /// <returns></returns>
+        List<DevDatadicDTO> GetAll();
+        /// <summary>
+        /// 设置数据字典
+        /// </summary>
+        /// <param name="datadic"></param>
+        void SetRedisHash();
 
     }
 }

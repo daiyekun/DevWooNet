@@ -18,6 +18,11 @@ public partial interface IDevCurrencyManagerService : IBaseService<DevCurrencyMa
     
    
      
+public partial interface IDevDatadicService : IBaseService<DevDatadic>
+{ }
+    
+   
+     
 public partial interface IDevDbContextService : IBaseService<DevDbContext>
 { }
     

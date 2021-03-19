@@ -1,4 +1,5 @@
-﻿using Dev.WooNet.Model.Models;
+﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Dev.WooNet.Model.DevDTO
     /// <summary>
     /// 显示类
     /// </summary>
-    public class DevUserinfoDTO: DevUserinfo
+    public class DevUserinfoDTO: DevUserinfo, IModelDTO
     {
         /// <summary>
         /// 姓名描述

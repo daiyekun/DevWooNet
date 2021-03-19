@@ -49,8 +49,7 @@ namespace Dev.WooNet.UserWebAPI.Controllers
         [HttpGet]
         public JsonResult QueryUser(string uname, string upwd)
         {
-            TestT4.GetFiles();
-
+            
 
             AjaxResult<DevUserinfo> ajaxResult = null;
             DevUserinfo tbUser = _IDevUserinfoService.GetQueryable(a=>a.Name== uname&&a.Pwd==upwd).FirstOrDefault();

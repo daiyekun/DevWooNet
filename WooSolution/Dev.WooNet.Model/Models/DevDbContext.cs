@@ -18,6 +18,7 @@ namespace Dev.WooNet.Model.Models
         }
 
         public virtual DbSet<DevCurrencyManager> DevCurrencyManagers { get; set; }
+        public virtual DbSet<DevDatadic> DevDatadics { get; set; }
         public virtual DbSet<DevDepartment> DevDepartments { get; set; }
         public virtual DbSet<DevDeptmain> DevDeptmains { get; set; }
         public virtual DbSet<DevLoginLog> DevLoginLogs { get; set; }
@@ -81,6 +82,26 @@ namespace Dev.WooNet.Model.Models
 
                 entity.Property(e => e.Sname)
                     .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevDatadic>(entity =>
+            {
+                entity.ToTable("dev_datadic");
+
+                entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.ModifyDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Remark)
+                    .HasColumnType("varchar(500)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
             });

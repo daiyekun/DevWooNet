@@ -28,6 +28,19 @@ namespace Dev.WooNet.WooService
     
    
      
+ public partial class DevDatadicService : BaseService<DevDatadic>, IDevDatadicService
+    {
+        public DevDatadicService(DevDbContext DevDb)
+           : base(DevDb)
+        {
+           
+        }
+		
+		public DevDatadicService(){}
+    }
+    
+   
+     
  public partial class DevDbContextService : BaseService<DevDbContext>, IDevDbContextService
     {
         public DevDbContextService(DevDbContext DevDb)
