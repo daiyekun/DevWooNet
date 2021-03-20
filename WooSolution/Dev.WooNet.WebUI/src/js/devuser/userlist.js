@@ -41,7 +41,7 @@ layui.config({
         cols: [[
             { field: 'id', tyNamepe: 'checkbox' },
             { field: 'Name', title: '用户名', width: 120 },
-             { field: 'description', title: '所属部门', width: 180 },
+            { field: 'description', title: '所属部门', width: 180 },
             { field: 'roleName', title: '显示名称', width: 120 },
             { field: 'roleName', title: '性别', width: 100 },
             { field: 'roleName', title: '年龄', width: 100 },

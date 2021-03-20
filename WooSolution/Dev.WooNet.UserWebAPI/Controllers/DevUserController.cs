@@ -49,15 +49,15 @@ namespace Dev.WooNet.UserWebAPI.Controllers
         [HttpGet]
         public JsonResult QueryUser(string uname, string upwd)
         {
-            
+
 
             AjaxResult<DevUserinfo> ajaxResult = null;
-            DevUserinfo tbUser = _IDevUserinfoService.GetQueryable(a=>a.Name== uname&&a.Pwd==upwd).FirstOrDefault();
+            DevUserinfo tbUser = _IDevUserinfoService.GetQueryable(a => a.Name == uname && a.Pwd == upwd).FirstOrDefault();
 
             ajaxResult = new AjaxResult<DevUserinfo>()
             {
                 Result = true,
-                TValue = tbUser
+                data = tbUser
             };
             return new JsonResult(ajaxResult);
         }
@@ -88,12 +88,6 @@ namespace Dev.WooNet.UserWebAPI.Controllers
 
        
         
-        [Route("test")]
-        [HttpGet]
-        public IActionResult Test()
-        {
-            var ajx=new AjaxResult() { Code = 0, Message = "Success" };
-            return new DevResultJson(ajx);
-        }
+       
     }
 }

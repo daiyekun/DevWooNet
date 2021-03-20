@@ -27,7 +27,7 @@ namespace Dev.WooNet.WebCore.FilterExtend
             {
                 context.Result = new JsonResult(new AjaxResult()
                 {
-                    Message = "操作失败",
+                    msg = "操作失败",
                     OtherValue = context.Exception.Message,
                     Result = false
                 });

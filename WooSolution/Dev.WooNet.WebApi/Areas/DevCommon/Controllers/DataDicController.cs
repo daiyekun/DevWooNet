@@ -1,5 +1,6 @@
 ﻿using Dev.WooNet.Common.Models;
 using Dev.WooNet.IWooService;
+using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Models;
 using Dev.WooNet.WebCore.Utility;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,10 @@ using System.Threading.Tasks;
 
 namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 {
+
+    /// <summary>
+    /// 数据字典
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class DataDicController : ControllerBase
@@ -22,37 +27,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         {
             _IDevDatadicService = iDevDatadicService;
         }
-        // GET: api/<DataDicController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<DataDicController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<DataDicController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<DataDicController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<DataDicController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+       
         /// <summary>
         /// 查询列表
         /// </summary>
@@ -65,15 +40,87 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             var pageInfo = new PageInfo<DevDatadic>(pageIndex: pgInfo.page, pageSize: pgInfo.limit);
             var prdAnd = PredBuilder.True<DevDatadic>();
             var prdOr = PredBuilder.False<DevDatadic>();
+            //枚举类型
+            prdAnd = prdAnd.And(a => a.TypeInt == pgInfo.otherId);
             if (!string.IsNullOrWhiteSpace(pgInfo.kword))
             {
                 prdOr = prdOr.Or(a => a.Name.Contains(pgInfo.kword));
                 prdAnd = prdAnd.And(prdOr);
             }
+            
             var pagelist = _IDevDatadicService.GetList(pageInfo, prdAnd, a => a.Id, false);
             return new DevResultJson(pagelist);
 
         }
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="datadicDTO">新增对象</param>
+        [Route("AddDic")]
+        [HttpGet]
+        public IActionResult AddDataDic(int TypeInt)
+        {
+            var info = new DevDatadic();
+            info.Name = "新增类别";
+            info.TypeInt = TypeInt;
+            _IDevDatadicService.Add(info);
+            var result = new AjaxResult
+            {
+                code = 0,
+                msg = "",
+            };
+            return new DevResultJson(result);
+        }
+
+        /// <summary>
+        /// 新增
+        /// </summary>
+        /// <param name="datadicDTO">新增对象</param>
+        [Route("UpdateFiled")]
+        [HttpPost]
+        public IActionResult UpdateFiled(UpdateFieldInfo updateField)
+        {
+            string sqlstr ="";
+            switch (updateField.Field)
+            {
+               
+                default://字符串字段修改,特殊类型加case
+                    sqlstr = $"update  dev_datadic set {updateField.Field}='{updateField.FieldVal}',ModifyDatetime='{DateTime.Now}' where Id={updateField.Id}";
+                    break;
+
+            }
+            if (!string.IsNullOrEmpty(sqlstr))
+            {
+                _IDevDatadicService.ExecuteSqlCommand(sqlstr);
+
+            }
+           
+            var result = new AjaxResult
+            {
+                code = 0,
+                msg = "",
+            };
+            return new DevResultJson(result);
+        }
+
+        /// <summary>
+        /// 删除数据
+        /// </summary>
+        /// <param name="Ids">选中ID</param>
+        [Route("DeleteDic")]
+        [HttpGet]
+        public IActionResult DeleteDic(string Ids)
+        {
+            string sqlstr = $"delete from dev_datadic where Id in({Ids})";
+            _IDevDatadicService.ExecuteSqlCommand(sqlstr);
+            var result = new AjaxResult
+            {
+                code = 0,
+                msg = "",
+            };
+            return new DevResultJson(result);
+        }
+
 
     }
 }

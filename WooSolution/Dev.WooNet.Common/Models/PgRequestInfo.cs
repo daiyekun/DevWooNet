@@ -24,5 +24,9 @@ namespace Dev.WooNet.Common.Models
         /// 搜索关键字
         /// </summary>
         public string kword { get; set; }
+        /// <summary>
+        /// 第三方标识
+        /// </summary>
+        public int otherId { get; set; } = -1;
     }
 }

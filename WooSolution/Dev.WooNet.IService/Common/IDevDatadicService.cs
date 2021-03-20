@@ -25,7 +25,7 @@ namespace Dev.WooNet.IWooService
         /// <param name="orderbyLambda">排序表达式</param>
         /// <param name="isAsc">是否升序</param>
         /// <returns></returns>
-         DevListInfo<DevDatadicDTO> GetList<s>(PageInfo<DevDatadic> pageInfo, Expression<Func<DevDatadic, bool>> whereLambda,
+        AjaxListResult<DevDatadicDTO> GetList<s>(PageInfo<DevDatadic> pageInfo, Expression<Func<DevDatadic, bool>> whereLambda,
             Expression<Func<DevDatadic, s>> orderbyLambda, bool isAsc);
 
         /// <summary>

@@ -52,13 +52,16 @@
         </div>
         <div class="winui-tab-right">
             <div class="winui-scroll-y">
-                <div class="winui-tab-content">
-                    <div class="winui-tab-item layui-show">
-                        <blockquote class="layui-elem-quote">
-                            机构类别
-                        </blockquote>
+                <div class="winui-tab-content" >
+                    <div class="winui-tab-item layui-show" >
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodepartdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodepartdic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodepartdic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
                         <table id="woodepartdic" lay-filter="woodepartdic"></table>
-                        
                     </div>
                     <div class="winui-tab-item">
                         <ul class="layui-timeline">
@@ -102,10 +105,10 @@
             base: '/js/'
         }).extend({
                 devindex: 'devindex', //首先加载，包含一些配置
-                datadic:'datadic/datadiclist'
+                datadiclist:'datadic/datadiclist'
 
             })
-        .use(['datadic'],function(){
+        .use(['datadiclist'],function(){
 
 
         });

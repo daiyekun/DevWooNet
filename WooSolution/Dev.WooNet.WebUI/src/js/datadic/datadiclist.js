@@ -10,122 +10,136 @@ layui.config({
     var table = layui.table,
         $ = layui.$,
         devsetter=layui.devsetter;
+/*****************************************新增可能存在的修改--begin***************************************************** */
+        var departtabcols=[
+            {type:'checkbox'},
+            {field:'Id', width:80, title: 'ID', hide: true},
+            { field: 'Name', title: '名称', width: 160,edit: 'text' },
+            { field: 'Remark', title: '备注', width: 200,edit: 'text'} 
+        ];
+        //渲染表格
+        tablerender('woodepartdic',0,departtabcols);
+        tableEdit('woodepartdic');//注册编辑
+        /*
+        *根据表格ID获取枚举值
+        *如果是增加枚举一定要记得增加
+         */
+        function GetTypeEnum(tableId){
+            var tpId=-1;
+            switch(tableId){
+                case "woodepartdic"://部门类别
+                    tpId=0;
+                    break;
+    
+            }
+            return tpId;
+        }
+      /*****************************************新增可能存在的修改--end***************************************************** */ 
+     
     //创建表格
     function tablerender(tableId,dataint,tabcols){
-        var tburl=devsetter.devuserurl+"api/DevUser/list";
+        var tburl=devsetter.devuserurl+"api/DataDic/list";
         table.render({
             id: tableId,
             elem: '#'+tableId,
             url:tburl,
             method:'POST',
-             contentType:'application/json',
-            //height: 'full-65', //自适应高度
-            //size: '',   //表格尺寸，可选值sm lg
-            //skin: '',   //边框风格，可选值line row nob
-            //even:true,  //隔行变色
+            contentType:'application/json',
+            where:{"otherId":dataint},
             page: true,
             limits:devsetter.listtable.mainlistlimits,
             limit: devsetter.listtable.mainlistlimit,
             cols: [tabcols]
         });
-    //监听工具条
-    table.on('tool('+tableId+')', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
-    var data = obj.data; //获得当前行数据
-    var layEvent = obj.event; //获得 lay-event 对应的值
-    var tr = obj.tr; //获得当前行 tr 的DOM对象
-    var ids = '';   //选中的Id
-    $(data).each(function (index, item) {
-        ids += item.id + ',';
-    });
-    if (layEvent === 'del') { //删除
-        deleteRole(ids, obj);
-    } else if (layEvent === 'edit') { //编辑
-        if (!data.id) return;
-        var content;
-        var index = layer.load(1);
-        $.ajax({
-            type: 'get',
-            url: 'edit.html?id=' + data.id,
-            async: true,
-            success: function (data) {
-                layer.close(index);
-                content = data;
-                //从桌面打开
-                top.winui.window.open({
-                    id: 'editRole',
-                    type: 1,
-                    title: '编辑角色',
-                    content: content,
-                    area: ['60vw', '70vh'],
-                    offset: ['15vh', '20vw'],
-                });
-                top.winui.window.msg("选择框带联动的,尽情享用", {
-                    time: 2000
-                });
-            },
-            error: function (xml) {
-                layer.close(index);
-                top.winui.window.msg("获取页面失败", {
-                    icon: 2,
-                    time: 2000
-                });
-                console.log(xml.responseText);
-            }
-        });
-    }
-});
+        
+    
     }
 
-    var departtabcols=[
-        { field: 'id', tyNamepe: 'checkbox' },
-        { field: 'Name', title: '名称', width: 150 },
-        { field: 'Name', title: '编号', width: 100 },
-        { field: 'Name', title: '简称', width: 100 },
-        { field: 'Name', title: '备注', width: 140 } 
-    ];
-    tablerender('woodepartdic',0,departtabcols);
-     
     
-   
-    
-    
+    //编辑触发事件
+      function tableEdit(tableId){
+        table.on('edit('+tableId+')', function(obj){
+            var value = obj.value //得到修改后的值
+            ,data = obj.data //得到所在行所有键值
+            ,field = obj.field; //得到字段
+           // layer.msg('[ID: '+ data.Id +'] ' + field + ' 字段更改为：'+ value);
+           var $url=devsetter.devuserurl+"api/DataDic/UpdateFiled";
+           var postdata=JSON.stringify({
+            Id:data.Id,
+            Field:field,
+            FieldVal:value
+
+            });
+            $.ajax({
+                type:"POST",
+                url:$url,
+                data:postdata,
+                //crossDomain: true,
+                contentType:'application/json',
+                dataType: 'json',
+                success: function(data, status) {
+                    reloadTable(tableId);
+                    
+                }
+                });
+
+
+          });
+      }
     //表格重载
-    function reloadTable() {
+    function reloadTable(obj) {
+        var tableId="";
+        if(obj.type=="click"){
+            tableId=  $(this).attr("dev-tableId");
+        }else{
+            tableId=obj;
+        }
         table.reload(tableId, {});
     }
+    
 
-    //打开添加页面
-    function addRole() {
-        testajax();
-        // top.winui.window.msg("自行脑补画面", {
-        //     icon: 2,
-        //     time: 2000
-        // });
+    //新增
+    function add() {
+        var tableId=  $(this).attr("dev-tableId");
+        var $url=devsetter.devuserurl+"api/DataDic/AddDic";
+        $.ajax({
+            type: "GET",
+            url:$url,
+            data:{"TypeInt":GetTypeEnum(tableId)},
+            success: function(data, status) {
+                reloadTable(tableId);
+                
+            }
+            });
+       
     }
     //删除角色
-    function deleteRole(ids, obj) {
-        var msg = obj ? '确认删除角色【' + obj.data.roleName + '】吗？' : '确认删除选中数据吗？'
+    function deletedata(ids, tableId) {
+        var msg = '确认删除选中数据吗？'
         top.winui.window.confirm(msg, { icon: 3, title: '删除系统角色' }, function (index) {
             layer.close(index);
-            //向服务端发送删除指令
-            //刷新表格
-            if (obj) {
-                top.winui.window.msg('删除成功', {
-                    icon: 1,
-                    time: 2000
+            var $url=devsetter.devuserurl+"api/DataDic/DeleteDic";
+            $.ajax({
+                type: "GET",
+                url:$url,
+                data:{"Ids":ids},
+                success: function(data, status) {
+                    top.winui.window.msg('删除成功', {
+                        icon: 1,
+                        time: 1500
+                    });
+                    reloadTable(tableId);
+                    
+                }
                 });
-                obj.del(); //删除对应行（tr）的DOM结构
-            } else {
-                top.winui.window.msg('向服务端发送删除指令后刷新表格即可', {
-                    time: 2000
-                });
-                reloadTable();  //直接刷新表格
-            }
+           
+            
         });
     }
     //绑定按钮事件
-    $('#addRole').on('click', addRole);
-    $('#deleteRole').on('click', function () {
+    $('button.adddatadic').on('click', add);
+    $('button.deletedic').on('click', function () {
+        var tableId=  $(this).attr("dev-tableId");
         var checkStatus = table.checkStatus(tableId);
         var checkCount = checkStatus.data.length;
         if (checkCount < 1) {
@@ -134,13 +148,14 @@ layui.config({
             });
             return false;
         }
-        var ids = '';
+        var ids = [];
         $(checkStatus.data).each(function (index, item) {
-            ids += item.id + ',';
+            ids.push(item.Id);
+            
         });
-        deleteRole(ids);
+        deletedata(ids.toString(),tableId);
     });
-    $('#reloadTable').on('click', reloadTable);
+    $('button.reloadTable').on('click', reloadTable);
 
     exports('datadiclist', {});
 });

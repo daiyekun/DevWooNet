@@ -29,7 +29,7 @@ namespace Dev.WooNet.WooService
         /// <param name="orderbyLambda"></param>
         /// <param name="isAsc"></param>
         /// <returns></returns>
-        public DevListInfo<DevUserinfoDTO> GetList<s>(PageInfo<DevUserinfo> pageInfo, Expression<Func<DevUserinfo, bool>> whereLambda,
+        public AjaxListResult<DevUserinfoDTO> GetList<s>(PageInfo<DevUserinfo> pageInfo, Expression<Func<DevUserinfo, bool>> whereLambda,
              Expression<Func<DevUserinfo, s>> orderbyLambda, bool isAsc)
          {
             var tempquery = this.DevDb.Set<DevUserinfo>().AsTracking().Where<DevUserinfo>(whereLambda.Compile()).AsQueryable();
@@ -93,7 +93,7 @@ namespace Dev.WooNet.WooService
                             CreateUserId = a.CreateUserId,
 
                         };
-            return new DevListInfo<DevUserinfoDTO>()
+            return new AjaxListResult<DevUserinfoDTO>()
             {
                 data = local.ToList(),
                 count = pageInfo.TotalCount,

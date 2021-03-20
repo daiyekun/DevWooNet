@@ -30,10 +30,10 @@ namespace Dev.WooNet.WooService
         /// <param name="orderbyLambda"></param>
         /// <param name="isAsc"></param>
         /// <returns></returns>
-        public DevListInfo<DevDatadicDTO> GetList<s>(PageInfo<DevDatadic> pageInfo, Expression<Func<DevDatadic, bool>> whereLambda,
+        public AjaxListResult<DevDatadicDTO> GetList<s>(PageInfo<DevDatadic> pageInfo, Expression<Func<DevDatadic, bool>> whereLambda,
             Expression<Func<DevDatadic, s>> orderbyLambda, bool isAsc)
         {
-            var tempquery = this.DevDb.Set<DevDatadic>().AsTracking().Where<DevDatadic>(whereLambda.Compile()).AsQueryable();
+            var tempquery = this.DevDb.Set<DevDatadic>().AsTracking().Where<DevDatadic>(whereLambda).AsQueryable();
             pageInfo.TotalCount = tempquery.Count();
             if (isAsc)
             {
@@ -58,7 +58,7 @@ namespace Dev.WooNet.WooService
                             Sort = a.Sort,//排序
                             TypeInt = a.TypeInt,//类别ID
                             Remark = a.Remark,//备注
-                            IsDelete = a.IsDelete,//移动电话
+                            IsDelete = a.IsDelete,
                             
 
 
@@ -73,10 +73,10 @@ namespace Dev.WooNet.WooService
                             Sort = a.Sort,//排序
                             TypeInt = a.TypeInt,//类别ID
                             Remark = a.Remark,//备注
-                            IsDelete = a.IsDelete,//移动电话
+                            IsDelete = a.IsDelete,
 
                         };
-            return new DevListInfo<DevDatadicDTO>()
+            return new AjaxListResult<DevDatadicDTO>()
             {
                 data = local.ToList(),
                 count = pageInfo.TotalCount,

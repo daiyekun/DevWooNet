@@ -1,6 +1,7 @@
 using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.Models;
+using Dev.WooNet.WebCore.Middleware;
 using Dev.WooNet.WooService;
 using log4net;
 using log4net.Config;
@@ -73,7 +74,7 @@ namespace Dev.WooNet.WebApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dev.WooNet.WebApi v1"));
             }
-
+            //app.UsePreOptionsRequest();
             app.UseRouting();
 
             app.UseAuthorization();

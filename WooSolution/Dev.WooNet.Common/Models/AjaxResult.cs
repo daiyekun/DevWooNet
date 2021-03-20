@@ -7,40 +7,46 @@ using System.Threading.Tasks;
 namespace Dev.WooNet.Common.Models
 {
     /// <summary>
-    /// Ajax返回对象
+    /// 列表返回承载对象
     /// </summary>
-    public class AjaxResult
+    /// <typeparam name="T">泛型：表对象</typeparam>
+   public class AjaxResult // <T>where T :class, new()
     {
-
         /// <summary>
-        /// 状态码  无明确意义  前端用Result
+        /// 状态码
         /// </summary>
-        public int Code { get; set; }
+        public int code=0;
         /// <summary>
-        /// 常规结果都在这里
+        /// 消息
         /// </summary>
-        public object Value { get; set; }
-
+        public string msg = "";
         /// <summary>
-        /// 特殊传值
+        /// 条数
+        /// </summary>
+        public int count=0;
+        /// <summary>
+        /// 结果
+        /// </summary>
+        public bool Result { get; set; } = true;
+        /// <summary>
+        /// 其他值
         /// </summary>
         public object OtherValue { get; set; }
-        /// <summary>
-        /// 提示消息
-        /// </summary>
-        public string Message { get; set; }
-        /// <summary>
-        /// true 成功
-        /// flase 失败
-        /// </summary>
-        public bool Result { get; set; }
-    }
 
+    }
     public class AjaxResult<T> : AjaxResult
     {
         /// <summary>
-        /// 泛型数据
+        /// 数据集合
         /// </summary>
-        public T TValue { get; set; }
+        public T data { get;set; }
     }
+    public class AjaxListResult<T> : AjaxResult
+    {
+        /// <summary>
+        /// 数据集合
+        /// </summary>
+        public IList<T> data { get; set; }
+    }
+
 }
