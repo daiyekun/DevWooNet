@@ -53,6 +53,24 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 
         }
         /// <summary>
+        /// 查询列表
+        /// </summary>
+        /// <param name="pgInfo">分页对象</param>
+        /// <returns></returns>
+        [Route("GetDataByType")]
+        [HttpGet]
+        public IActionResult GetDataByType(int typeint)
+        {
+            var listall = _IDevDatadicService.GetAll();
+            var currdata = listall.Where(a => a.TypeInt == typeint).ToList();
+
+            return new DevResultJson(new AjaxListResult<DevDatadicDTO>()
+            {
+                data = currdata
+            }); ;
+
+        }
+        /// <summary>
         /// 新增
         /// </summary>
         /// <param name="datadicDTO">新增对象</param>

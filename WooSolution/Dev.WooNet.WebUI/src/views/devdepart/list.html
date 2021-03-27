@@ -21,29 +21,29 @@
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
+        
         <script type="text/html" id="stateTpl">
-            {{#  if(d.dataState == 1){ }}
-            正常
-            {{#  } else if(d.dataState==2) { }}
-            作废
-            {{#  }else{ }}
-            未知
+            <input type="checkbox" name="Dstatus" value="{{d.Id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="deptstate" {{ d.Dstatus == 1 ? 'checked' : '' }}>
+        </script>
+        <script type="text/html" id="IsCompany">
+            <input type="checkbox" name="IsCompany" value="{{d.Id}}" lay-skin="switch" lay-text="是|否" lay-filter="IsSubCompany" {{ d.IsSubCompany == 1 ? 'checked' : '' }}>
+         </script>
+        <script type="text/html" id="IsMainTpl">
+            {{#  if(d.IsMain ===1){ }}
+            <span style="color:#5FB878;">{{ d.IsMainDic }}</span>
+            {{#  } else { }}
+            {{ d.IsMainDic }}
             {{#  } }}
         </script>
     </div>
     <script src="/lib/layui/layui.js"></script>
-    <script>
-            layui.config({
-                base: '/js/'
-            }).extend({
-                devindex: 'devindex', //首先加载，包含一些配置
-                departlist:'devdepart/departlist'
-
-            })
-            .use(['departlist'],function(){
-
-
-            });
+    <script> 
+        layui.config({
+            base: '../../js/'
+        }).extend({
+            departlist:'devdepart/list'
+        })
+        .use('departlist');
     </script>
 </body>
 </html>

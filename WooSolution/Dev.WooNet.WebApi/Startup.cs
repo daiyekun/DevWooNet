@@ -1,6 +1,7 @@
 using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.Models;
+using Dev.WooNet.WebAPI.Extend;
 using Dev.WooNet.WebCore.Middleware;
 using Dev.WooNet.WooService;
 using log4net;
@@ -48,10 +49,10 @@ namespace Dev.WooNet.WebApi
             ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
             services.AddDbContext<DevDbContext>(options =>
                 options.UseMySql(connectionString, serverVersion));
-            services.AddTransient<IDevUserinfoService, DevUserinfoService>();
-            services.AddTransient<IDevDatadicService, DevDatadicService>();
+            //注册服务扩展类
+            services.AddDevServices();
             #endregion
-            
+
             #region 跨域
             services.AddCors(options =>
             {

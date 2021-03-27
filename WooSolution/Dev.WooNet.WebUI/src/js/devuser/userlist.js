@@ -34,7 +34,7 @@ layui.config({
         //height: 'full-65', //自适应高度
         //size: '',   //表格尺寸，可选值sm lg
         //skin: '',   //边框风格，可选值line row nob
-        //even:true,  //隔行变色
+        even:true,  //隔行变色
         page: true,
         limits:devsetter.listtable.mainlistlimits,
         limit: devsetter.listtable.mainlistlimit,

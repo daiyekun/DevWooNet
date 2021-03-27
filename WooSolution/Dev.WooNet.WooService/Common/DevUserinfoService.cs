@@ -176,7 +176,7 @@ namespace Dev.WooNet.WooService
             }
             catch (Exception ex)
             {
-
+                Log4netHelper.Error(ex.Message);
                 
             }
 

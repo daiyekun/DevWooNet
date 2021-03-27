@@ -42,7 +42,7 @@ namespace Dev.WooNet.UserWebAPI.Controllers
             return new JsonResult(new AjaxResult()
             {
                 Result = true,
-                Message = "success"
+                msg = "success"
             });
         }
         [Route("query")]

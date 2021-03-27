@@ -1,7 +1,12 @@
-layui.config({
-    base: '../../lib/winui/' //指定 winui 路径
-    , version: '1.0.0-beta'
-}).define(['table', 'jquery', 'winui','devsetter'], function (exports) {
+
+    layui.config({
+         base: '../../lib/' //指定 winui 路径
+        , version: '1.0.0-beta'
+    }).extend({
+        winui: 'winui/winui',
+        window: 'winui/js/winui.window',
+       devsetter:'devextend/devsetter'
+    }).define(['table', 'jquery', 'winui', 'window', 'layer','devsetter'], function (exports) {
   
     winui.renderColor();
 
@@ -11,7 +16,7 @@ layui.config({
         tableId = 'tableid';
      
     //表格渲染
-    var tburl=devsetter.devuserurl+"api/DevUser/list";
+    var tburl=devsetter.devuserurl+"api/DevDepart/list";
     table.render({
         id: tableId,
         elem: '#woodepart',
@@ -26,15 +31,16 @@ layui.config({
         limits:devsetter.listtable.mainlistlimits,
         limit: devsetter.listtable.mainlistlimit,
         cols: [[
-            { field: 'id', tyNamepe: 'checkbox' },
+            {type:'checkbox'},
+            {field:'Id', width:80, title: 'ID', hide: true},
             { field: 'Name', title: '名称', width: 160 },
-            { field: 'Name', title: '编号', width: 120 },
-            { field: 'Name', title: '所属单位', width: 160 },
-            { field: 'Name', title: '机构类型', width: 120 },
-            { field: 'Name', title: '机构简称', width: 120 },
-            { field: 'Name', title: '签约主体', width: 120 },
-           
-            { field: 'dataState', title: '状态', width: 60, templet: '#stateTpl' },
+            { field: 'Code', title: '编号', width: 120 },
+            { field: 'PName', title: '所属单位', width: 160 },
+            { field: 'CateName', title: '机构类型', width: 120 },
+            { field: 'Sname', title: '机构简称', width: 120 },
+            { field: 'IsMainDic', title: '签约主体', width: 120,templet: '#IsMainTpl', unresize: true },
+           { field: 'IsCompany', width: 100, title: '子公司', templet: '#IsCompany', unresize: true },
+            { field: 'Dstatus', title: '状态', width: 100, templet: '#stateTpl' },
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#bardepart', width: 120 }
         ]]
     });
@@ -90,12 +96,15 @@ layui.config({
     }
 
     //打开添加页面
-    function addRole() {
-        testajax();
-        // top.winui.window.msg("自行脑补画面", {
-        //     icon: 2,
-        //     time: 2000
-        // });
+    function addDepart() {
+       top.winui.window.open({
+            id: 'adddepart',
+            type: 2,
+            title: '新增机构',
+            content: "/views/devdepart/build.html",
+            area: ['50vw', '70vh'],
+            offset: ['15vh', '25vw']
+        });
     }
     //删除角色
     function deleteRole(ids, obj) {
@@ -119,8 +128,8 @@ layui.config({
         });
     }
     //绑定按钮事件
-    $('#addRole').on('click', addRole);
-    $('#deleteRole').on('click', function () {
+    $('#adddepart').on('click', addDepart);
+    $('#deletedepart').on('click', function () {
         var checkStatus = table.checkStatus(tableId);
         var checkCount = checkStatus.data.length;
         if (checkCount < 1) {

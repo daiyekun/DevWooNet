@@ -33,7 +33,7 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <typeparam name="s"></typeparam>
         /// <returns></returns>
-        List<DevDatadicDTO> GetAll();
+        IList<DevDatadicDTO> GetAll();
         /// <summary>
         /// 设置数据字典
         /// </summary>

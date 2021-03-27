@@ -90,35 +90,40 @@ namespace Dev.WooNet.WooService
         /// </summary>
         /// <param name="datadic">字典枚举值</param>
         /// <returns>返回枚举</returns>
-       public List<DevDatadicDTO> GetAll()
+       public IList<DevDatadicDTO> GetAll()
         {
-           
-            var query = from a in this.DevDb.Set<DevDatadic>().AsTracking()
-                        select new
-                        {
-                            Id = a.Id,
-                            Name = a.Name,//名称
-                            Pid = a.Pid,//pid
-                            Sort = a.Sort,//排序
-                            TypeInt = a.TypeInt,//类别ID
-                            Remark = a.Remark,//备注
-                            IsDelete = a.IsDelete,//移动电话
-                        };
-            var local = from a in query.AsEnumerable()
-                        select new DevDatadicDTO
-                        {
+            IList<DevDatadicDTO> list = RedisUtility.StringGetToList<DevDatadicDTO>($"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DataDicList}");
+            if (list == null)
+            {
+                var query = from a in this.DevDb.Set<DevDatadic>().AsTracking()
+                            select new
+                            {
+                                Id = a.Id,
+                                Name = a.Name,//名称
+                                Pid = a.Pid,//pid
+                                Sort = a.Sort,//排序
+                                TypeInt = a.TypeInt,//类别ID
+                                Remark = a.Remark,//备注
+                                IsDelete = a.IsDelete,//移动电话
+                            };
+                var local = from a in query.AsEnumerable()
+                            select new DevDatadicDTO
+                            {
 
-                            Id = a.Id,
-                            Name = a.Name,//名称
-                            Pid = a.Pid,//pid
-                            Sort = a.Sort,//排序
-                            TypeInt = a.TypeInt,//类别ID
-                            Remark = a.Remark,//备注
-                            IsDelete = a.IsDelete,//移动电话
+                                Id = a.Id,
+                                Name = a.Name,//名称
+                                Pid = a.Pid,//pid
+                                Sort = a.Sort,//排序
+                                TypeInt = a.TypeInt,//类别ID
+                                Remark = a.Remark,//备注
+                                IsDelete = a.IsDelete,//移动电话
 
-                        };
+                            };
+                list = local.ToList();
+                RedisUtility.ListObjToJsonStringSetAsync($"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DataDicList}", list);
+            }
 
-            return local.ToList();
+            return list;
 
         }
         /// <summary>
