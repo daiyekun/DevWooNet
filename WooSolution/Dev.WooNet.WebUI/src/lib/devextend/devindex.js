@@ -27,7 +27,6 @@ layui.config({
           return vars;
       },
       getUrlVar: function (name) {
-        
           /// <summary>获取URL参数</summary>
           ///<param name='name'>参数名称</param>
           var tempvl =wooutil.getUrlVars()[name];
@@ -35,6 +34,11 @@ layui.config({
       },
       getRandom(){//生成随机数
         return Math.round(Math.random() * (10000 - 1)).toString();
+      },
+      getUrlParam(name){//获取url参数
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
       },
       getdatadic: function (param) {
         /// <summary>数据字典下拉框赋值</summary>  

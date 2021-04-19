@@ -1,7 +1,11 @@
-﻿using Dev.WooNet.Common.Models;
+﻿using AutoMapper;
+using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.DevDTO;
+using Dev.WooNet.Model.Enums;
 using Dev.WooNet.Model.Models;
+using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
 using Microsoft.AspNetCore.Mvc;
 using NF.Common.Utility;
@@ -21,9 +25,11 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
     public class DevDepartController : ControllerBase
     {
         private IDevDepartmentService _IDevDepartmentService;
-        public DevDepartController(IDevDepartmentService iDevDepartmentService)
+        private IMapper _IMapper { get; set; }
+        public DevDepartController(IMapper iMapper,IDevDepartmentService iDevDepartmentService)
         {
             _IDevDepartmentService = iDevDepartmentService;
+            _IMapper = iMapper;
         }
         
         [Route("list")]
@@ -51,16 +57,19 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// <returns></returns>
         [Route("departSave")]
         [HttpPost]
-        public IActionResult AddSave([FromBody] DepartData deptdata )
+        [CustomActionFilter]
+        public IActionResult AddSave([FromBody]DepartData departData)
         {
-            //[FromBody] DevDeptmain deptMain
+            var deptinfo = _IMapper.Map<DevDepartment>(departData);
+            var maininfo = _IMapper.Map<DevDeptmain>(departData);
             var list = _IDevDepartmentService.GetAll();
-            deptdata.DeptInfo.IsMain = deptdata.DeptInfo.IsMain == null ? 0 : deptdata.DeptInfo.IsMain;
-            deptdata.DeptInfo.IsCompany = deptdata.DeptInfo.IsCompany == null ? 0 : deptdata.DeptInfo.IsCompany;
-            GetDeptPathInfo(deptdata.DeptInfo, list);
-            _IDevDepartmentService.SaveDeptInfo(deptdata.DeptInfo, deptdata.DeptMain);
-            return DeptSubmitSave(deptdata.DeptInfo, deptdata.DeptMain);
-          
+            deptinfo.IsMain = deptinfo.IsMain == null ? 0 : deptinfo.IsMain;
+            deptinfo.IsCompany = deptinfo.IsCompany == null ? 0 : deptinfo.IsCompany;
+            GetDeptPathInfo(deptinfo, list);
+            _IDevDepartmentService.SaveDeptInfo(deptinfo, maininfo);
+            return DeptSubmitSave(deptinfo, maininfo);
+
+            
         }
         /// <summary>
         /// 生成树目录
@@ -98,8 +107,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             _IDevDepartmentService.SetRedisHash();
             return new DevResultJson(new AjaxResult()
             {
-                msg = "success",
-                code = 0,
+                msg ="success",
+                code =(int)MessageEnums.success,
 
 
             });
@@ -110,7 +119,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// <param name="Id"></param>
         /// <returns></returns>
         [Route("ShowValues")]
-        [HttpGet("{Id}")]
+        [HttpGet]
         public IActionResult ShowValues(int Id)
         {
             return new DevResultJson(new AjaxResult<DevDepartmentDTO>()
@@ -136,6 +145,26 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             return new DevResultJson(_IDevDepartmentService.GetTreeSelect(), (v) => { return v.Replace("Checked", "checked"); });
 
 
+
+        }
+
+        /// <summary>
+        /// 显示页面信息-主要用于修改和查看
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("deldepart")]
+        [HttpGet]
+        public IActionResult DeleteData(string Ids)
+        {
+            _IDevDepartmentService.DeleteDept(Ids);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+
+
+            });
 
         }
 

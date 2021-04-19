@@ -2,6 +2,7 @@
     layui.config({
          base: '../../lib/' //指定 winui 路径
         , version: '1.0.0-beta'
+       
     }).extend({
         winui: 'winui/winui',
         window: 'winui/js/winui.window',
@@ -13,7 +14,9 @@
     var table = layui.table,
         $ = layui.$,
         devsetter=layui.devsetter,
-        tableId = 'tableid';
+        tableId = 'depttableid'
+        msg = winui.window.msg
+        ;
      
     //表格渲染
     var tburl=devsetter.devuserurl+"api/DevDepart/list";
@@ -39,7 +42,7 @@
             { field: 'CateName', title: '机构类型', width: 120 },
             { field: 'Sname', title: '机构简称', width: 120 },
             { field: 'IsMainDic', title: '签约主体', width: 120,templet: '#IsMainTpl', unresize: true },
-           { field: 'IsCompany', width: 100, title: '子公司', templet: '#IsCompany', unresize: true },
+           { field: 'IsCompany', width: 100, title: '子公司', templet: '#IsCompanyTpl', unresize: true },
             { field: 'Dstatus', title: '状态', width: 100, templet: '#stateTpl' },
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#bardepart', width: 120 }
         ]]
@@ -49,45 +52,19 @@
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值
         var tr = obj.tr; //获得当前行 tr 的DOM对象
-        var ids = '';   //选中的Id
+        var ids = [];   //选中的Id
         $(data).each(function (index, item) {
-            ids += item.id + ',';
+            ids .push(item.Id);
         });
         if (layEvent === 'del') { //删除
-            deleteRole(ids, obj);
+            deletedata(ids.toString(), obj);
         } else if (layEvent === 'edit') { //编辑
-            if (!data.id) return;
+            if (!data.Id) return;
             var content;
             var index = layer.load(1);
-            $.ajax({
-                type: 'get',
-                url: 'edit.html?id=' + data.id,
-                async: true,
-                success: function (data) {
-                    layer.close(index);
-                    content = data;
-                    //从桌面打开
-                    top.winui.window.open({
-                        id: 'editRole',
-                        type: 1,
-                        title: '编辑角色',
-                        content: content,
-                        area: ['60vw', '70vh'],
-                        offset: ['15vh', '20vw'],
-                    });
-                    top.winui.window.msg("选择框带联动的,尽情享用", {
-                        time: 2000
-                    });
-                },
-                error: function (xml) {
-                    layer.close(index);
-                    top.winui.window.msg("获取页面失败", {
-                        icon: 2,
-                        time: 2000
-                    });
-                    console.log(xml.responseText);
-                }
-            });
+            addDepart('win_updatedept',data.Id,'修改组织机构');
+            layer.close(index);
+            
         }
     });
     //表格重载
@@ -96,23 +73,36 @@
     }
 
     //打开添加页面
-    function addDepart() {
+    function addDepart(winid,id,wintitle) {
+        var url="/views/devdepart/build.html";
+        if(id>0){
+            url="/views/devdepart/build.html?Id="+id;
+        }
        top.winui.window.open({
-            id: 'adddepart',
+            id: winid,
             type: 2,
-            title: '新增机构',
-            content: "/views/devdepart/build.html",
+            title: wintitle,
+            content: url,
             area: ['50vw', '70vh'],
             offset: ['15vh', '25vw']
         });
     }
     //删除角色
-    function deleteRole(ids, obj) {
-        var msg = obj ? '确认删除角色【' + obj.data.roleName + '】吗？' : '确认删除选中数据吗？'
-        top.winui.window.confirm(msg, { icon: 3, title: '删除系统角色' }, function (index) {
+    function deletedata(ids, obj) {
+        var msg = obj ? '确认删除数据【' + obj.data.Name + '】吗？' : '确认删除选中数据吗？'
+        
+        top.winui.window.confirm(msg, { icon: 3, title: '删除系统数据' }, function (index) {
             layer.close(index);
+           alert(ids);
             //向服务端发送删除指令
-            //刷新表格
+            $.ajax({
+                type: 'GET',
+                url:devsetter.devuserurl+'api/DevDepart/deldepart',
+                //async: false,
+                data: {Ids:ids},
+                dataType: 'json',
+                success: function (res) {
+                    //刷新表格
             if (obj) {
                 top.winui.window.msg('删除成功', {
                     icon: 1,
@@ -120,15 +110,32 @@
                 });
                 obj.del(); //删除对应行（tr）的DOM结构
             } else {
-                top.winui.window.msg('向服务端发送删除指令后刷新表格即可', {
-                    time: 2000
-                });
+                // top.winui.window.msg('向服务端发送删除指令后刷新表格即可', {
+                //     time: 2000
+                // });
                 reloadTable();  //直接刷新表格
             }
+                   
+                },
+                error: function (xml) {
+                    top.winui.window.msg('删除失败', {
+                        // icon: 1,
+                        time: 2000
+                    });
+                   
+                }
+            });
+
+
+
+            
         });
     }
     //绑定按钮事件
-    $('#adddepart').on('click', addDepart);
+    $('#adddepart').on('click', function(){
+
+        addDepart('win_adddept',0,'新增组织机构');
+    });
     $('#deletedepart').on('click', function () {
         var checkStatus = table.checkStatus(tableId);
         var checkCount = checkStatus.data.length;
@@ -138,11 +145,11 @@
             });
             return false;
         }
-        var ids = '';
+        var ids=[];
         $(checkStatus.data).each(function (index, item) {
-            ids += item.id + ',';
+            ids.push(item.Id);
         });
-        deleteRole(ids);
+        deletedata(ids.toString());
     });
     $('#reloadTable').on('click', reloadTable);
 

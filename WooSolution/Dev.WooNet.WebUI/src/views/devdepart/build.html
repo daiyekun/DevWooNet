@@ -10,7 +10,8 @@
 <body>
 <div style="margin:0 auto;padding-top:20px;">
     <div class="layui-form" lay-filter="DEV-DeptForm">
-        <input type="hidden" id="Id" name="Id" />
+        
+        <input  type="hidden" id="Id" name="Id"  />
         <div class="layui-card ">
             <div class="layui-card-header">部门基本信息</div>
             <div class="layui-card-body" style="padding: 15px;">
@@ -24,7 +25,7 @@
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">机构编号</label>
                         <div class="layui-input-block">
-                            <input type="text" name="No" lay-verify="required" autocomplete="off" class="layui-input pen" placeholder="必填" />
+                            <input type="text" name="Code" lay-verify="required" autocomplete="off" class="layui-input pen" placeholder="必填" />
                         </div>
                     </div>
                     
@@ -52,13 +53,13 @@
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">机构简称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="ShortName" autocomplete="off" class="layui-input">
+                            <input type="text" name="Sname" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">子公司</label>
                         <div class="layui-input-block">
-                            <input type="checkbox" name="IsSubCompany" value="1" lay-skin="primary" />
+                            <input type="checkbox" name="IsCompany" value="1" lay-skin="primary" />
 
                         </div>
                     </div>
@@ -167,7 +168,7 @@
             <div class="layui-input-block">
                 <div class="layui-footer" style="left: 0;">
                     <button class="winui-btn" lay-submit lay-filter="dev-formAddDepart">确定</button>
-                    <button class="winui-btn" onclick="winui.window.close('addMenu'); return false;">取消</button>
+                    <button class="winui-btn" id="quxiaobtn" >取消</button>
                 </div>
             </div>
             </div>

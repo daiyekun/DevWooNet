@@ -25,8 +25,8 @@
         <script type="text/html" id="stateTpl">
             <input type="checkbox" name="Dstatus" value="{{d.Id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="deptstate" {{ d.Dstatus == 1 ? 'checked' : '' }}>
         </script>
-        <script type="text/html" id="IsCompany">
-            <input type="checkbox" name="IsCompany" value="{{d.Id}}" lay-skin="switch" lay-text="是|否" lay-filter="IsSubCompany" {{ d.IsSubCompany == 1 ? 'checked' : '' }}>
+        <script type="text/html" id="IsCompanyTpl">
+            <input type="checkbox" name="IsCompany" value="{{d.Id}}" lay-skin="switch" lay-text="是|否" lay-filter="IsCompany" {{ d.IsCompany == 1 ? 'checked' : '' }}>
          </script>
         <script type="text/html" id="IsMainTpl">
             {{#  if(d.IsMain ===1){ }}

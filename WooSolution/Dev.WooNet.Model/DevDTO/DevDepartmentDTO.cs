@@ -67,15 +67,26 @@ namespace Dev.WooNet.Model.DevDTO
     /// <summary>
     /// 部门数据，主要用于保存等操作
     /// </summary>
-    public class DepartData
+    /// 
+
+    [Serializable]
+    public class DepartData: DevDepartment
     {
-        /// <summary>
-        /// 部门基本信息
-        /// </summary>
-        public DevDepartment DeptInfo { get; set; }
-        /// <summary>
-        /// 签约主体
-        /// </summary>
-        public DevDeptmain DeptMain { get; set; }
+      
+        #region 目前没有解决前端与接口绑定多个实体问题采用笨办法-签约主体
+        public string LawPerson { get; set; }
+        public string TaxId { get; set; }
+        public string BankName { get; set; }
+        public string Account { get; set; }
+        public string Address { get; set; }
+        public string ZipCode { get; set; }
+        public string Fax { get; set; }
+        public string TelePhone { get; set; }
+        public string InvoiceName { get; set; }
+        #endregion
+
+
+
+
     }
 }

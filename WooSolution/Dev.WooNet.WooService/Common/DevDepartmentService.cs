@@ -21,6 +21,7 @@ namespace Dev.WooNet.WooService
    public partial class DevDepartmentService
     {
         private string RedisKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Depart}";
+        private string deptredilist = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Departlist}";//列表
         /// <summary>
         /// 部门列表
         /// </summary>
@@ -105,7 +106,7 @@ namespace Dev.WooNet.WooService
         /// <returns></returns>
         public IList<DevDepartmentDTO> GetAll()
         {
-            IList<DevDepartmentDTO> list = RedisUtility.StringGetToList<DevDepartmentDTO>($"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Departlist}");
+            IList<DevDepartmentDTO> list = RedisUtility.StringGetToList<DevDepartmentDTO>(deptredilist);
             if (list==null) { 
             var query = from a in this.DevDb.Set<DevDepartment>().AsTracking()
                         select new
@@ -152,7 +153,7 @@ namespace Dev.WooNet.WooService
 
                         };
                 list = local.ToList();
-                RedisUtility.ListObjToJsonStringSetAsync($"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Departlist}", list);
+                RedisUtility.ListObjToJsonStringSetAsync(deptredilist, list);
                
                 
             }
@@ -170,6 +171,7 @@ namespace Dev.WooNet.WooService
             try
             {
                 var curdickey = $"{this.RedisKey}";
+                RedisUtility.KeyDeleteAsync(deptredilist);
                 var list = GetAll();
                 foreach (var item in list)
                 {
@@ -273,7 +275,7 @@ namespace Dev.WooNet.WooService
             {
                 resul = AddSave(deptInfo, deptMain);
             }
-            RedisUtility.KeyDeleteAsync("Nf-DeptListAll");
+            RedisUtility.KeyDeleteAsync(deptredilist);
             return resul;
 
 
@@ -288,6 +290,15 @@ namespace Dev.WooNet.WooService
         {
             var listAll = GetAll();
             var firstdept = listAll.FirstOrDefault(a => a.Id == Id);
+            if (firstdept==null)
+            {
+                if (DevDb.Set<DevDepartment>().Any(a => a.Id == Id)) {
+                    RedisUtility.KeyDeleteAsync(deptredilist);
+                     listAll = GetAll();
+                    firstdept = listAll.FirstOrDefault(a => a.Id == Id);
+                }
+
+            }
             var deptMain = DevDb.Set<DevDeptmain>().AsNoTracking().Where(a => firstdept != null && a.DeptId == firstdept.Id).FirstOrDefault();
             var info = new DevDepartmentDTO
             {
@@ -383,6 +394,23 @@ namespace Dev.WooNet.WooService
 
         }
         #endregion
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public int DeleteDept(string ids)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append($"update dev_deptmain set IsDelete=1 where DeptId in({ids});");
+            builder.Append($"update dev_department set IsDelete=1 where Id in({ids});");
+            var strsql = builder.ToString();
+            if (!string.IsNullOrWhiteSpace(strsql) )
+            return ExecuteSqlCommand(strsql);
+            else
+            return -1;
+
+        }
 
     }
 }

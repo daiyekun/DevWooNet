@@ -1,3 +1,4 @@
+using Dev.WooNet.AutoMapper.Extend;
 using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.Models;
@@ -38,7 +39,7 @@ namespace Dev.WooNet.WebApi
             //添加日志
             Log4netHelper.Repository = LogManager.CreateRepository("DevLog4Repository");
             XmlConfigurator.Configure(Log4netHelper.Repository, new FileInfo(Environment.CurrentDirectory + "/Config/log4net.config"));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "业务功能API", Version = "v1" });
@@ -64,6 +65,10 @@ namespace Dev.WooNet.WebApi
                 });
             });
             #endregion 跨域
+            //关闭模型验证否则会出现状态400：One or more validation errors occurred.
+            services.Configure<ApiBehaviorOptions>(opt => opt.SuppressModelStateInvalidFilter = true);
+            //services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+            services.AddDevMapperFiles();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

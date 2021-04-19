@@ -15,7 +15,9 @@ layui.config({
        
         treeSelect = layui.treeSelect,
         msg = winui.window.msg
-        form = layui.form;
+        form = layui.form
+        ,tableId='depttableid'
+        ;
         var $devId = wooutil.getUrlVar('Id');
        // form.render();
        //签约主体
@@ -32,29 +34,36 @@ layui.config({
         });
         //提交
         form.on('submit(dev-formAddDepart)', function (data) {
+        
+          var postdata= data.field;
+          //无赖之举目前没有更好办法，如果不这样制定一个int的id到后端API接收时对象为null
+          postdata.Id=$devId>0?$devId:0;
+         
             //表单验证
             if (winui.verifyForm(data.elem)) {
                 $.ajax({
                     type: 'POST',
                     url: devsetter.devuserurl+'api/DevDepart/departSave',
-                    async: false,
-                    data: data.field,
-                    dataType: 'json',
-                    contentType:'application/json',
+                    //async: false,
+                    processData: false,
+                    data:JSON.stringify(postdata),
+                    dataType: "json",
+                     contentType: "application/json; charset=utf-8",
                     success: function (json) {
-                        if (json.isSucceed) {
-                            msg('添加成功');
-                        } else {
-                            msg(json.message)
-                        }
-                        winui.window.close('adddepart');
+                        submitsuccess(json);
+                        
                     },
                     error: function (xml) {
-                        msg('添加失败');
+                        msg('操作失败');
                         console.log(xml.responseText);
                     }
                 });
             }
+            return false;
+        });
+        //取消
+        $("#quxiaobtn").click(function(){
+            closeWin();
             return false;
         });
         /*********
@@ -77,32 +86,53 @@ layui.config({
                     }
                 });
         }
+        /**关闭窗体 */
+        function closeWin(){
+            if($devId>0){
+                top. winui.window.close('win_updatedept');
+            }else{
+                top. winui.window.close('win_adddept');
+            }
+        }
+        /**提交成功 */
+        function submitsuccess(json){
+            if (json.Result) {
+                msg('操作成功');
+                closeWin();
+                //parent.table.reload(tableId, {});
+            } else {
+                msg(json.msg)
+            }
+            
+           
+        }
         /****
          * 修改时候赋值
          */
         function devSetValues(){
-            debugger;
+            
         if ($devId !== "" && $devId !== undefined) {
             $.ajax({
                 type: 'GET',
                 url:devsetter.devuserurl+'api/DevDepart/ShowValues',
-                async: false,
-                data: {Id:byId},
+                //async: false,
+                data: {Id:$devId},
                 dataType: 'json',
-                success: function (json) {
-                    form.val("DEV-DeptForm", res.Data);
+                success: function (res) {
+                    form.val("DEV-DeptForm", res.data);
                     //下拉树（所属机构）,必须放到设置值以后，不然修改时设置不稳定
 
-                    if (res.Data.IsMain === 1) {
+                    if (res.data.IsMain === 1) {
                         $("input[name=IsMain]").attr("checked", true);
                         $("div .deptMain").show();
 
                     }
-                    if (res.Data.IsSubCompany === 1) {
+                    if (res.data.IsSubCompany === 1) {
                         $("input[name=IsCompany]").attr("checked", true);
                     }
                   
-                   InitDeptTree(res.Data.Pid);
+                   InitDeptTree(res.data.Pid);
+                   $("Id").val(res.data.Id);
                 },
                 error: function (xml) {
                     msg('加载失败!');

@@ -55,5 +55,11 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <returns></returns>
         IList<TreeSelectInfo> GetTreeSelect();
+        /// <summary>
+        /// 软删除
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        int DeleteDept(string ids);
     }
 }
