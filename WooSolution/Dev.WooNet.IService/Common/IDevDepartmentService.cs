@@ -61,5 +61,10 @@ namespace Dev.WooNet.IWooService
         /// <param name="ids"></param>
         /// <returns></returns>
         int DeleteDept(string ids);
+        /// <summary>
+        /// 获取LayuiTree
+        /// </summary>
+        /// <returns></returns>
+        IList<LayTree> GetLayUITree();
     }
 }

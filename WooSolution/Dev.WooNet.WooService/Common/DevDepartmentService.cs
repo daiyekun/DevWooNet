@@ -412,5 +412,61 @@ namespace Dev.WooNet.WooService
 
         }
 
+        #region 部门Layui递归树
+
+        /// <summary>
+        /// 返回LayUI Tree需要数据格式
+        /// </summary>
+        /// <returns></returns>
+        public IList<LayTree> GetLayUITree()
+        {
+            IList<LayTree> listTree = new List<LayTree>();
+            var listAll = GetAll();
+            var list = listAll.Where(a => a.IsDelete == 0 && a.Dstatus == 1).ToList();
+            foreach (var item in list.Where(a => a.Pid == 0))
+            {
+                LayTree treeInfo = new LayTree();
+                treeInfo.id = item.Id;
+                treeInfo.title = item.Name;
+               
+                GetChrenNode(list, treeInfo, item);
+                listTree.Add(treeInfo);
+
+            }
+            return listTree;
+        }
+
+        /// <summary>
+        /// 递归
+        /// </summary>
+        /// <param name="listDepts">数据列表</param>
+        /// <param name="treeInfo">Tree对象</param>
+        /// <param name="item">父类对象</param>
+        public void GetChrenNode(IList<DevDepartmentDTO> listDepts, LayTree treeInfo, DevDepartmentDTO item)
+        {
+            var listchren = listDepts.Where(a => a.Pid == item.Id);
+            var listchrennode = new List<TreeInfo>();
+            if (listchren.Any())
+            {
+                foreach (var chrenItem in listchren.ToList())
+                {
+                    LayTree treeInfotmp = new LayTree();
+                    treeInfotmp.id = chrenItem.Id;
+                    treeInfotmp.title = chrenItem.Name;
+
+
+                    GetChrenNode(listDepts, treeInfotmp, chrenItem);
+                    listchrennode.Add(treeInfotmp);
+                }
+
+                treeInfo.children = listchrennode;
+
+            }
+
+
+        }
+
+        #endregion
+
     }
 }

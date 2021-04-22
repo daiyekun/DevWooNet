@@ -4,6 +4,7 @@ using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
@@ -162,6 +163,27 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             {
                 msg = "success",
                 code = (int)MessageEnums.success,
+
+
+            });
+
+        }
+
+        /// <summary>
+        /// 显示页面信息-主要用于修改和查看
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("deptTree")]
+        [HttpGet]
+        public IActionResult DeptTree(string Ids)
+        {
+            return new DevResultJson(new AjaxListResult<LayTree>()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+                data= _IDevDepartmentService.GetLayUITree()
+
 
 
             });
