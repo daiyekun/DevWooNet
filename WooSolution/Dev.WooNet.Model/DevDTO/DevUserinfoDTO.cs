@@ -21,6 +21,10 @@ namespace Dev.WooNet.Model.DevDTO
         /// 状态描述
         /// </summary>
         public string StateDic { get; set; }
+        /// <summary>
+        /// 部门名称
+        /// </summary>
+        public string DeptName { get; set; }
 
     }
 }

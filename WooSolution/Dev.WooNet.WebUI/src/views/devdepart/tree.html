@@ -19,12 +19,34 @@
     layui.config({
             base: '../../js/'
         }).extend({
-          departtree:'devdepart/deptree'
+          departtree:'devdepart/departtree',
             
         })
         .use('departtree');
 </script>
-  
+  <script>
+    layui.config({
+      base: '../../js/'
+    }).extend({
+      devsetter: 'devextend/devsetter'
+
+
+    })
+      .define(['tree', 'util','devsetter'], function () {
+        var tree = layui.tree
+          , layer = layui.layer
+          ,$ = layui.$
+          ,devsetter=layui.devsetter
+          , util = layui.util;
+        var data1 = [];
+
+        //查询组织机构Tree
+       
+    
+        
+
+      });
+  </script>
 </body>
 
 </html>

@@ -4,36 +4,41 @@ layui.config({
 }).extend({
     winui: 'winui/winui',
     window: 'winui/js/winui.window',
-    //devsetter:'devextend/devsetter',//由于devindex 引入就不需要了。直接使用即可，否则出现类名被占
     devindex: 'devextend/devindex',
     treeSelect: 'devextend/treeselect'
-}).define(['table', 'winui', 'window', 'layer', 'devindex', 'treeSelect'], function (exports) {
+}).define(['table', 'winui', 'window', 'layer', 'devindex', 'treeSelect','laydate'], function (exports) {
     winui.renderColor();
     var table = layui.table,
         $ = layui.$,
         devindex = layui.devindex,
-
         treeSelect = layui.treeSelect,
         msg = winui.window.msg
-        form = layui.form
-        , tableId = 'depttableid'
+        ,laydate=layui.laydate
+        ,form = layui.form
+        , tableId = 'useridtableid'
         ;
     var $devId = wooutil.getUrlVar('Id');
-    // form.render();
-    //签约主体
-    form.on('checkbox(IsMainCheck)', function (data) {
-        console.log("点击了");
-        if (data.elem.checked) {
-            $("div .deptMain").show();
+    //自定义验证
+     //自定义验证规则
+  form.verify({
+    querenpwd: function(value){
+      var pwd=$("#Pwd").val();
+      var TowPwd=$("#TowPwd").val();//确认密码
+      if(pwd!==TowPwd){
+        return '两次输入密码不一致！';
 
-        } else {
-            $("div .deptMain").hide();
-
-        }
-
-    });
+      }
+    }
+   
+    
+  });
+  //日期
+  laydate.render({
+    elem: '#EntryDatetime'
+  });
+   
     //提交
-    form.on('submit(dev-formAddDepart)', function (data) {
+    form.on('submit(dev-formAddUser)', function (data) {
 
         var postdata = data.field;
         //无赖之举目前没有更好办法，如果不这样制定一个int的id到后端API接收时对象为null
@@ -43,7 +48,7 @@ layui.config({
         if (winui.verifyForm(data.elem)) {
             $.ajax({
                 type: 'POST',
-                url: devsetter.devuserurl + 'api/DevDepart/departSave',
+                url: devsetter.devuserurl + 'api/DevUser/userSave',
                 //async: false,
                 processData: false,
                 data: JSON.stringify(postdata),
@@ -77,7 +82,7 @@ layui.config({
                 method: "GET",
                 verify: true,
                 click: function (d) {
-                    $("input[name=Pid]").val(d.current.id);
+                    $("input[name=DepId]").val(d.current.id);
                 },
                 success: function (d) {
                     if (tvl != null) {
@@ -89,9 +94,9 @@ layui.config({
     /**关闭窗体 */
     function closeWin() {
         if ($devId > 0) {
-            top.winui.window.close('win_updatedept');
+            top.winui.window.close('win_updateuser');
         } else {
-            top.winui.window.close('win_adddept');
+            top.winui.window.close('win_adduser');
         }
     }
     /**提交成功 */
@@ -114,24 +119,16 @@ layui.config({
         if ($devId !== "" && $devId !== undefined) {
             $.ajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevDepart/ShowValues',
+                url: devsetter.devuserurl + 'api/DevUser/showView',
                 //async: false,
                 data: { Id: $devId },
                 dataType: 'json',
                 success: function (res) {
-                    form.val("DEV-DeptForm", res.data);
+                    form.val("DEV-UserForm", res.data);
                     //下拉树（所属机构）,必须放到设置值以后，不然修改时设置不稳定
 
-                    if (res.data.IsMain === 1) {
-                        $("input[name=IsMain]").attr("checked", true);
-                        $("div .deptMain").show();
-
-                    }
-                    if (res.data.IsSubCompany === 1) {
-                        $("input[name=IsCompany]").attr("checked", true);
-                    }
-
-                    InitDeptTree(res.data.Pid);
+                   
+                    InitDeptTree(res.data.DepId);
                     $("Id").val(res.data.Id);
                 },
                 error: function (xml) {
@@ -145,9 +142,8 @@ layui.config({
             InitDeptTree(null);
         }
     }
-    wooutil.getdatadic({ dataenum: 0, selectEl: "#CateId" });
     //执行赋值表单
     devSetValues();
-    form.render(null, 'DEV-DeptForm');
-    exports('departbuild', {});
+    form.render(null, 'DEV-UserForm');
+    exports('userbuild', {});
 });

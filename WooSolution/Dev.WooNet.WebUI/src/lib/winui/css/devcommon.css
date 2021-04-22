@@ -1,0 +1,16 @@
+/* 查看页面样式 */
+.devview {
+    border: 0;
+    border-bottom: 1px #ccc solid;
+    background: none;
+    margin-bottom: 5px;
+}
+/***a标签手样式*/
+.hand {
+    cursor: pointer
+}
+/* 不显示 */
+.dev-hide{
+    display:none;
+
+}

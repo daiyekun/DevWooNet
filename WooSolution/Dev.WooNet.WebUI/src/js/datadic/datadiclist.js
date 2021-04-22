@@ -1,7 +1,17 @@
+// layui.config({
+//     base: '../../lib/winui/' //指定 winui 路径
+//     , version: '1.0.0-beta'
+// })
+
 layui.config({
-    base: '../../lib/winui/' //指定 winui 路径
+    base: '../../lib/' //指定 winui 路径
     , version: '1.0.0-beta'
-}).define(['table', 'jquery', 'winui', 'devsetter'], function (exports) {
+}).extend({
+    winui: 'winui/winui',
+    window: 'winui/js/winui.window',
+    devindex: 'devextend/devindex'
+  
+}).define(['table', 'jquery', 'winui', 'devindex'], function (exports) {
     window.onload = function () {
         winui.init();
     }
@@ -9,7 +19,7 @@ layui.config({
 
     var table = layui.table,
         $ = layui.$,
-        devsetter = layui.devsetter;
+        devindex = layui.devindex;
     /*****************************************新增可能存在的修改--begin***************************************************** */
     var departtabcols = [
         { type: 'checkbox' },

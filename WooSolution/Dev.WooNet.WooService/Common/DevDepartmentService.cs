@@ -20,8 +20,7 @@ namespace Dev.WooNet.WooService
     /// </summary>
    public partial class DevDepartmentService
     {
-        private string RedisKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Depart}";
-        private string deptredilist = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Departlist}";//列表
+       
         /// <summary>
         /// 部门列表
         /// </summary>
@@ -106,7 +105,7 @@ namespace Dev.WooNet.WooService
         /// <returns></returns>
         public IList<DevDepartmentDTO> GetAll()
         {
-            IList<DevDepartmentDTO> list = RedisUtility.StringGetToList<DevDepartmentDTO>(deptredilist);
+            IList<DevDepartmentDTO> list = RedisUtility.StringGetToList<DevDepartmentDTO>(RedisKeys.Reisdeptredilist);
             if (list==null) { 
             var query = from a in this.DevDb.Set<DevDepartment>().AsTracking()
                         select new
@@ -153,7 +152,7 @@ namespace Dev.WooNet.WooService
 
                         };
                 list = local.ToList();
-                RedisUtility.ListObjToJsonStringSetAsync(deptredilist, list);
+                RedisUtility.ListObjToJsonStringSetAsync(RedisKeys.Reisdeptredilist, list);
                
                 
             }
@@ -170,8 +169,8 @@ namespace Dev.WooNet.WooService
         {
             try
             {
-                var curdickey = $"{this.RedisKey}";
-                RedisUtility.KeyDeleteAsync(deptredilist);
+                var curdickey = $"{RedisKeys.RedisdeptKey}";
+                RedisUtility.KeyDeleteAsync(RedisKeys.Reisdeptredilist);
                 var list = GetAll();
                 foreach (var item in list)
                 {
@@ -275,7 +274,7 @@ namespace Dev.WooNet.WooService
             {
                 resul = AddSave(deptInfo, deptMain);
             }
-            RedisUtility.KeyDeleteAsync(deptredilist);
+            RedisUtility.KeyDeleteAsync(RedisKeys.Reisdeptredilist);
             return resul;
 
 
@@ -293,7 +292,7 @@ namespace Dev.WooNet.WooService
             if (firstdept==null)
             {
                 if (DevDb.Set<DevDepartment>().Any(a => a.Id == Id)) {
-                    RedisUtility.KeyDeleteAsync(deptredilist);
+                    RedisUtility.KeyDeleteAsync(RedisKeys.Reisdeptredilist);
                      listAll = GetAll();
                     firstdept = listAll.FirstOrDefault(a => a.Id == Id);
                 }

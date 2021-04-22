@@ -8,49 +8,59 @@ layui.config({
     window: 'winui/js/winui.window',
     devsetter: 'devextend/devsetter'
 }).define(['table', 'jquery', 'winui', 'window', 'layer', 'devsetter'], function (exports) {
-
     winui.renderColor();
-
     var table = layui.table,
         $ = layui.$,
         devsetter = layui.devsetter,
-        tableId = 'depttableid'
-    msg = winui.window.msg
-        ;
-
+         msg = winui.window.msg
+         tableId = 'useridtableid';
+       function testajax(){
+           var $url=devsetter.devuserurl+"api/DevUser";
+        $.ajax({
+            type: "GET",
+            //crossDomain: true, 
+            url:$url,
+            
+            success: function(data, status) {
+               alert(data) ;
+                
+            }
+            });
+        } 
     //表格渲染
-    var tburl = devsetter.devuserurl + "api/DevDepart/list";
+   
+    var tburl=devsetter.devuserurl+"api/DevUser/list";
     table.render({
         id: tableId,
-        elem: '#woodepart',
-        url: tburl,
-        method: 'POST',
-        contentType: 'application/json',
+        elem: '#woouser',
+        url:tburl,
+        method:'POST',
+         contentType:'application/json',
         //height: 'full-65', //自适应高度
         //size: '',   //表格尺寸，可选值sm lg
         //skin: '',   //边框风格，可选值line row nob
-        even:true,  //隔行变色
         toolbar:true,
         defaultToolbar: ["filter"],
+        even:true,  //隔行变色
         page: true,
-        limits: devsetter.listtable.mainlistlimits,
+        limits:devsetter.listtable.mainlistlimits,
         limit: devsetter.listtable.mainlistlimit,
         cols: [[
-            { type: 'checkbox' },
+            { type: 'checkbox',fixed: 'left' },
             { field: 'Id', width: 80, title: 'ID', hide: true },
-            { field: 'Name', title: '名称', width: 160 },
-            { field: 'Code', title: '编号', width: 120 },
-            { field: 'PName', title: '所属单位', width: 160 },
-            { field: 'CateName', title: '机构类型', width: 120 },
-            { field: 'Sname', title: '机构简称', width: 120 },
-            { field: 'IsMainDic', title: '签约主体', width: 120, templet: '#IsMainTpl', unresize: true },
-            { field: 'IsCompany', width: 100, title: '子公司', templet: '#IsCompanyTpl', unresize: true },
-            { field: 'Dstatus', title: '状态', width: 100, templet: '#stateTpl' },
-            { title: '操作', fixed: 'right', align: 'center', toolbar: '#bardepart', width: 120 }
+            { field: 'Name', title: '用户名', width: 120,templet: '#titleTpl', fixed: 'left' },
+            { field: 'DeptName', title: '所属部门', width: 180 },
+            { field: 'ShowName', title: '显示名称', width: 140 },
+            { field: 'SexDic', title: '性别', width: 80 },
+            { field: 'Tel', title: '电话', width: 110 },
+            { field: 'Mobile', title: '手机', width: 120 },
+            { field: 'Email', title: '邮箱', width: 130 },
+            { field: 'Ustate', title: '状态', width: 60, templet: '#stateTpl' },
+            { title: '操作', fixed: 'right', align: 'center', toolbar: '#barUser', width: 120 }
         ]]
     });
     //监听工具条
-    table.on('tool(departtable)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+    table.on('tool(usertable)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值
         var tr = obj.tr; //获得当前行 tr 的DOM对象
@@ -59,13 +69,18 @@ layui.config({
             ids.push(item.Id);
         });
         if (layEvent === 'del') { //删除
-            deletedata(ids.toString(), obj);
+            deleteUser(ids, obj);
         } else if (layEvent === 'edit') { //编辑
             if (!data.Id) return;
-            var content;
             var index = layer.load(1);
-            addDepart('win_updatedept', data.Id, '修改组织机构');
+            openUser('win_updateuser', data.Id, '修改用户');
             layer.close(index);
+        }else if(layEvent === 'showview'){
+            if (!data.Id) return;
+            var index = layer.load(1);
+            openUser('win_updateuser', data.Id, '查看用户',true);
+            layer.close(index);
+
 
         }
     });
@@ -74,11 +89,14 @@ layui.config({
         table.reload(tableId, {});
     }
 
-    //打开添加页面
-    function addDepart(winid, id, wintitle) {
-        var url = "/views/devdepart/build.html";
+     //打开添加页面
+     function openUser (winid, id, wintitle,Isview) {
+        var url = "/views/devuser/build.html";
         if (id > 0) {
-            url = "/views/devdepart/build.html?Id=" + id;
+            url = "/views/devuser/build.html?Id=" + id;
+        }
+        if(Isview){
+            url = "/views/devuser/view.html?Id=" + id;
         }
         top.winui.window.open({
             id: winid,
@@ -89,18 +107,19 @@ layui.config({
             offset: ['15vh', '25vw']
         });
     }
-    //删除角色
-    function deletedata(ids, obj) {
-        var msg = obj ? '确认删除数据【' + obj.data.Name + '】吗？' : '确认删除选中数据吗？'
 
+  
+    //删除角色
+    function deleteUser(ids, obj) {
+        var msg = obj ? '确认删除角色【' + obj.data.ShowName + '】吗？' : '确认删除选中数据吗？'
         top.winui.window.confirm(msg, { icon: 3, title: '删除系统数据' }, function (index) {
             layer.close(index);
             //向服务端发送删除指令
             $.ajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevDepart/deldepart',
+                url: devsetter.devuserurl + 'api/DevUser/deluser',
                 //async: false,
-                data: { Ids: ids },
+                data: { Ids: ids.toString() },
                 dataType: 'json',
                 success: function (res) {
                     //刷新表格
@@ -130,11 +149,12 @@ layui.config({
         });
     }
     //绑定按钮事件
-    $('#adddepart').on('click', function () {
+    $('#addUser').on('click', function () {
 
-        addDepart('win_adddept', 0, '新增组织机构');
+        openUser('win_adduser', 0, '新增用户');
     });
-    $('#deletedepart').on('click', function () {
+    //删除按钮
+    $('#deleteRole').on('click', function () {
         var checkStatus = table.checkStatus(tableId);
         var checkCount = checkStatus.data.length;
         if (checkCount < 1) {
@@ -147,21 +167,22 @@ layui.config({
         $(checkStatus.data).each(function (index, item) {
             ids.push(item.Id);
         });
-        deletedata(ids.toString());
+        deleteUser(ids);
     });
     $('#reloadTable').on('click', reloadTable);
-    //菜单树
-    $('#treedepart').on('click', function () {
-        var url = "/views/devdepart/tree.html";
+    $('#tostate').on('click', function(){
+        var url="/views/devuser/selstate.html?Id=" + 0;
         top.winui.window.open({
-            id: 'win_depttree',
+            id: 'win_userstate',
             type: 2,
-            title: '组织机构树',
+            title: '修改状态',
+            maxmin:true,
             content: url,
-            area: ['50vw', '70vh'],
-            offset: ['15vh', '25vw']
+            area: ['25vw', '35vh'],
+            offset: ['25vh', '25vw']
         });
 
     });
-    exports('departlist', {});
+
+    exports('userlist', {});
 });

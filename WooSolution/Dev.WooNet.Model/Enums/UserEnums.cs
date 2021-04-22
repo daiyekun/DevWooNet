@@ -16,7 +16,7 @@ namespace Dev.WooNet.Model.Enums
     public enum UserStateEnum
     {
         /// <summary>
-        /// 未启用：0
+        /// 禁用：0
         /// </summary>
         [EnumItem(Value = 0, Desc = "禁用")]
         JinYong = 0,

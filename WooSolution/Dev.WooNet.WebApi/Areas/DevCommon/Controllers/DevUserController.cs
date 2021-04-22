@@ -1,6 +1,10 @@
-﻿using Dev.WooNet.Common.Models;
+﻿using AutoMapper;
+using Dev.WooNet.Common.Models;
 using Dev.WooNet.IWooService;
+using Dev.WooNet.Model.DevDTO;
+using Dev.WooNet.Model.Enums;
 using Dev.WooNet.Model.Models;
+using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
 using Microsoft.AspNetCore.Mvc;
 using NF.Common.Utility;
@@ -18,40 +22,53 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
     public class DevUserController : ControllerBase
     {
         private IDevUserinfoService _IDevUserinfoService;
-        public DevUserController(IDevUserinfoService DevUserinfoService)
+        private IMapper _IMapper;
+        public DevUserController(IDevUserinfoService DevUserinfoService
+            ,IMapper iMapper)
         {
             _IDevUserinfoService = DevUserinfoService;
+            _IMapper = iMapper;
         }
-        // GET: api/<DevUserController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<DevUserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<DevUserController>
+        /// <summary>
+        /// 用户新增修改
+        /// </summary>
+        /// <param name="userdto">用户信息</param>
+        /// <returns></returns>
+        [Route("userSave")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        [CustomActionFilter]
+        public IActionResult UserSave([FromBody] DevUserinfoDTO userdto)
         {
-        }
+            var userinfo = _IMapper.Map<DevUserinfo>(userdto);
+            _IDevUserinfoService.SaveUser(userinfo);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
 
-        // PUT api/<DevUserController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
 
-        // DELETE api/<DevUserController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+            });
+
+
+        }
+        /// <summary>
+        /// 删除用户信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("deluser")]
+        [HttpGet]
+        public IActionResult DeleteUser(string Ids)
         {
+            _IDevUserinfoService.DelUser(Ids);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+
+
+            });
+
         }
 
         [Route("list")]
@@ -60,6 +77,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         {
             var pageInfo = new PageInfo<DevUserinfo>(pageIndex: pgInfo.page, pageSize: pgInfo.limit);
             var prdAnd = PredBuilder.True<DevUserinfo>();
+            prdAnd = prdAnd.And(a=>a.IsDelete!=1);
             var prdOr = PredBuilder.False<DevUserinfo>();
             if (!string.IsNullOrWhiteSpace(pgInfo.kword))
             {
@@ -72,5 +90,25 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             return new DevResultJson(pagelist);
            
         }
+        /// <summary>
+        /// 显示页面信息-主要用于修改和查看
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("showView")]
+        [HttpGet]
+        public IActionResult ShowView(int Id)
+        {
+            return new DevResultJson(new AjaxResult<DevUserinfoDTO>()
+            {
+                msg = "",
+                code = 0,
+                data = _IDevUserinfoService.GetUserById(Id)
+
+
+            });
+
+        }
+
     }
 }

@@ -21,6 +21,13 @@ namespace Dev.WooNet.AutoMapper.ProFiles
             CreateMap<DepartData, DevDepartment>();
             //签约主体
             CreateMap<DepartData, DevDeptmain>();
+            //用户
+            CreateMap<DevUserinfoDTO, DevUserinfo>()
+            .ForMember(a=>a.IsDelete, opt => opt.MapFrom(src => 0))
+            .ForMember(a => a.ModifyDatetime, opt => opt.MapFrom(src => DateTime.Now))
+             .ForMember(a => a.Ustate, opt => opt.MapFrom(src => 0))
+              .ForMember(a => a.Mstart, opt => opt.MapFrom(src => 0))
+            ;
             //.ForMember(a => a.ContId, opt => opt.Ignore())
             //.ForMember(a => a.CreateUserId, opt => opt.Ignore())
             //.ForMember(a => a.CreateDateTime, opt => opt.Ignore())

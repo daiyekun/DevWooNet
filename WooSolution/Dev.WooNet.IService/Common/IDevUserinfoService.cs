@@ -36,6 +36,23 @@ namespace Dev.WooNet.IWooService
         /// 设置用户Redis
         /// </summary>
         void SetRedisHash();
+        /// <summary>
+        /// 保存用户信息
+        /// </summary>
+        /// <param name="userinfo">用户实体</param>
+        /// <returns></returns>
+        DevUserinfo SaveUser(DevUserinfo userinfo);
+        /// <summary>
+        /// 删除用户信息
+        /// </summary>
+        /// <param name="Ids">需要删除的用户ID</param>
+        /// <returns></returns>
+        int DelUser(string Ids);
+        /// <summary>
+        /// 根据Id 查询用户信息
+        /// </summary>
+        /// <returns>返回基本信息</returns>
+        DevUserinfoDTO GetUserById(int Id);
 
     }
 }

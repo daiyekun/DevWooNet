@@ -99,23 +99,15 @@
         </div>
     </div>
     <script src="../../lib/layui/layui.js"></script>
-    <script type="text/javascript">
+
+    <script> 
         layui.config({
-           // base: '../../lib/winui/' //指定 winui 路径
-            base: '/js/'
+            base: '../../js/'
         }).extend({
-                devindex: 'devindex', //首先加载，包含一些配置
-                datadiclist:'datadic/datadiclist'
-
-            })
-        .use(['datadiclist'],function(){
-
-
-        });
-
-       
-
-       
+            datadiclist:'datadic/datadiclist'
+        })
+        .use('datadiclist');
     </script>
+    
 </body>
 </html>
