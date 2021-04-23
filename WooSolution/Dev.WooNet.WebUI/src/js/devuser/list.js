@@ -170,8 +170,17 @@ layui.config({
         deleteUser(ids);
     });
     $('#reloadTable').on('click', reloadTable);
+    //跳转修改状态界面
     $('#tostate').on('click', function(){
-        var url="/views/devuser/selstate.html?Id=" + 0;
+        var checkStatus = table.checkStatus(tableId);
+        var checkCount = checkStatus.data.length;
+        if (checkCount < 1) {
+            top.winui.window.msg('请选择一条数据', {
+                time: 2000
+            });
+            return false;
+        }
+        var url="/views/devuser/selstate.html?Id=" + checkStatus.data[0].Id+"&ustate="+checkStatus.data[0].Ustate;
         top.winui.window.open({
             id: 'win_userstate',
             type: 2,
@@ -183,6 +192,7 @@ layui.config({
         });
 
     });
+  
 
     exports('userlist', {});
 });

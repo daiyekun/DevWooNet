@@ -13,11 +13,14 @@
     <div class="layui-card ">
         <div class="layui-card-body" style="padding: 15px;">
             <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
-                <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
-                <button id="tostate" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>禁用-->启用</button>
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                <button tostate='1' class="winui-toolbtn btn-toostate "><i class="fa fa-refresh" aria-hidden="true"></i>禁用-->启用</button>
                 </div>
-                <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
-                <button id="tostate" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>启用-->离职</button>
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                <button tostate='2' class="winui-toolbtn btn-toostate"><i class="fa fa-refresh" aria-hidden="true"></i>启用-->离职</button>
+                </div>
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                    <button tostate='0' class="winui-toolbtn btn-toostate"><i class="fa fa-refresh" aria-hidden="true"></i>启用-->禁用</button>
                 </div>
                 
             </div>
@@ -32,10 +35,10 @@
     layui.config({
             base: '../../js/'
         }).extend({
-            userview:'devuser/view',
+            selstate:'devuser/selstate',
             
         })
-        .use('userview');
+        .use('selstate');
 </script>
 </body>
 </html>

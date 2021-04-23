@@ -3,6 +3,7 @@ using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -279,6 +280,32 @@ namespace Dev.WooNet.WooService
 
                         };
             return local.FirstOrDefault();
+        }
+        /// <summary>
+        /// 修改状态
+        /// </summary>
+        /// <returns></returns>
+        public int UpdateState(UpdateField updateField)
+        {
+            string sqlstr = "";
+            switch (updateField.State)
+            {
+                case (int)UserStateEnum.LiZhi:
+                case (int)UserStateEnum.QuYong:
+                case (int)UserStateEnum.JinYong:
+                    sqlstr = $"update dev_userinfo set Ustate={updateField.State},ModifyDatetime='{DateTime.Now}'  where Id={updateField.Id}";
+                    break;
+               
+                  
+
+            }
+
+            if (!string.IsNullOrEmpty(sqlstr))
+            {
+              return  ExecuteSqlCommand(sqlstr);
+            }
+            return 0;
+
         }
 
 

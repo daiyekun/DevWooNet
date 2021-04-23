@@ -1,5 +1,6 @@
 ﻿using Dev.WooNet.Common.Models;
 using Dev.WooNet.Model.DevDTO;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,11 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <returns>返回基本信息</returns>
         DevUserinfoDTO GetUserById(int Id);
+        /// <summary>
+        /// 修改状态
+        /// </summary>
+        /// <returns></returns>
+        int UpdateState(UpdateField updateField);
 
     }
 }

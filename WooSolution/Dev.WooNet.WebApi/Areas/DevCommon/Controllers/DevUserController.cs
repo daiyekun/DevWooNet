@@ -3,6 +3,7 @@ using Dev.WooNet.Common.Models;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
@@ -108,6 +109,23 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 
             });
 
+        }
+        /// <summary>
+        /// 修改状态
+        /// </summary>
+        /// <returns></returns>
+        [Route("updateState")]
+        [HttpPost]
+        public IActionResult UpdateState([FromBody] UpdateField updateField)
+        {
+            _IDevUserinfoService.UpdateState(updateField);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+
+
+            });
         }
 
     }
