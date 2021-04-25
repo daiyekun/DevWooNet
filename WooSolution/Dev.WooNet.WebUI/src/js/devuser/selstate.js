@@ -46,14 +46,16 @@ layui.config({
             dataType: 'json',
             contentType: "application/json; charset=utf-8",
             success: function (res) {
-                top.winui.window.close('win_userstate');
+                
                 top.winui.window.msg('修改成功', {
                     icon: 1,
                     time: 2000
                 });
-                parent.location.reload();
-
-               // top.table.reload(tableId, {});
+               
+                top.winui.window.close('win_userstate');
+               // 
+               
+              
                 
             },
             error: function (xml) {

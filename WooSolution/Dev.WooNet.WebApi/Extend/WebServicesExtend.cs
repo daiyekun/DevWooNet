@@ -20,6 +20,11 @@ namespace Dev.WooNet.WebAPI.Extend
             services.AddTransient<IDevUserinfoService, DevUserinfoService>();
             services.AddTransient<IDevDatadicService, DevDatadicService>();
             services.AddTransient<IDevDepartmentService, DevDepartmentService>();
+            services.AddTransient<IDevRoleService, DevRoleService>();
+            services.AddTransient<IDevUserRoleService, DevUserRoleService>();
+            
+
+
         }
              
     }

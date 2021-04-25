@@ -24,11 +24,13 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
     {
         private IDevUserinfoService _IDevUserinfoService;
         private IMapper _IMapper;
+        private IDevUserRoleService _IDevUserRoleService;
         public DevUserController(IDevUserinfoService DevUserinfoService
-            ,IMapper iMapper)
+            ,IMapper iMapper, IDevUserRoleService iDevUserRoleService)
         {
             _IDevUserinfoService = DevUserinfoService;
             _IMapper = iMapper;
+            _IDevUserRoleService = iDevUserRoleService;
         }
         /// <summary>
         /// 用户新增修改
@@ -81,16 +83,37 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             prdAnd = prdAnd.And(a=>a.IsDelete!=1);
             var prdOr = PredBuilder.False<DevUserinfo>();
             if (!string.IsNullOrWhiteSpace(pgInfo.kword))
-            {
+            {//小心搜索时如果计算是字符串。如果存在为null情况也需要判断下。不然会报找不到对象。比如IdNo字段问题
                 prdOr = prdOr.Or(a => a.Name.Contains(pgInfo.kword));
                 prdOr = prdOr.Or(a => a.ShowName.Contains(pgInfo.kword));
-                prdOr = prdOr.Or(a => a.IdNo.Contains(pgInfo.kword));
+                prdOr = prdOr.Or(a => a.IdNo!=null&&a.IdNo.Contains(pgInfo.kword));
                 prdAnd = prdAnd.And(prdOr);
+            }
+            if (pgInfo.searchType == 1)
+            {
+                int roleId = 0;
+                if (int.TryParse(pgInfo.searchWhre, out roleId)) {
+                    var userIds = GetUserIdByRoleId(roleId).ToArray();
+                    prdAnd = prdAnd.And(a=> userIds.Contains(a.Id));
+
+                }
+
             }
             var pagelist = _IDevUserinfoService.GetList(pageInfo, prdAnd, a => a.Id, false);
             return new DevResultJson(pagelist);
            
         }
+
+        /// <summary>
+        /// 根据角色Id获取用户列表
+        /// </summary>
+        /// <param name="roleId">角色ID</param>
+        /// <returns></returns>
+        private IList<int> GetUserIdByRoleId(int roleId)
+        {
+          return  _IDevUserRoleService.GetQueryable(a => a.Rid == roleId).Select(a => a.Uid).ToList();
+        }
+
         /// <summary>
         /// 显示页面信息-主要用于修改和查看
         /// </summary>

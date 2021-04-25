@@ -10,35 +10,19 @@
 <body>
     <div class="winui-toolbar">
         <div class="winui-tool">
-            <div class="layui-inline">
-                <input type="text" name="keyWord" placeholder="用户名称、显示名称" style="width:200px;"  class="layui-input">
-            </div>
-            <button class="winui-toolbtn" id="btnsearchuser" >
-                <i class="layui-icon layui-icon-search"></i>查询
-            </button>
             <button id="reloadTable" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
-            <button id="addUser" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+            <button id="addrole" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
             <button id="deleteRole" class="winui-toolbtn"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
-            <button id="tostate" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>状态</button>
         </div>
     </div>
     <div style="margin:auto 10px;">
-        <table id="woouser" lay-filter="usertable"></table>
-        <script type="text/html" id="barUser">
+        <table id="table-woorole" lay-filter="table-woorole"></table>
+        <script type="text/html" id="barrole">
             <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs" lay-event="adduser">加用户</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
-        <script type="text/html" id="stateTpl">
-            {{#  if(d.Ustate == 0){ }}
-            {{d.StateDic}}
-            {{#  } else if(d.Ustate==1) { }}
-            {{d.StateDic}}
-            {{#  } else if(d.Ustate==2) { }}
-            {{d.StateDic}}
-            {{#  }else{ }}
-            {{d.Ustate}}
-            {{#  } }}
-        </script>
+        
         <script type="text/html" id="titleTpl">
             <a class="layui-table-link hand" lay-text="查看用户信息" lay-event="showview">
                 <cite>{{d.Name}}</cite>
@@ -50,9 +34,9 @@
         layui.config({
             base: '../../js/'
         }).extend({
-            userlist:'devuser/list'
+            rolelist:'devrole/list'
         })
-        .use('userlist');
+        .use('rolelist');
     </script>
 </body>
 </html>

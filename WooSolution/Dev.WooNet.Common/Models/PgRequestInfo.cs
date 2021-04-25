@@ -28,5 +28,17 @@ namespace Dev.WooNet.Common.Models
         /// 第三方标识
         /// </summary>
         public int otherId { get; set; } = -1;
+        /// <summary>
+        /// 查询类型
+        /// 默认情况是0
+        /// 
+        /// </summary>
+        public int searchType { get; set; } = 0;
+        /// <summary>
+        /// 查询where
+        /// 当不等于0的时候记得赋值
+        /// 
+        /// </summary>
+        public string searchWhre { get; set; }
     }
 }

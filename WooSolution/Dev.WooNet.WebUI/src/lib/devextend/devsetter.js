@@ -3,7 +3,7 @@
  */
  layui.define(['laytpl', 'layer'], function(exports){
     exports('devsetter', {
-        devbaseurl:'',//请求根目录
+        devbaseurl:'http://localhost:8059/',//请求根目录
         devuserurl:"http://localhost:8059/",//用户相关用户根目录
         listtable:{//列表配置
          mainlistlimits:[8, 16, 24, 32, 40, 48, 56,64,100]//大列表下拉页表

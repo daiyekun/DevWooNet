@@ -33,7 +33,7 @@ namespace Dev.WooNet.WooService
         public AjaxListResult<DevUserinfoDTO> GetList<s>(PageInfo<DevUserinfo> pageInfo, Expression<Func<DevUserinfo, bool>> whereLambda,
              Expression<Func<DevUserinfo, s>> orderbyLambda, bool isAsc)
          {
-            var tempquery = this.DevDb.Set<DevUserinfo>().AsTracking().Where<DevUserinfo>(whereLambda.Compile()).AsQueryable();
+            var tempquery = this.DevDb.Set<DevUserinfo>().AsTracking().Where<DevUserinfo>(whereLambda);
             pageInfo.TotalCount = tempquery.Count();
             if (isAsc)
             {

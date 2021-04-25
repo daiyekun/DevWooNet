@@ -13,13 +13,14 @@ layui.config({
         $ = layui.$,
         devsetter = layui.devsetter,
          msg = winui.window.msg
-         tableId = 'useridtableid';
+         tableId = 'roletableid';
+     
     //表格渲染
    
-    var tburl=devsetter.devuserurl+"api/DevUser/list";
+    var tburl=devsetter.devbaseurl+"api/DevRole/list";
     table.render({
         id: tableId,
-        elem: '#woouser',
+        elem: '#table-woorole',
         url:tburl,
         method:'POST',
          contentType:'application/json',
@@ -35,19 +36,14 @@ layui.config({
         cols: [[
             { type: 'checkbox',fixed: 'left' },
             { field: 'Id', width: 80, title: 'ID', hide: true },
-            { field: 'Name', title: '用户名', width: 120,templet: '#titleTpl', fixed: 'left' },
-            { field: 'DeptName', title: '所属部门', width: 180 },
-            { field: 'ShowName', title: '显示名称', width: 140 },
-            { field: 'SexDic', title: '性别', width: 80 },
-            { field: 'Tel', title: '电话', width: 110 },
-            { field: 'Mobile', title: '手机', width: 120 },
-            { field: 'Email', title: '邮箱', width: 130 },
-            { field: 'Ustate', title: '状态', width: 60, templet: '#stateTpl' },
-            { title: '操作', fixed: 'right', align: 'center', toolbar: '#barUser', width: 120 }
+            { field: 'Name', title: '名称', width: 180,templet: '#titleTpl', fixed: 'left' },
+            { field: 'Code', title: '编号', width: 140 },
+            { field: 'Remark', title: '说明', width: 300 },
+            { title: '操作', fixed: 'right', align: 'center', toolbar: '#barrole', width: 190 }
         ]]
     });
     //监听工具条
-    table.on('tool(usertable)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+    table.on('tool(table-woorole)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
         var data = obj.data; //获得当前行数据
         var layEvent = obj.event; //获得 lay-event 对应的值
         var tr = obj.tr; //获得当前行 tr 的DOM对象
@@ -56,16 +52,23 @@ layui.config({
             ids.push(item.Id);
         });
         if (layEvent === 'del') { //删除
-            deleteUser(ids, obj);
+            deleterole(ids, obj);
         } else if (layEvent === 'edit') { //编辑
             if (!data.Id) return;
             var index = layer.load(1);
-            openUser('win_updateuser', data.Id, '修改用户');
+            openrole('win_updaterole', data.Id, '修改角色');
             layer.close(index);
-        }else if(layEvent === 'showview'){
+        }else if(layEvent === 'adduser'){
             if (!data.Id) return;
             var index = layer.load(1);
-            openUser('win_updateuser', data.Id, '查看用户',true);
+            openrole('win_updaterole', data.Id, '查看角色',true);
+            layer.close(index);
+
+        }
+        else if(layEvent === 'showview'){
+            if (!data.Id) return;
+            var index = layer.load(1);
+            openrole('win_updaterole', data.Id, '查看角色',true);
             layer.close(index);
 
 
@@ -77,13 +80,13 @@ layui.config({
     }
 
      //打开添加页面
-     function openUser (winid, id, wintitle,Isview) {
-        var url = "/views/devuser/build.html";
+     function openrole (winid, id, wintitle,Isview) {
+        var url = "/views/devrole/build.html";
         if (id > 0) {
-            url = "/views/devuser/build.html?Id=" + id;
+            url = "/views/devrole/build.html?Id=" + id;
         }
         if(Isview){
-            url = "/views/devuser/view.html?Id=" + id;
+            url = "/views/devrole/view.html?Id=" + id;
         }
         top.winui.window.open({
             id: winid,
@@ -97,15 +100,19 @@ layui.config({
 
   
     //删除角色
-    function deleteUser(ids, obj) {
-        var msg = obj ? '确认删除数据【' + obj.data.ShowName + '】吗？' : '确认删除选中数据吗？'
+    function deleterole(ids, obj) {
+        var msg = obj ? '确认删除数据【' + obj.data.Name + '】吗？' : '确认删除选中数据吗？'
         top.winui.window.confirm(msg, { icon: 3, title: '删除系统数据' }, function (index) {
-            layer.close(index);
+            if(obj){
+                layer.close(index);
+            }else{
+                top.layer.close(index);
+
+            }
             //向服务端发送删除指令
             $.ajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevUser/deluser',
-                //async: false,
+                url: devsetter.devbaseurl + 'api/Devrole/delrole',
                 data: { Ids: ids.toString() },
                 dataType: 'json',
                 success: function (res) {
@@ -136,9 +143,9 @@ layui.config({
         });
     }
     //绑定按钮事件
-    $('#addUser').on('click', function () {
+    $('#addrole').on('click', function () {
 
-        openUser('win_adduser', 0, '新增用户');
+        openrole('win_addrole', 0, '新增角色');
     });
     //删除按钮
     $('#deleteRole').on('click', function () {
@@ -154,46 +161,11 @@ layui.config({
         $(checkStatus.data).each(function (index, item) {
             ids.push(item.Id);
         });
-        deleteUser(ids);
+        deleterole(ids);
     });
     $('#reloadTable').on('click', reloadTable);
-    //跳转修改状态界面
-    $('#tostate').on('click', function(){
-        var checkStatus = table.checkStatus(tableId);
-        var checkCount = checkStatus.data.length;
-        if (checkCount < 1) {
-            top.winui.window.msg('请选择一条数据', {
-                time: 2000
-            });
-            return false;
-        }
-        var url="/views/devuser/selstate.html?Id=" + checkStatus.data[0].Id+"&ustate="+checkStatus.data[0].Ustate;
-        top.winui.window.open({
-            id: 'win_userstate',
-            type: 2,
-            title: '修改状态',
-            maxmin:true,
-            content: url,
-            area: ['25vw', '35vh'],
-            offset: ['25vh', '25vw']
-        });
-
-    });
-    $("#btnsearchuser").on('click',function(){
-        searchUser();
-    });
-    //用户
-    function searchUser() {//查询
-        table.reload(tableId, {
-            page: { curr: 1 }
-            , where: {
-             kword: $("input[name=keyWord]").val()
-
-            }
-        });
-
-    }
+    
   
 
-    exports('userlist', {});
+    exports('rolelist', {});
 });
