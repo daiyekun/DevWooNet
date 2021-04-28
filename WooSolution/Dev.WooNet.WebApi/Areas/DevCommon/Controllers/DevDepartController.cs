@@ -58,7 +58,6 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// <returns></returns>
         [Route("departSave")]
         [HttpPost]
-        [CustomActionFilter]
         public IActionResult AddSave([FromBody]DepartData departData)
         {
             var deptinfo = _IMapper.Map<DevDepartment>(departData);

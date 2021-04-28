@@ -139,3 +139,10 @@ E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\AutoMapper.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Dev.WooNet.AutoMapper.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Dev.WooNet.AutoMapper.pdb
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IdentityModel.Tokens.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll

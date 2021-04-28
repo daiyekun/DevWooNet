@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Dev管理系统-登录</title>
+    <link rel="stylesheet" href="./css/login.css">
+    <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
+    <!-- 作者QQ:951252660 -->
+</head>
+
+<body>
+
+    <div class="login">
+        <div class="center">
+            <h1><img src="./images/Windows10.png" alt="logo"></h1>
+            <form class="layui-form" lay-filter="Dev-LoginForm">
+                <div class="inputLi">
+                    <input type="text" class="user" lay-verify="required" name="UserName" id="UserName" placeholder="请输入" required>
+                </div>
+                <div class="inputLi">
+                    <input type="password" class="pwd" lay-verify="required" name="Password" id="Password" placeholder="请输入" required>
+                </div>
+                <div class="inputLi">
+                    <button class="btn-login" id="btn-login" lay-submit lay-filter="btn-login">登录</button>
+                </div>
+            </form>
+            <p class="tip">DEV管理系统 @2021</p>
+        </div>
+    </div>
+    <script src="/lib/layui/layui.js"></script>
+<script>
+    layui.config({
+            base: '../../js/'
+        }).extend({
+            login:'devlogin/login',
+            
+        })
+        .use('login');
+   </script>
+   
+	
+</body>
+
+</html>

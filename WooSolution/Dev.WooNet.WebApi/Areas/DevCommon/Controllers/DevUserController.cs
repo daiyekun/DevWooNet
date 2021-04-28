@@ -39,7 +39,6 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// <returns></returns>
         [Route("userSave")]
         [HttpPost]
-        [CustomActionFilter]
         public IActionResult UserSave([FromBody] DevUserinfoDTO userdto)
         {
             var userinfo = _IMapper.Map<DevUserinfo>(userdto);
@@ -149,6 +148,28 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 
 
             });
+        }
+        /// <summary>
+        /// 修改状态
+        /// </summary>
+        /// <returns></returns>
+        [Route("query")]
+        [HttpGet]
+
+        public IActionResult QueryUser(string username,string password)
+        {
+           
+            AjaxResult<LoginResult> ajaxResult = null;
+            var result = _IDevUserinfoService.Login(username, password);
+
+            ajaxResult = new AjaxResult<LoginResult>()
+            {
+                Result = true,
+                data = result
+            };
+            return new JsonResult(ajaxResult);
+
+
         }
 
     }

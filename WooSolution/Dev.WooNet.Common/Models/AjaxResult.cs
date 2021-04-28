@@ -32,6 +32,10 @@ namespace Dev.WooNet.Common.Models
         /// 其他值
         /// </summary>
         public object OtherValue { get; set; }
+        /// <summary>
+        /// 标签值
+        /// </summary>
+        public int Tag { get; set; }
 
     }
     public class AjaxResult<T> : AjaxResult

@@ -59,6 +59,13 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <returns></returns>
         int UpdateState(UpdateField updateField);
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="LoginName">登录名称</param>
+        /// <param name="Pwd">密码</param>
+        /// <returns></returns>
+        LoginResult Login(string LoginName, string Pwd);
 
     }
 }

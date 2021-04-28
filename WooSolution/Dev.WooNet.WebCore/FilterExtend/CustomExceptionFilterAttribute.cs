@@ -13,7 +13,7 @@ namespace Dev.WooNet.WebCore.FilterExtend
     /// <summary>
     /// 自定义异常过滤器特性
     /// </summary>
-    public  class CustomExceptionFilterAttribute
+    public  class CustomExceptionFilterAttribute: IExceptionFilter
     {
         private ILogger<CustomExceptionFilterAttribute> _logger = null;
         public CustomExceptionFilterAttribute(ILogger<CustomExceptionFilterAttribute> logger)

@@ -3,10 +3,13 @@ using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.Models;
 using Dev.WooNet.WebAPI.Extend;
+using Dev.WooNet.WebAPI.Utility;
+using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Middleware;
 using Dev.WooNet.WooService;
 using log4net;
 using log4net.Config;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,12 +18,15 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+
 
 namespace Dev.WooNet.WebApi
 {
@@ -39,6 +45,19 @@ namespace Dev.WooNet.WebApi
             //添加日志
             Log4netHelper.Repository = LogManager.CreateRepository("DevLog4Repository");
             XmlConfigurator.Configure(Log4netHelper.Repository, new FileInfo(Environment.CurrentDirectory + "/Config/log4net.config"));
+            #region JWt
+            services.AddTransient<ICustomJWTService, CustomHSJWTService>();
+            services.Configure<ConfigInformation>(Configuration.GetSection("ConfigInformation"));
+            services.AddTransient<HttpHelperService>();
+            #endregion JWt
+
+            #region Filter
+            services.AddControllers(o =>
+            {
+                o.Filters.Add(typeof(CustomExceptionFilterAttribute));
+                o.Filters.Add(typeof(CustomActionFilterAttribute));
+            });
+            #endregion
             services.AddControllers().AddNewtonsoftJson();
             services.AddSwaggerGen(c =>
             {
@@ -53,6 +72,28 @@ namespace Dev.WooNet.WebApi
             //注册服务扩展类
             services.AddDevServices();
             #endregion
+
+            #region jwt校验  HS
+            JWTTokenOptions tokenOptions = new JWTTokenOptions();
+            Configuration.Bind("JWTTokenOptions", tokenOptions);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//Scheme
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    //JWT有一些默认的属性，就是给鉴权时就可以筛选了
+                    ValidateIssuer = true,//是否验证Issuer
+                    ValidateAudience = true,//是否验证Audience
+                    ValidateLifetime = false,//是否验证失效时间
+                    ValidateIssuerSigningKey = true,//是否验证SecurityKey
+                    ValidAudience = tokenOptions.Audience,//
+                    ValidIssuer = tokenOptions.Issuer,//Issuer，这两项和前面签发jwt的设置一致
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
+                };
+            });
+            #endregion
+
 
             #region 跨域
             services.AddCors(options =>

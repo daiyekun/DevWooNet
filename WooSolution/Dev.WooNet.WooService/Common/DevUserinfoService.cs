@@ -307,6 +307,43 @@ namespace Dev.WooNet.WooService
             return 0;
 
         }
+        /// <summary>
+        /// 登录
+        /// </summary>
+        /// <param name="LoginName"></param>
+        /// <param name="Pwd"></param>
+        /// <returns></returns>
+        public LoginResult Login(string LoginName,string Pwd)
+        {
+            LoginResult loginResult = new LoginResult();
+            var userinfo = DevDb.Set<DevUserinfo>().Where(a => a.Name == LoginName).FirstOrDefault();
+            if (userinfo != null)
+            {
+                var encryptpwd = EncryptUtility.PwdToMD5(Pwd,LoginName);
+                if(userinfo.Pwd== encryptpwd)
+                {
+                    loginResult.Reult= 0; //表示验证通过
+                    var loginuser = new LoginUser();
+                    loginuser.Id = userinfo.Id;
+                    loginuser.Name = userinfo.Name;
+                    loginuser.ShowName = userinfo.ShowName;
+                    loginuser.DeptId = userinfo.DepId??0;
+                    loginuser.DeptName = RedisUtility.HashGet($"{RedisKeys.RedisdeptKey}", "Name");
+                    loginResult.LoginUser = loginuser;
+                }
+                else
+                {
+                    loginResult.Reult = 2;//密码验证错误
+                }
+            }
+            else
+            {
+                loginResult.Reult = 1;//当前用户名称不存在
+            }
+
+            return loginResult;
+
+        }
 
 
 

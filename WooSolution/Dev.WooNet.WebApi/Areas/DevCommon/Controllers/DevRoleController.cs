@@ -38,7 +38,6 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// <returns></returns>
         [Route("roleSave")]
         [HttpPost]
-        [CustomActionFilter]
         public IActionResult RoleSave([FromBody] DevRoleDTO roledto)
         {
             var info = _IMapper.Map<DevRole>(roledto);

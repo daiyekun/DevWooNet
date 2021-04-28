@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
+﻿using Dev.WooNet.Common.Utility;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,11 @@ namespace Dev.WooNet.WebCore.FilterExtend
 {
     public class CustomActionFilterAttribute: ActionFilterAttribute
     {
+        private ILogger<CustomActionFilterAttribute> _logger = null;
+        public CustomActionFilterAttribute(ILogger<CustomActionFilterAttribute> logger)
+        {
+            this._logger = logger;
+        }
         public override void OnActionExecuted(ActionExecutedContext context)
         {
             //context.HttpContext.Response.Headers.Add("Cache-Control", "public,max-age=6000");
@@ -16,6 +23,9 @@ namespace Dev.WooNet.WebCore.FilterExtend
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            string url = context.HttpContext.Request.Path.Value;
+            string argument = JsonUtility.SerializeObject(context.ActionArguments);
+            this._logger.LogInformation($"{url}----->argument={argument}");
             Console.WriteLine($"This {nameof(CustomActionFilterAttribute)} OnActionExecuting{this.Order}");
         }
         public override void OnResultExecuting(ResultExecutingContext context)
