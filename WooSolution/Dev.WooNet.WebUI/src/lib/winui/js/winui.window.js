@@ -5,9 +5,10 @@
  @License：MIT
     
  */
-layui.define(['layer', 'winui'], function (exports) {
+layui.define(['layer', 'winui','table'], function (exports) {
     "use strict";
     var $ = layui.jquery, THIS = 'winui-this', MOVE = '.layui-layer-title', taskbarHeight = 40;
+    var table=layui.table;
 
     //弹窗构造函数
     var WinLayer = function () {
@@ -32,8 +33,16 @@ layui.define(['layer', 'winui'], function (exports) {
         }
         return this;
     }
+    //刷新自定ID的windows窗体
+    WinLayer.prototype.tablelaod = function (options) {
+     var currwin=common.getWindow(options.id);
+    var winiframe=$(currwin).find("iframe");
+    winiframe.attr('src', winiframe.attr('src'))
+
+    }
     //打开窗口
     WinLayer.prototype.open = function (options) {
+        debugger;
         var windowfunc = this;
         //获取window，判断window是否存在
         if (common.getWindow(options.id)) {

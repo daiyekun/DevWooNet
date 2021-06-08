@@ -14,26 +14,39 @@ namespace Dev.WooNet.Common.Utility
     /// </summary>
     public class RedisDbHelper
     {
-        public static IDatabase redisDb;
-        
+        //public static IDatabase redisDb;
+        public static ConnectionMultiplexer _redis { get; set; }
+
+
         static object locobj = new object();
         static RedisDbHelper()
         {
 
-            if (redisDb == null)
+            if (_redis == null)
             {
                 lock (locobj)
                 {
-                    if (redisDb == null)
+                    if (_redis == null)
                     {
                         var redisConn = DevConfigurationManager.GetAppSettValue("RedisConn:Host1");
-                        ConnectionMultiplexer redis = ConnectionMultiplexer.Connect(redisConn);
-                        redisDb = redis.GetDatabase();
+                         _redis = ConnectionMultiplexer.Connect(redisConn);
+                        //redisDb = redis.GetDatabase();
                     }
                 }
             }
 
         }
+
+        /// <summary>
+        /// 获取操作redis db
+        /// </summary>
+        /// <returns></returns>
+        public static IDatabase GetRedisDb()
+        {
+           return RedisDbHelper._redis.GetDatabase();
+        }
+
+
 
 
 
@@ -53,7 +66,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>bool True/False</returns>
         public static Task<bool> StringSetAsync(string key, string Value)
         {
-            return RedisDbHelper.redisDb.StringSetAsync(key, Value);
+            return RedisDbHelper.GetRedisDb().StringSetAsync(key, Value);
         }
         /// <summary>
         /// 设置String值
@@ -63,7 +76,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>bool True/False</returns>
         public static bool StringSet(string key, string Value)
         {
-            return RedisDbHelper.redisDb.StringSet(key, Value);
+            return RedisDbHelper.GetRedisDb().StringSet(key, Value);
         }
         /// <summary>
         /// 将list转化成Json保存到数据库
@@ -75,7 +88,7 @@ namespace Dev.WooNet.Common.Utility
         public static Task<bool> ListObjToJsonStringSetAsync<T>(string key, IList<T> listt)
             where T : class
         {
-            return RedisDbHelper.redisDb.StringSetAsync(key, listt.ToJson());
+            return RedisDbHelper.GetRedisDb().StringSetAsync(key, listt.ToJson());
 
         }
         /// <summary>
@@ -88,7 +101,7 @@ namespace Dev.WooNet.Common.Utility
         public static Task<bool> ListObjToJsonStringSetAsync<T>(string key, T t)
             where T : class
         {
-            return RedisDbHelper.redisDb.StringSetAsync(key, t.ToJson());
+            return RedisDbHelper.GetRedisDb().StringSetAsync(key, t.ToJson());
 
         }
         /// <summary>
@@ -98,7 +111,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>bool True:存在，False：不存在</returns>
         public static bool KeyExists(string key)
         {
-            return RedisDbHelper.redisDb.KeyExists(key);
+            return RedisDbHelper.GetRedisDb().KeyExists(key);
         }
         /// <summary>
         /// 根据字符串获取Key
@@ -107,7 +120,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>返回String字符串值</returns>
         public static string StringGet(string key)
         {
-            return RedisDbHelper.redisDb.StringGet(key);
+            return RedisDbHelper.GetRedisDb().StringGet(key);
         }
         /// <summary>
         /// 直接获取字符串凡系列化成对象集合
@@ -120,9 +133,9 @@ namespace Dev.WooNet.Common.Utility
 
         {
 
-            if (RedisDbHelper.redisDb.KeyExists(key))
+            if (RedisDbHelper.GetRedisDb().KeyExists(key))
             {
-                var strJson = RedisDbHelper.redisDb.StringGet(key);
+                var strJson = RedisDbHelper.GetRedisDb().StringGet(key);
                 return strJson.ToString().JsonToList<T>();
             }
             return null;
@@ -140,9 +153,9 @@ namespace Dev.WooNet.Common.Utility
 
         {
 
-            if (RedisDbHelper.redisDb.KeyExists(key))
+            if (RedisDbHelper.GetRedisDb().KeyExists(key))
             {
-                var strJson = RedisDbHelper.redisDb.StringGet(key);
+                var strJson = RedisDbHelper.GetRedisDb().StringGet(key);
                 return strJson.ToString().JsonToObje<T>();
             }
             return null;
@@ -155,7 +168,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>返回True/False</returns>
         public static Task<bool> KeyDeleteAsync(string key)
         {
-            return RedisDbHelper.redisDb.KeyDeleteAsync(key);
+            return RedisDbHelper.GetRedisDb().KeyDeleteAsync(key);
         }
         /// <summary>
         /// 删除Key
@@ -164,7 +177,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>返回True/False</returns>
         public static bool KeyDelete(string key)
         {
-            return RedisDbHelper.redisDb.KeyDelete(key);
+            return RedisDbHelper.GetRedisDb().KeyDelete(key);
         }
 
         #region  队列List
@@ -176,7 +189,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static long ListRightPush(string key, string value)
         {
-            return RedisDbHelper.redisDb.ListRightPush(key, value);
+            return RedisDbHelper.GetRedisDb().ListRightPush(key, value);
         }
 
         /// <summary>
@@ -188,7 +201,7 @@ namespace Dev.WooNet.Common.Utility
         public static long ListRightPush<T>(string key, T t)
             where T : class
         {
-            return RedisDbHelper.redisDb.ListRightPush(key, JsonUtility.SerializeObject(t, true));
+            return RedisDbHelper.GetRedisDb().ListRightPush(key, JsonUtility.SerializeObject(t, true));
         }
         /// <summary>
         /// 从左边开始出队
@@ -196,7 +209,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static string ListLeftPop(string key)
         {
-            return RedisDbHelper.redisDb.ListLeftPop(key);
+            return RedisDbHelper.GetRedisDb().ListLeftPop(key);
         }
         /// <summary>
         /// 获取队列然后反系列化对象
@@ -207,7 +220,7 @@ namespace Dev.WooNet.Common.Utility
         public static T ListLeftPopToObj<T>(string key)
             where T : class
         {
-            var strList = RedisDbHelper.redisDb.ListLeftPop(key);
+            var strList = RedisDbHelper.GetRedisDb().ListLeftPop(key);
             if (string.IsNullOrEmpty(strList))
             {
                 return default(T);
@@ -231,7 +244,7 @@ namespace Dev.WooNet.Common.Utility
             foreach (var single in value)
             {
                 var s = single.ToJson(); //序列化
-                RedisDbHelper.redisDb.ListRightPush(key, s); //要一个个的插入
+                RedisDbHelper.GetRedisDb().ListRightPush(key, s); //要一个个的插入
             }
         }
         /// <summary>
@@ -247,7 +260,7 @@ namespace Dev.WooNet.Common.Utility
 
             //ListRange返回的是一组字符串对象
             //需要逐个反序列化成实体
-            var vList = RedisDbHelper.redisDb.ListRange(key);
+            var vList = RedisDbHelper.GetRedisDb().ListRange(key);
             List<T> result = new List<T>();
             foreach (var item in vList)
             {
@@ -267,7 +280,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>true/false</returns>
         public static bool HashDelete(RedisKey key, RedisValue hashField)
         {
-            return RedisDbHelper.redisDb.HashDelete(key, hashField);
+            return RedisDbHelper.GetRedisDb().HashDelete(key, hashField);
 
         }
         /// <summary>
@@ -278,7 +291,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>true/false</returns>
         public static Task<bool> HashDeleteAsync(RedisKey key, RedisValue hashField)
         {
-            return RedisDbHelper.redisDb.HashDeleteAsync(key, hashField);
+            return RedisDbHelper.GetRedisDb().HashDeleteAsync(key, hashField);
 
         }
         /// <summary>
@@ -289,7 +302,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>true/false</returns>
         public static long HashDelete(RedisKey key, RedisValue[] hashField)
         {
-            return RedisDbHelper.redisDb.HashDelete(key, hashField);
+            return RedisDbHelper.GetRedisDb().HashDelete(key, hashField);
 
         }
         /// <summary>
@@ -300,7 +313,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>true/false</returns>
         public static Task<long> HashDeleteAsync(RedisKey key, RedisValue[] hashField)
         {
-            return RedisDbHelper.redisDb.HashDeleteAsync(key, hashField);
+            return RedisDbHelper.GetRedisDb().HashDeleteAsync(key, hashField);
 
         }
         /// <summary>
@@ -311,7 +324,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static bool HashHasKey(RedisKey key, RedisValue hashField)
         {
-            return RedisDbHelper.redisDb.HashExists(key, hashField);
+            return RedisDbHelper.GetRedisDb().HashExists(key, hashField);
         }
         /// 判断Hash下是否存在某一字段(Asnyc)
         /// </summary>
@@ -320,7 +333,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static Task<bool> HashHasKeyAsync(RedisKey key, RedisValue hashField)
         {
-            return RedisDbHelper.redisDb.HashExistsAsync(key, hashField);
+            return RedisDbHelper.GetRedisDb().HashExistsAsync(key, hashField);
         }
         /// <summary>
         /// 根据Hash key 和Field获取字段值
@@ -330,7 +343,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>hash值</returns>
         public static RedisValue HashGet(RedisKey key, RedisValue hashField)
         {
-            return RedisDbHelper.redisDb.HashGet(key, hashField);
+            return RedisDbHelper.GetRedisDb().HashGet(key, hashField);
         }
         /// <summary>
         /// 根据Hash key 和Field获取字段值
@@ -340,7 +353,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>hash值</returns>
         public static Task<RedisValue> HashGetAsync(RedisKey key, RedisValue hashField)
         {
-            return RedisDbHelper.redisDb.HashGetAsync(key, hashField);
+            return RedisDbHelper.GetRedisDb().HashGetAsync(key, hashField);
         }
         /// <summary>
         /// 获取存储在指定键的哈希中的所有字段和值
@@ -350,7 +363,7 @@ namespace Dev.WooNet.Common.Utility
         public static Dictionary<string, object> HashGetAll(string key)
         {
             Dictionary<string, object> dic = new Dictionary<string, object>();
-            var collection = RedisDbHelper.redisDb.HashGetAll(key);
+            var collection = RedisDbHelper.GetRedisDb().HashGetAll(key);
             foreach (var item in collection)
             {
                 dic.Add(item.Name, item.Value);
@@ -364,7 +377,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static string[] HashKeys(string key)
         {
-            return RedisDbHelper.redisDb.HashKeys(key).ToStringArray();
+            return RedisDbHelper.GetRedisDb().HashKeys(key).ToStringArray();
         }
         /// <summary>
         /// 获取散列中的字段数量
@@ -373,7 +386,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns>long</returns>
         public static long HashSize(string key)
         {
-            return RedisDbHelper.redisDb.HashLength(key);
+            return RedisDbHelper.GetRedisDb().HashLength(key);
         }
         /// <summary>
         /// 存储Hash数据
@@ -383,7 +396,7 @@ namespace Dev.WooNet.Common.Utility
         /// <param name="value">字段值</param>
         public static void HashSet(RedisKey key, RedisValue hashField, RedisValue value)
         {
-            RedisDbHelper.redisDb.HashSet(key, hashField, value);
+            RedisDbHelper.GetRedisDb().HashSet(key, hashField, value);
         }
         /// <summary>
         /// 更新Hash
@@ -414,7 +427,7 @@ namespace Dev.WooNet.Common.Utility
                 KeyValuePair<string, string> param = dic.ElementAt(i);
                 list.Add(new HashEntry(param.Key, param.Value));
             }
-            RedisDbHelper.redisDb.HashSet(key, list.ToArray());
+            RedisDbHelper.GetRedisDb().HashSet(key, list.ToArray());
         }
         /// <summary>
         /// redis中获取指定键的值并返回对象，
@@ -426,7 +439,7 @@ namespace Dev.WooNet.Common.Utility
         public static T GetHashValue<T>(string key)
            where T : class
         {
-            HashEntry[] array = RedisDbHelper.redisDb.HashGetAll(key);
+            HashEntry[] array = RedisDbHelper.GetRedisDb().HashGetAll(key);
             Dictionary<string, object> dic = new Dictionary<string, object>();
             for (int i = 0; i < array.Length; i++)
             {
@@ -459,7 +472,7 @@ namespace Dev.WooNet.Common.Utility
         /// <param name="value">Value</param>
         public static void SetAdd(RedisKey key, RedisValue value)
         {
-            RedisDbHelper.redisDb.SetAdd(key, value);
+            RedisDbHelper.GetRedisDb().SetAdd(key, value);
         }
         /// <summary>
         /// 集合组合操作
@@ -473,13 +486,13 @@ namespace Dev.WooNet.Common.Utility
             switch (point)
             {
                 case 0:
-                    array = RedisDbHelper.redisDb.SetCombine(SetOperation.Union, firstKey, secondKey);
+                    array = RedisDbHelper.GetRedisDb().SetCombine(SetOperation.Union, firstKey, secondKey);
                     break;
                 case 1:
-                    array = RedisDbHelper.redisDb.SetCombine(SetOperation.Intersect, firstKey, secondKey);
+                    array = RedisDbHelper.GetRedisDb().SetCombine(SetOperation.Intersect, firstKey, secondKey);
                     break;
                 case 2:
-                    array = RedisDbHelper.redisDb.SetCombine(SetOperation.Difference, firstKey, secondKey);
+                    array = RedisDbHelper.GetRedisDb().SetCombine(SetOperation.Difference, firstKey, secondKey);
                     break;
                 default:
                     array = new RedisValue[0];
@@ -496,7 +509,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static bool SetContains(string key, string value)
         {
-            return RedisDbHelper.redisDb.SetContains(key, value);
+            return RedisDbHelper.GetRedisDb().SetContains(key, value);
         }
         /// <summary>
         /// 返回对应键值集合的长度
@@ -505,7 +518,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static long SetLength(string key)
         {
-            return RedisDbHelper.redisDb.SetLength(key);
+            return RedisDbHelper.GetRedisDb().SetLength(key);
         }
         /// <summary>
         /// 根据键值返回集合中所有的value
@@ -514,7 +527,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static string[] SetMembers(string key)
         {
-            return RedisDbHelper.redisDb.SetMembers(key).ToStringArray();
+            return RedisDbHelper.GetRedisDb().SetMembers(key).ToStringArray();
         }
         /// <summary>
         /// 将成员从源集移动到目标集
@@ -524,7 +537,7 @@ namespace Dev.WooNet.Common.Utility
         /// <param name="value"></param>
         public static bool SetMove(string sourceKey, string destinationKey, string value)
         {
-            return RedisDbHelper.redisDb.SetMove(sourceKey, destinationKey, value);
+            return RedisDbHelper.GetRedisDb().SetMove(sourceKey, destinationKey, value);
         }
 
         /// <summary>
@@ -533,7 +546,7 @@ namespace Dev.WooNet.Common.Utility
         /// <param name="key"></param>
         public static string SetPop(string key)
         {
-            return RedisDbHelper.redisDb.SetPop(key);
+            return RedisDbHelper.GetRedisDb().SetPop(key);
         }
 
         /// <summary>
@@ -543,7 +556,7 @@ namespace Dev.WooNet.Common.Utility
         /// <returns></returns>
         public static string SetRandomMember(string key)
         {
-            return RedisDbHelper.redisDb.SetRandomMember(key);
+            return RedisDbHelper.GetRedisDb().SetRandomMember(key);
         }
 
         /// <summary>
@@ -553,7 +566,7 @@ namespace Dev.WooNet.Common.Utility
         /// <param name="count"></param>
         public static string[] SetRandomMembers(string key, long count)
         {
-            return RedisDbHelper.redisDb.SetRandomMembers(key, count).ToStringArray();
+            return RedisDbHelper.GetRedisDb().SetRandomMembers(key, count).ToStringArray();
         }
 
 
@@ -564,7 +577,7 @@ namespace Dev.WooNet.Common.Utility
         /// <param name="value"></param>
         public static void SetRemove(string key, string value)
         {
-            RedisDbHelper.redisDb.SetRemove(key, value);
+            RedisDbHelper.GetRedisDb().SetRemove(key, value);
         }
 
         /// <summary>
@@ -573,7 +586,7 @@ namespace Dev.WooNet.Common.Utility
         /// <param name="key"></param>
         public static void SetScan(string key)
         {
-            RedisDbHelper.redisDb.SetScan(key);
+            RedisDbHelper.GetRedisDb().SetScan(key);
         }
 
 
@@ -583,7 +596,7 @@ namespace Dev.WooNet.Common.Utility
 
         public static void Method(string key, string value, double score)
         {
-            RedisDbHelper.redisDb.SortedSetAdd(key, new SortedSetEntry[] { new SortedSetEntry(value, score) });
+            RedisDbHelper.GetRedisDb().SortedSetAdd(key, new SortedSetEntry[] { new SortedSetEntry(value, score) });
         }
 
         #endregion

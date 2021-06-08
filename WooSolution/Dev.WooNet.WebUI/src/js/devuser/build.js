@@ -39,13 +39,13 @@ layui.config({
    
     //提交
     form.on('submit(dev-formAddUser)', function (data) {
-
         var postdata = data.field;
         //无赖之举目前没有更好办法，如果不这样制定一个int的id到后端API接收时对象为null
         postdata.Id = $devId > 0 ? $devId : 0;
 
         //表单验证
         if (winui.verifyForm(data.elem)) {
+           
             $.ajax({
                 type: 'POST',
                 url: devsetter.devuserurl + 'api/DevUser/userSave',
@@ -93,10 +93,12 @@ layui.config({
     }
     /**关闭窗体 */
     function closeWin() {
+        
         if ($devId > 0) {
             top.winui.window.close('win_updateuser');
         } else {
             top.winui.window.close('win_adduser');
+
         }
     }
     /**提交成功 */
@@ -104,7 +106,8 @@ layui.config({
         if (json.Result) {
             msg('操作成功');
             closeWin();
-            //parent.table.reload(tableId, {});
+            top.winui.window.tablelaod({id:'22'});
+            
         } else {
             msg(json.msg)
         }
