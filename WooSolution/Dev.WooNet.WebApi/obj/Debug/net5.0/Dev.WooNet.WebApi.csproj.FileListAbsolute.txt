@@ -146,3 +146,6 @@ E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\System.IdentityModel.T
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\EPPlus.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IO.RecyclableMemoryStream.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\System.Xml.XPath.XmlDocument.dll

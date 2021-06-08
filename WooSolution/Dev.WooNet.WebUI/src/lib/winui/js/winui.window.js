@@ -42,7 +42,6 @@ layui.define(['layer', 'winui','table'], function (exports) {
     }
     //打开窗口
     WinLayer.prototype.open = function (options) {
-        debugger;
         var windowfunc = this;
         //获取window，判断window是否存在
         if (common.getWindow(options.id)) {

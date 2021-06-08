@@ -65,6 +65,7 @@ namespace Dev.WooNet.WooService
                             Dpath = a.Dpath,
                             Leaf = a.Leaf,
                             CateName = "",
+                           
                             PName = DevDb.Set<DevDepartment>().AsNoTracking().Where(d => a.Pid == d.Id).Any() ? DevDb.Set<DevDepartment>().AsNoTracking().Where(d => a.Pid == d.Id).FirstOrDefault().Name : "",
                            
 
@@ -86,7 +87,7 @@ namespace Dev.WooNet.WooService
                             Dpath = a.Dpath,
                             Leaf = a.Leaf,
                             CateName = "",
-                            PName = a.PName, 
+                            PName = a.PName,
                             IsMainDic = EmunUtility.GetDesc(typeof(IsYesNOEnum), a.IsMain ?? 0),
 
                         };

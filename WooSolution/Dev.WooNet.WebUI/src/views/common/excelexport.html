@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+</head>
+<body>
+<div class="layui-form layui-text-center" id="ExportExcelSet">
+    <div class="layui-card ">
+        <div class="layui-card-body" style="padding: 15px;">
+            <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                    <div class="layui-input-block">
+                        <input type="radio" name="selrow" value="0" title="所有行(当前所有行)">
+                    </div>
+                </div>
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                    <div class="layui-input-block">
+                        <input type="radio" name="selrow" value="1" title="所选行(当前所选择的行)" checked>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                    <div class="layui-input-block">
+                        <input type="radio" name="selcell" value="0" title="所有列(全部数据列)">
+                    </div>
+                </div>
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                    <div class="layui-input-block">
+                        <input type="radio" name="selcell" value="1" title="所选列(当前显示数据列)" checked>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/lib/layui/layui.js"></script>
+    <script> 
+        layui.config({
+            base: '../../js/'
+        }).extend({
+            rolelist:'devrole/list'
+        })
+        .use('rolelist');
+    </script>
+</body>

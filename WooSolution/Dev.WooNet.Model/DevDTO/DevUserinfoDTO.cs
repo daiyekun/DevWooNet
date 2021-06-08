@@ -1,4 +1,5 @@
 ﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace Dev.WooNet.Model.DevDTO
     /// <summary>
     /// 显示类
     /// </summary>
-    public class DevUserinfoDTO: DevUserinfo, IModelDTO
+    public class DevUserinfoDTO: DevUserinfo,IModelDTO,IDevEntityHandle
     {
         /// <summary>
         /// 姓名描述
@@ -25,6 +26,20 @@ namespace Dev.WooNet.Model.DevDTO
         /// 部门名称
         /// </summary>
         public string DeptName { get; set; }
+
+        
+
+        public FieldInfo GetPropValue(string propName)
+        {
+            var fieldinfo = new FieldInfo();
+
+            var obj = this.GetType().GetProperty(propName);
+            fieldinfo.FileType = obj.PropertyType;
+            fieldinfo.FileValue = obj.GetValue(this, null);
+
+            return fieldinfo;
+        }
+
 
     }
 

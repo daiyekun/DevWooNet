@@ -73,7 +73,29 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 
         }
 
-        [Route("list")]
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("restpwd")]
+        [HttpGet]
+        public IActionResult RestPwd(string Ids)
+        {
+            _IDevUserinfoService.RestPwd(Ids);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+
+
+            });
+
+        }
+
+        
+
+         [Route("list")]
         [HttpPost]
         public IActionResult  GetListUser([FromBody] PgRequestInfo pgInfo)
         {
@@ -169,6 +191,27 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             };
             return new JsonResult(ajaxResult);
 
+
+        }
+        [Route("exportexcel")]
+        [HttpPost]
+        /// <summary>
+        /// 导出Excel
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult ExportExcel(ExportRequestInfo exportRequestInfo)
+        {
+
+            var pageInfo = new NoPageInfo<DevUserinfo>();
+            var predicateAnd = PredBuilder.True<DevUserinfo>();
+            //predicateAnd = predicateAnd.And(GetQueryExpression(pageInfo, exportRequestInfo.KeyWord));
+            if (exportRequestInfo.SelRow)
+            {//选择行
+                predicateAnd = predicateAnd.And(p => exportRequestInfo.GetSelectListIds().Contains(p.Id));
+            }
+            var layPage = _IDevUserinfoService.GetList(pageInfo, predicateAnd, a => a.Id, true);
+            var downInfo = DevExportDataHelper.ExportExcelExtend(exportRequestInfo, "系统用户", layPage.data);
+            return File(downInfo.NfFileStream, downInfo.Memi, downInfo.FileName);
 
         }
 

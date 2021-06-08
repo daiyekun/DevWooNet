@@ -7,10 +7,11 @@ layui.config({
    , version: '1.0.0-beta'
 }).extend({
     devsetter:'devextend/devsetter',//配置模块
-  }).define(['form','devsetter'], function(exports){
+  }).define(['form','devsetter','table'], function(exports){
     var $ = layui.$
     ,form=layui.form
     , layer = layui.layer
+    ,table=layui.table
     devsetter=layui.devsetter;
     var index = parent.layer.getFrameIndex(window.name);
     var body = layer.getChildFrame('body', index);
@@ -74,8 +75,102 @@ layui.config({
             });
         
 
+       },
+       openPostWindow: function (url, postData, isBlank) {
+        /// <summary>
+        /// 打开post的新窗口
+        /// </summary>        
+        /// <param name="url" type="String">路径</param>
+        /// <param name="postData" type="Object">Post的数据</param>
+        /// <param name="isBlank" type="Boolean">打开新窗口</param>
+        var form = $('#nfPostWin');
+        form.remove();
+
+        var html = '<form id="nfPostWin" action="' + url + '" target="_blank" method="post"';
+        if (isBlank) {
+            html += ' target="_blank"';
+        }
+        html += '>';
+        for (var key in postData) {
+            var val = postData[key];
+            html += '<input type="hidden" name="' + key + '" value="' + val + '" />';
+        }
+
+        html += '</form>';
+
+        $('body').append(html);
+        form = $('#nfPostWin');
+        form.submit();
+        form.remove();
+    },
+    exportexcel: function (obj, param) {
+        /// <summary>
+        /// 弹出导出Excel设置界面
+        /// </summary>        
+        /// <param name="url" type="String">请求路径</param>
+        /// <param name="postData" type="Object">Post参数</param>
+        var url='/views/common/excelexport.html';
+        layer.open({
+        type: 2
+        , title: '导出数据'
+        , content: url
+        ,closeBtn: 0
+        ,skin: 'layui-layer-lan'
+        , area: ['370px', '360px']
+        , btn: ['导出', '取消']
+        , btnAlign: 'c'
+        , yes: function (index, layero) {
+            var iframeWindow = window['layui-layer-iframe' + index]
+            var selcell = $("input[type=radio][name=selcell]:checked").val();//所选列
+            var selrow = $("input[type=radio][name=selrow]:checked").val();//所选行
+            var selcellfields = [];//选择列字段
+            var selcelltitles = [];//选择列标题
+            var selIds = [];//选择的ID
+            var tbcols = obj.config.cols;
+            if (selcell == 1) {//选择列
+                $.each(tbcols[0], function (n, v) {
+                    if (v.field !== "" && v.field != undefined && !v.hide) {
+                        selcellfields.push(v.field);
+                        selcelltitles.push(v.title);
+
+                    }
+                });
+            } else {//所有数据列
+                $.each(tbcols[0], function (n, v) {
+                    if (v.field !== "" && v.field != undefined) {
+                        selcellfields.push(v.field);
+                        selcelltitles.push(v.title);
+
+                    }
+
+                });
+            }
+            if (selrow == 1) {//所选行
+                var checkStatus = table.checkStatus(obj.config.id);
+                var checkdata = checkStatus.data;
+                if (checkdata.length <= 0) {
+                    return layer.msg('请选择导出数据！');
+                }
+                $.each(checkdata, function (n, v) {
+
+                    selIds.push(v.Id);
+                });
+            }
+            var postdata = {};
+            postdata.Ids = selIds;
+            postdata.SelTitle = selcelltitles;
+            postdata.SelField = selcellfields;
+            postdata.SelCell = selcell == 1;
+            postdata.SelRow = selrow == 1;
+            postdata.KeyWord = param.keyword;
+            wooutil.openPostWindow(param.url, postdata, true);
+            layer.close(index);
+        }, success: function () {
+            $("#ExportExcelSet").removeClass("layui-hide");
+        }
+        });
     }
-    }
+}
     
   
     

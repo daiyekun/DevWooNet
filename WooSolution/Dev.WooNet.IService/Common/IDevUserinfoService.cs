@@ -66,6 +66,12 @@ namespace Dev.WooNet.IWooService
         /// <param name="Pwd">密码</param>
         /// <returns></returns>
         LoginResult Login(string LoginName, string Pwd);
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="Ids">选择用户</param>
+        /// <returns></returns>
+        int RestPwd(string Ids);
 
     }
 }

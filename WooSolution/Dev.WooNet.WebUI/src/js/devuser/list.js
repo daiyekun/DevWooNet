@@ -6,18 +6,19 @@ layui.config({
 }).extend({
     winui: 'winui/winui',
     window: 'winui/js/winui.window',
-    devsetter: 'devextend/devsetter'
-}).define(['table', 'jquery', 'winui', 'window', 'layer', 'devsetter'], function (exports) {
+   // devsetter: 'devextend/devsetter'
+   devindex: 'devextend/devindex',
+}).define(['table', 'jquery', 'winui', 'window', 'layer', 'devindex'], function (exports) {
     winui.renderColor();
     var table = layui.table,
         $ = layui.$,
-        devsetter = layui.devsetter,
+        devsdevindexetter = layui.devindex,
          msg = winui.window.msg
          tableId = 'useridtableid';
     //表格渲染
    
     var tburl=devsetter.devuserurl+"api/DevUser/list";
-    table.render({
+    var usertable=table.render({
         id: tableId,
         elem: '#woouser',
         url:tburl,
@@ -135,13 +136,48 @@ layui.config({
 
         });
     }
+    //重置密码
+    function resetpwd(ids,obj){
+        top.winui.window.confirm('您确定重置您选择用户的密码吗？', { icon: 3, title: '重置密码' }, function (index) {
+            layer.close(index);
+            //向服务端发送指令
+            $.ajax({
+                type: 'GET',
+                url: devsetter.devuserurl + 'api/DevUser/restpwd',
+                //async: false,
+                data: { Ids: ids.toString() },
+                dataType: 'json',
+                success: function (res) {
+                    top.winui.window.msg('操作成功！', {
+                        icon: 1,
+                        time: 2000
+                    });
+
+                },
+                error: function (xml) {
+                    top.winui.window.msg('请求失败', {
+                        // icon: 1,
+                        time: 2000
+                    });
+
+                }
+            });
+
+
+
+
+        });
+
+    }
+
+
     //绑定按钮事件
     $('#addUser').on('click', function () {
 
         openUser('win_adduser', 0, '新增用户');
     });
     //删除按钮
-    $('#deleteRole').on('click', function () {
+    $('#deleteuser').on('click', function () {
         var checkStatus = table.checkStatus(tableId);
         var checkCount = checkStatus.data.length;
         if (checkCount < 1) {
@@ -156,6 +192,25 @@ layui.config({
         });
         deleteUser(ids);
     });
+    //重置密码
+    $('#resetPwd').on('click',function(){
+        
+        var checkStatus = table.checkStatus(tableId);
+        var checkCount = checkStatus.data.length;
+        if (checkCount < 1) {
+            top.winui.window.msg('请选择一条数据', {
+                time: 2000
+            });
+            return false;
+        }
+        var ids = [];
+        $(checkStatus.data).each(function (index, item) {
+            ids.push(item.Id);
+        });
+        resetpwd(ids);
+
+
+    })
     $('#reloadTable').on('click', reloadTable);
     //跳转修改状态界面
     $('#tostate').on('click', function(){
@@ -182,6 +237,7 @@ layui.config({
     $("#btnsearchuser").on('click',function(){
         searchUser();
     });
+
     //用户
     function searchUser() {//查询
         table.reload(tableId, {
@@ -193,6 +249,22 @@ layui.config({
         });
 
     }
+    //导出
+    $("#excelexport").on('click',function(){
+       var $url= devsetter.devuserurl+"api/DevUser/exportexcel";
+
+        wooutil.exportexcel(usertable, { url: $url});
+    });
+ 
+    // table.on('toolbar(usertable)', function (obj) {
+    //     switch (obj.event) {
+    //         case 'excelexport':
+    //             alert(123);
+    //             devsetter.exportexcel(obj, { url: "/Company/Customer/ExportExcel" });
+    //             break;
+
+    //     }
+    // });
   
 
     exports('userlist', {});

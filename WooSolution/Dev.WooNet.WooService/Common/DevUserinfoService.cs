@@ -78,7 +78,7 @@ namespace Dev.WooNet.WooService
                             Name = a.Name,//登录名称
                             ShowName = a.ShowName,//显示名称
                             Sex = a.Sex,//性别
-                            SexDic= EmunUtility.GetDesc(typeof(UserStateEnum), a.Sex??2),
+                            SexDic= EmunUtility.GetDesc(typeof(UserSexEnum), a.Sex??2),
                             Age = a.Age,//年龄
                             Tel = a.Tel,//电话
                             Mobile = a.Mobile,//移动电话
@@ -92,6 +92,7 @@ namespace Dev.WooNet.WooService
                             WxCode = a.WxCode,//微信账号
                             CreateDatetime = a.CreateDatetime,
                             CreateUserId = a.CreateUserId,
+                            DeptName = DevRedisUtility.GetDeptName(a.Id),
 
                         };
             return new AjaxListResult<DevUserinfoDTO>()
@@ -152,7 +153,7 @@ namespace Dev.WooNet.WooService
                             WxCode = a.WxCode,//微信账号
                             CreateDatetime = a.CreateDatetime,
                             CreateUserId = a.CreateUserId,
-                            DeptName= RedisUtility.HashGet($"{RedisKeys.RedisdeptKey}","Name")
+                            DeptName= DevRedisUtility.GetDeptName(a.Id),
 
                         };
             return local.ToList();
@@ -212,6 +213,32 @@ namespace Dev.WooNet.WooService
 
 
         }
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="Ids">选择用户</param>
+        /// <returns></returns>
+        public int RestPwd(string Ids)
+        {
+           var listids= StringHelper.String2ArrayInt(Ids);
+            var list = DevDb.Set<DevUserinfo>().Where(a => listids.Contains(a.Id)).ToList();
+            IList<DevUserinfo> users = new List<DevUserinfo>();
+            foreach (var item in list)
+            {
+               
+                item.Pwd = EncryptUtility.PwdToMD5("1", item.Name);
+               
+                users.Add(item);
+            }
+
+            Update(users);
+            return users.Count();
+
+
+
+
+        }
+            
         /// <summary>
         /// 删除用户信息
         /// </summary>
@@ -276,7 +303,7 @@ namespace Dev.WooNet.WooService
                             WxCode = a.WxCode,//微信账号
                             CreateDatetime = a.CreateDatetime,
                             CreateUserId = a.CreateUserId,
-                            DeptName = RedisUtility.HashGet($"{RedisKeys.RedisdeptKey}", "Name")
+                            DeptName = DevRedisUtility.GetDeptName(a.Id),
 
                         };
             return local.FirstOrDefault();

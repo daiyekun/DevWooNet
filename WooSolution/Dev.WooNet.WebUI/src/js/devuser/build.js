@@ -104,9 +104,14 @@ layui.config({
     /**提交成功 */
     function submitsuccess(json) {
         if (json.Result) {
-            msg('操作成功');
-            closeWin();
-            top.winui.window.tablelaod({id:'22'});
+            top.winui.window.msg('操作成功', {
+                icon: 1
+            },function(){
+                closeWin();
+                top.winui.window.tablelaod({id:'22'});
+            });
+           
+            
             
         } else {
             msg(json.msg)

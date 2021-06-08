@@ -6,6 +6,7 @@
     <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
     <link href="../../lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/devcommon.css" rel="stylesheet"/>
 </head>
 <body>
 <div style="margin:0 auto;padding-top:20px;">
@@ -19,13 +20,14 @@
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">登录名</label>
                         <div class="layui-input-block">
-                            <input type="text" name="Name" lay-verify="required" placeholder="必填" autocomplete="off" class="layui-input pen" />
+                           
+                            <input type="text" name="Name" lay-verify="required" placeholder="必填" class="layui-input dev-input-pen" />
                         </div>
                     </div>
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">显示名称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="ShowName" lay-verify="required" autocomplete="off" class="layui-input pen" placeholder="必填" />
+                            <input type="text" name="ShowName" lay-verify="required" autocomplete="off" class="layui-input dev-input-pen" placeholder="必填"  />
                         </div>
                     </div>
                     
@@ -34,7 +36,7 @@
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">所属机构</label>
                         <div class="layui-input-block">
-                            <input type="text" id="NF-PDept" lay-verify="required" lay-filter="NF-PDept" name="DepId"  value="0" class="layui-input" />
+                            <input type="text" id="NF-PDept" lay-verify="required" lay-filter="NF-PDept" name="DepId"  value="0" class="layui-input dev-input-pen" />
                         </div>
                     </div>
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
@@ -54,13 +56,13 @@
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">密码</label>
                         <div class="layui-input-block">
-                            <input type="password" name="Pwd" id="Pwd" lay-verify="required" class="layui-input">
+                            <input type="password" name="Pwd" id="Pwd" lay-verify="required" class="layui-input dev-input-pen">
                         </div>
                     </div>
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">确认密码</label>
                         <div class="layui-input-block">
-                            <input type="password" name="TowPwd" id="TowPwd" lay-verify="required|querenpwd" class="layui-input" />
+                            <input type="password" name="TowPwd" id="TowPwd" lay-verify="required|querenpwd" class="layui-input dev-input-pen" />
 
                         </div>
                     </div>
@@ -86,7 +88,7 @@
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">邮箱</label>
                         <div class="layui-input-block">
-                            <input type="text" name="Email" lay-verify="email" class="layui-input">
+                            <input type="text" name="Email" lay-verify="email" class="layui-input dev-input-pen">
                         </div>
                     </div>
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
