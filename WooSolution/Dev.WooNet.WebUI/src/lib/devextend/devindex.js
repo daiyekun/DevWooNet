@@ -15,6 +15,13 @@ layui.config({
     devsetter=layui.devsetter;
     var index = parent.layer.getFrameIndex(window.name);
     var body = layer.getChildFrame('body', index);
+    $.download = function (url, method, filedir, filename) {
+        $('<form action="' + url + '" method="' + (method || 'post') + '">' +  // action请求路径及推送方法
+                    '<input type="text" name="filedir" value="' + filedir + '"/>' + // 文件路径
+                    '<input type="text" name="filename" value="' + filename + '"/>' + // 文件名称
+                '</form>')
+        .appendTo('body').submit().remove();
+    };
     //一些工具类
     wooutil = {
       getUrlVars: function () {
@@ -76,6 +83,28 @@ layui.config({
         
 
        },
+       subitexel:function(postdata){
+      
+        $.ajax({
+            type: 'POST',
+            url:  devsetter.devuserurl+"api/DevUser/exportexcel",
+            //async: false,
+            processData: false,
+            data: JSON.stringify(postdata),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (json) {
+                // debugger;
+                // $.download(devsetter.devuserurl, 'post', 'Uploads/ExcelExport', '系统用户.xlsx');
+               window.open(devsetter.devuserurl+'Uploads/ExcelExport'+'/系统用户.xlsx');
+
+            },
+            error: function (xml) {
+               
+            }
+        });
+
+       },
        openPostWindow: function (url, postData, isBlank) {
         /// <summary>
         /// 打开post的新窗口
@@ -85,8 +114,8 @@ layui.config({
         /// <param name="isBlank" type="Boolean">打开新窗口</param>
         var form = $('#nfPostWin');
         form.remove();
-
-        var html = '<form id="nfPostWin" action="' + url + '" target="_blank" method="post"';
+        
+        var html = '<form id="nfPostWin" action="'+url+'" target="_blank" method="post" ';
         if (isBlank) {
             html += ' target="_blank"';
         }
@@ -95,10 +124,12 @@ layui.config({
             var val = postData[key];
             html += '<input type="hidden" name="' + key + '" value="' + val + '" />';
         }
+       
 
         html += '</form>';
 
         $('body').append(html);
+       
         form = $('#nfPostWin');
         form.submit();
         form.remove();
@@ -157,13 +188,14 @@ layui.config({
                 });
             }
             var postdata = {};
-            postdata.Ids = selIds;
-            postdata.SelTitle = selcelltitles;
-            postdata.SelField = selcellfields;
+            postdata.Ids = selIds.toString();
+            postdata.SelTitle = selcelltitles.toString();
+            postdata.SelField = selcellfields.toString();
             postdata.SelCell = selcell == 1;
             postdata.SelRow = selrow == 1;
             postdata.KeyWord = param.keyword;
-            wooutil.openPostWindow(param.url, postdata, true);
+            wooutil.subitexel(postdata);
+            //wooutil.openPostWindow(param.url, postdata, true);
             layer.close(index);
         }, success: function () {
             $("#ExportExcelSet").removeClass("layui-hide");
@@ -173,16 +205,8 @@ layui.config({
 }
     
   
-    
-    
-    
-   
-    
-    
-    
     //加载公共模块
     //layui.use('common');
-  
     //对外输出
     exports('devindex', {
       

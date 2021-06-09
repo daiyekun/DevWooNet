@@ -30,7 +30,7 @@ namespace Dev.WooNet.WebCore.Utility
         {
           
             FileInfo file = CreateExportFile(fileName);
-
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             using (ExcelPackage package = new ExcelPackage(file))
             {
                 // 添加worksheet

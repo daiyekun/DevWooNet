@@ -199,7 +199,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// 导出Excel
         /// </summary>
         /// <returns></returns>
-        public IActionResult ExportExcel(ExportRequestInfo exportRequestInfo)
+        public IActionResult ExportExcel([FromBody] ExportRequestInfo exportRequestInfo)
         {
 
             var pageInfo = new NoPageInfo<DevUserinfo>();
@@ -211,7 +211,14 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             }
             var layPage = _IDevUserinfoService.GetList(pageInfo, predicateAnd, a => a.Id, true);
             var downInfo = DevExportDataHelper.ExportExcelExtend(exportRequestInfo, "系统用户", layPage.data);
-            return File(downInfo.NfFileStream, downInfo.Memi, downInfo.FileName);
+            // return File(downInfo.NfFileStream, downInfo.Memi, downInfo.FileName);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+
+
+            });
 
         }
 

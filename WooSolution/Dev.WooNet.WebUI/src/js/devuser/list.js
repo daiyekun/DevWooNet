@@ -256,15 +256,7 @@ layui.config({
         wooutil.exportexcel(usertable, { url: $url});
     });
  
-    // table.on('toolbar(usertable)', function (obj) {
-    //     switch (obj.event) {
-    //         case 'excelexport':
-    //             alert(123);
-    //             devsetter.exportexcel(obj, { url: "/Company/Customer/ExportExcel" });
-    //             break;
-
-    //     }
-    // });
+    
   
 
     exports('userlist', {});
