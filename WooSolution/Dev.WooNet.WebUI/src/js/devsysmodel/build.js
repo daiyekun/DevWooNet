@@ -15,40 +15,26 @@ layui.config({
         msg = winui.window.msg
         ,laydate=layui.laydate
         ,form = layui.form
-        , tableId = 'useridtableid'
         ;
     var $devId = wooutil.getUrlVar('Id');
-    //自定义验证
-     //自定义验证规则
-  form.verify({
-    querenpwd: function(value){
-      var pwd=$("#Pwd").val();
-      var TowPwd=$("#TowPwd").val();//确认密码
-      if(pwd!==TowPwd){
-        return '两次输入密码不一致！';
-
-      }
-    }
    
-    
-  });
-  //日期
-  laydate.render({
-    elem: '#EntryDatetime'
-  });
-   
+ 
     //提交
-    form.on('submit(dev-formAddUser)', function (data) {
+    form.on('submit(dev-formAddSysModel)', function (data) {
         var postdata = data.field;
         //无赖之举目前没有更好办法，如果不这样制定一个int的id到后端API接收时对象为null
+        if(postdata.Pid==""){
+            postdata.Pid=0;
+        }
         postdata.Id = $devId > 0 ? $devId : 0;
-
+        postdata.id= $devId > 0 ? $devId : 0;
+        postdata.pid=0;
         //表单验证
         if (winui.verifyForm(data.elem)) {
            
             $.ajax({
                 type: 'POST',
-                url: devsetter.devuserurl + 'api/DevUser/userSave',
+                url: devsetter.devuserurl + 'api/DevSysModel/Save',
                 //async: false,
                 processData: false,
                 data: JSON.stringify(postdata),
@@ -72,21 +58,24 @@ layui.config({
         return false;
     });
     /*********
-    *所属部门树形初始化
+    *上级菜单
      *********/
-    function InitDeptTree(tvl) {
+    
+    function InitsysmodelTree(tvl) {
         treeSelect.render(
             {
-                elem: "#NF-PDept",
-                data: devsetter.devuserurl + 'api/DevDepart/GetTree',
+                elem: "#Pid",
+                data: devsetter.devuserurl+"api/DevSysModel/GetSelectTree?rand=" + wooutil.getRandom(),
                 method: "GET",
                 verify: true,
                 click: function (d) {
-                    $("input[name=DepId]").val(d.current.id);
+                    
+                    $("#pid").val(d.current.id);
+                    $("#Pid").val(d.current.id);
                 },
                 success: function (d) {
                     if (tvl != null) {
-                        treeSelect.checkNode("NF-PDept", tvl);
+                        treeSelect.checkNode("Pid", tvl);
                     }
                 }
             });
@@ -95,9 +84,9 @@ layui.config({
     function closeWin() {
         
         if ($devId > 0) {
-            top.winui.window.close('win_updateuser');
+            top.winui.window.close('win_updatesysmodel');
         } else {
-            top.winui.window.close('win_adduser');
+            top.winui.window.close('win_addsysmodel');
 
         }
     }
@@ -108,11 +97,9 @@ layui.config({
                 icon: 1
             },function(){
                 closeWin();
-                top.winui.window.tablelaod({id:'22'});
+                top.winui.window.tablelaod({id:'2'});
             });
-           
-            
-            
+
         } else {
             msg(json.msg)
         }
@@ -127,17 +114,18 @@ layui.config({
         if ($devId !== "" && $devId !== undefined) {
             $.ajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevUser/showView',
+                url: devsetter.devuserurl + 'api/DevSysModel/showView',
                 //async: false,
                 data: { Id: $devId },
                 dataType: 'json',
                 success: function (res) {
-                    form.val("DEV-UserForm", res.data);
+                    form.val("DEV-SysMoelForm", res.data);
                     //下拉树（所属机构）,必须放到设置值以后，不然修改时设置不稳定
 
                    
-                    InitDeptTree(res.data.DepId);
+                    InitsysmodelTree(res.data.Pid);
                     $("#Id").val(res.data.Id);
+                   // $("#id").val(res.data.Id);
                 },
                 error: function (xml) {
                     msg('加载失败!');
@@ -147,11 +135,11 @@ layui.config({
 
 
         } else {
-            InitDeptTree(null);
+            InitsysmodelTree(null);
         }
     }
     //执行赋值表单
     devSetValues();
-    form.render(null, 'DEV-UserForm');
-    exports('userbuild', {});
+    form.render(null, 'DEV-SysMoelForm');
+    exports('sysmodelbuild', {});
 });

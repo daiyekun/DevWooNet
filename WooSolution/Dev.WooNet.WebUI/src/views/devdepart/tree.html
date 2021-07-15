@@ -17,35 +17,13 @@
   <script src="/lib/layui/layui.js"></script>
   <script>
     layui.config({
-            base: '../../js/'
-        }).extend({
-          departtree:'devdepart/departtree',
-            
-        })
-        .use('departtree');
-</script>
-  <script>
-    layui.config({
       base: '../../js/'
     }).extend({
-      devsetter: 'devextend/devsetter'
+     deptree:'devdepart/deptree'
 
 
-    })
-      .define(['tree', 'util','devsetter'], function () {
-        var tree = layui.tree
-          , layer = layui.layer
-          ,$ = layui.$
-          ,devsetter=layui.devsetter
-          , util = layui.util;
-        var data1 = [];
-
-        //查询组织机构Tree
-       
-    
-        
-
-      });
+    }).use('deptree');
+     
   </script>
 </body>
 

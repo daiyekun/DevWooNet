@@ -245,6 +245,7 @@ namespace Dev.WooNet.WooService
         /// <returns></returns>
         private DevDepartment AddSave(DevDepartment deptInfo, DevDeptmain deptMain)
         {
+           
             deptInfo.IsDelete = 0;
             deptInfo.Dstatus = 1;
             var tmpInfo = Add(deptInfo);
@@ -401,6 +402,7 @@ namespace Dev.WooNet.WooService
         /// <returns></returns>
         public int DeleteDept(string ids)
         {
+            RedisUtility.KeyDeleteAsync(RedisKeys.Reisdeptredilist);
             StringBuilder builder = new StringBuilder();
             builder.Append($"update dev_deptmain set IsDelete=1 where DeptId in({ids});");
             builder.Append($"update dev_department set IsDelete=1 where Id in({ids});");

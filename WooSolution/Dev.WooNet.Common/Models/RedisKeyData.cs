@@ -38,7 +38,7 @@ namespace Dev.WooNet.Common.Models
         /// <summary>
         /// 系统菜单
         /// </summary>
-        public static  string SysModel = "sysmodel";
+        public static  string SysModellist = "sysmodelList";
 
     }
 }

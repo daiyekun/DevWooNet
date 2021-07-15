@@ -9,24 +9,23 @@ namespace Dev.WooNet.Model.Enums
 {
 
     /// <summary>
-    ///  部门状态枚举
+    /// 页面类型
     /// </summary>
-    [EnumClass(Max = 3, Min = 0, None = -1)]
-    public enum DepartStateEnums
+    [EnumClass(Max = 5, Min = 0, None = -1)]
+    public enum PageTypeEnum
     {
         /// <summary>
-        /// 启用：1
+        /// Iframe：1
         /// </summary>
-        [EnumItem(Value = 1, Desc = "启用")]
-        QiYong = 1,
+        [EnumItem(Value = 1, Desc = "Iframe")]
+        Iframe = 1,
         /// <summary>
-        /// 禁用:0
+        /// html:0
         /// </summary>
-        [EnumItem(Value = 0, Desc = "禁用")]
-        JinYong = 0,
+        [EnumItem(Value = 0, Desc = "html")]
+        html = 0,
 
-    }
 
-   
+    
 }
-
+}

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
@@ -8,6 +9,7 @@ using Dev.WooNet.Model.Models;
 using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using NF.Common.Utility;
 using System;
 using System.Collections.Generic;
@@ -25,12 +27,15 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         private IDevUserinfoService _IDevUserinfoService;
         private IMapper _IMapper;
         private IDevUserRoleService _IDevUserRoleService;
+        private IConfiguration _Configuration;
         public DevUserController(IDevUserinfoService DevUserinfoService
-            ,IMapper iMapper, IDevUserRoleService iDevUserRoleService)
+            ,IMapper iMapper, IDevUserRoleService iDevUserRoleService
+            , IConfiguration configuration)
         {
             _IDevUserinfoService = DevUserinfoService;
             _IMapper = iMapper;
             _IDevUserRoleService = iDevUserRoleService;
+            _Configuration = configuration;
         }
         /// <summary>
         /// 用户新增修改
@@ -212,13 +217,22 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             var layPage = _IDevUserinfoService.GetList(pageInfo, predicateAnd, a => a.Id, true);
             var downInfo = DevExportDataHelper.ExportExcelExtend(exportRequestInfo, "系统用户", layPage.data);
             // return File(downInfo.NfFileStream, downInfo.Memi, downInfo.FileName);
-            return new DevResultJson(new AjaxResult()
+            
+            var excelfile = new ExportFileInfo
             {
-                msg = "success",
-                code = (int)MessageEnums.success,
+                FileName = downInfo.FileName,
+                Memi = downInfo.Memi,
+                FilePath = $"Uploads/{EmunUtility.GetDesc(typeof(DevFoldersEnum), 3)}",
+                DowIp= _Configuration["DevAppSeting:filedownIp"]
 
 
-            });
+            };
+           var  ajaxResult = new AjaxResult<ExportFileInfo>()
+            {
+                Result = true,
+                data = excelfile
+           };
+            return new JsonResult(ajaxResult);
 
         }
 

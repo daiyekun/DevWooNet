@@ -101,7 +101,12 @@ layui.config({
     function deleteUser(ids, obj) {
         var msg = obj ? '确认删除数据【' + obj.data.ShowName + '】吗？' : '确认删除选中数据吗？'
         top.winui.window.confirm(msg, { icon: 3, title: '删除系统数据' }, function (index) {
-            layer.close(index);
+            if(obj){
+                layer.close(index);
+            }else{
+                top.layer.close(index);
+
+            }
             //向服务端发送删除指令
             $.ajax({
                 type: 'GET',

@@ -51,4 +51,29 @@ namespace Dev.WooNet.Model.ExtendModel
 
 
     }
+    /// <summary>
+    /// 导出文件承载体
+    /// </summary>
+    public class ExportFileInfo
+    {
+        /// <summary>
+        ///下载Ip
+        /// </summary>
+       public string DowIp { get; set; }
+        /// <summary>
+        /// 下载文件
+        /// </summary>
+        public string FileName { get; set; }
+        /// <summary>
+        /// 文件夹路径
+        /// </summary>
+
+        public string FilePath { get; set; }
+        /// <summary>
+        /// 文件后缀
+        /// </summary>
+        public string Memi { get; set; }
+    }
+
+
 }

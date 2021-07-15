@@ -384,26 +384,7 @@ namespace Dev.WooNet.Model.Models
             {
                 entity.ToTable("dev_sysmodel");
 
-                entity.Property(e => e.ActionName)
-                    .IsRequired()
-                    .HasColumnType("varchar(50)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
-
-                entity.Property(e => e.AreaName)
-                    .IsRequired()
-                    .HasColumnType("varchar(100)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
-
                 entity.Property(e => e.Code)
-                    .IsRequired()
-                    .HasColumnType("varchar(50)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
-
-                entity.Property(e => e.ControllerName)
-                    .IsRequired()
                     .HasColumnType("varchar(50)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
@@ -411,14 +392,13 @@ namespace Dev.WooNet.Model.Models
                 entity.Property(e => e.CreateDatetime).HasColumnType("datetime");
 
                 entity.Property(e => e.Ico)
-                    .HasColumnType("varchar(100)")
+                    .HasColumnType("varchar(500)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.ModifyDatetime).HasColumnType("datetime");
 
                 entity.Property(e => e.Mpath)
-                    .IsRequired()
                     .HasColumnType("varchar(500)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
@@ -430,7 +410,6 @@ namespace Dev.WooNet.Model.Models
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.Remark)
-                    .IsRequired()
                     .HasColumnType("varchar(500)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
@@ -438,6 +417,12 @@ namespace Dev.WooNet.Model.Models
                 entity.Property(e => e.RequestUrl)
                     .IsRequired()
                     .HasColumnType("varchar(500)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Title)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
             });

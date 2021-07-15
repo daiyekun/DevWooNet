@@ -7,26 +7,22 @@ using System.Threading.Tasks;
 
 namespace Dev.WooNet.Model.Enums
 {
-
     /// <summary>
-    ///  部门状态枚举
+    /// 是、否
     /// </summary>
-    [EnumClass(Max = 3, Min = 0, None = -1)]
-    public enum DepartStateEnums
+    [EnumClass(Max = 5, Min = 0, None = -1)]
+    public enum IsYesNOEnum
     {
         /// <summary>
-        /// 启用：1
+        /// 否：0
         /// </summary>
-        [EnumItem(Value = 1, Desc = "启用")]
-        QiYong = 1,
+        [EnumItem(Value = 0, Desc = "否")]
+        No = 0,
         /// <summary>
-        /// 禁用:0
+        /// 是:1
         /// </summary>
-        [EnumItem(Value = 0, Desc = "禁用")]
-        JinYong = 0,
-
+        [EnumItem(Value = 1, Desc = "是")]
+        Yes = 1,
     }
-
-   
 }
 

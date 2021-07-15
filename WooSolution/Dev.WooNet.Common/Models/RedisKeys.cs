@@ -23,5 +23,9 @@ namespace Dev.WooNet.Common.Models
        /// 用户key
        /// </summary>
         public static readonly string RedisUserKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Devusers}";
+        /// <summary>
+        /// 系统菜单集合
+        /// </summary>
+        public static readonly string RedisSysModellist= $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.SysModellist}";
     }
 }

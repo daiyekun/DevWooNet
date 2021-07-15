@@ -29,8 +29,10 @@ namespace Dev.WooNet.AutoMapper.ProFiles
               .ForMember(a => a.Mstart, opt => opt.MapFrom(src => 0))
             ;
             CreateMap<DevRoleDTO, DevRole>();
-            
+            //系统模块
+            CreateMap<DevSysmodelDTO, DevSysmodel>();
 
+            
             //.ForMember(a => a.ContId, opt => opt.Ignore())
             //.ForMember(a => a.CreateUserId, opt => opt.Ignore())
             //.ForMember(a => a.CreateDateTime, opt => opt.Ignore())

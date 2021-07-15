@@ -94,9 +94,11 @@ layui.config({
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (json) {
+               
                 // debugger;
                 // $.download(devsetter.devuserurl, 'post', 'Uploads/ExcelExport', '系统用户.xlsx');
-               window.open(devsetter.devuserurl+'Uploads/ExcelExport'+'/系统用户.xlsx');
+              // window.open(devsetter.devuserurl+'Uploads/ExcelExport'+'/系统用户.xlsx');
+              window.open(devsetter.devuserurl+json.data.filePath+'/'+json.data.fileName);
 
             },
             error: function (xml) {
