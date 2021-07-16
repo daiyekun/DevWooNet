@@ -7,6 +7,7 @@
     <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
     <link href="../../lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
     <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/devcommon.css" rel="stylesheet" />
 </head>
 <body>
     <div class="layui-fluid">
@@ -21,31 +22,34 @@
                     <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                         <label class="layui-form-label">角色名称</label>
                         <div class="layui-input-block">
-                            <input type="text" name="Name" lay-verify="required" placeholder="必填"  class="layui-input dev-input-pen" />
+                            <input type="text" name="Name"   class="layui-input devview" />
                         </div>
                     </div>
-                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
-                        <label class="layui-form-label">编号</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="Code" lay-verify="required"  class="layui-input pen" placeholder="必填" />
-                        </div>
-                    </div>
+                  
                     
                 </div>
-                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
-                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
-                        <label class="layui-form-label">说明</label>
-                        <div class="layui-input-block">
-                            <textarea name="Remark"  class="layui-textarea"></textarea>
-                           
-                        </div>
-                    </div> 
-
+               
+                <div class="layui-form-item">
                 </div>
                
             </div>
         </div>
-        <!--部门基本信息end-->
+        <!--基本信息end-->
+         <!-- 菜单选择区begin -->
+        <div class="layui-card">
+            <div class="layui-card-header">权限范围</div>
+            <div class="layui-card-body" style="padding: 15px;">
+            <div class="layui-form-item" id="rolemodelchkdiv">
+
+                
+                
+        
+            </div>
+        </div>
+
+
+        </div>
+        <!-- 菜单选择区-end -->
       
         <!--按钮begin-->
         <div class="layui-form-item">
@@ -67,10 +71,10 @@
     layui.config({
             base: '../../js/'
         }).extend({
-            rolebuild:'devrole/build',
+            setsysmodel:'devrole/setsysmodel',
             
         })
-        .use('rolebuild');
+        .use('setsysmodel');
 </script>
 </body>
 </html>

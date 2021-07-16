@@ -268,5 +268,118 @@ namespace Dev.WooNet.WooService
 
             return result;
         }
+
+        #region 根据角色获取菜单数据
+        /// <summary>
+        /// 角色菜单集合
+        /// </summary>
+        /// <returns></returns>
+        public IList<DevModelCheck> GetModelChecks(int roleId)
+        {
+            IList<DevModelCheck> listChecks = new List<DevModelCheck>();
+            var listAll = GetListAll();
+            var listrolemodel = GetRoleModel(roleId);
+            var list = listAll.Where(a => a.IsDelete == 0 && a.IsShow == 1).ToList();
+            foreach (var item in list.Where(a => a.Pid == 1))//排除pid=0的菜单。从实际一级菜单开始
+            {
+                var chkmodel = new DevModelCheck();
+                chkmodel.Id = item.Id;
+                chkmodel.Name = item.Name;
+                chkmodel.Chk = listrolemodel.Any(a => a.Mid == item.Id);//是否存在
+                ChrenModelNode(list, chkmodel, item, listrolemodel);
+                listChecks.Add(chkmodel);
+
+            }
+            return listChecks;
+        }
+
+        /// <summary>
+        /// 根据校色获取菜单
+        /// </summary>
+        /// <returns></returns>
+        public IList<DevRoleModule> GetRoleModel(int roleId)
+        {
+            var list = DevDb.Set<DevRoleModule>().Where(a => a.Rid == roleId).ToList();
+            return list;
+
+        }
+
+        /// <summary>
+        /// 递归
+        /// </summary>
+        /// <param name="listmodels">菜单集合</param>
+        /// <param name="Info">循环对象</param>
+        /// <param name="item">父类对象</param>
+        public void ChrenModelNode(IList<DevSysmodelDTO> listmodels,
+            DevModelCheck Info, DevSysmodelDTO item, IList<DevRoleModule> roleModules)
+        {
+            var listchren = listmodels.Where(a => a.Pid == item.Id);
+            var listchrennode = new List<DevModelCheck>();
+            if (listchren.Any())
+            {
+                foreach (var chrenItem in listchren.ToList())
+                {
+                    DevModelCheck chckmodel = new DevModelCheck();
+                    chckmodel.Id = chrenItem.Id;
+                    chckmodel.Name = chrenItem.Name;
+                    chckmodel.Chk = roleModules.Any(a=>a.Mid== chrenItem.Id);
+                   
+                    ChrenModelNode(listmodels, chckmodel, chrenItem, roleModules);
+                    listchrennode.Add(chckmodel);
+                }
+                Info.ChildrenItem = listchrennode;
+
+            }
+
+
+
+        }
+        /// <summary>
+        /// 保存角色模块
+        /// </summary>
+        /// <param name="rolemodel">角色模块对象</param>
+
+        public IList<DevRoleModule> SaveRolemodel(RoleModel rolemodel)
+        {
+            string strsql = $"delete from dev_role_module where Rid={rolemodel.RoleId} and Mid in({rolemodel.ModelIds})";
+            ExecuteSqlCommand(strsql);
+            var mIds = StringHelper.String2ArrayInt(rolemodel.ModelIds);
+            IList<DevRoleModule> roleModules = new List<DevRoleModule>();
+            var listAll = GetListAll();
+            foreach (var mid in mIds)
+            {
+                var info = new DevRoleModule();
+                info.Rid = rolemodel.RoleId;
+                info.Mid = mid;
+                roleModules.Add(info);
+
+                var minfo = listAll.FirstOrDefault(a => a.Id == mid);
+                if (minfo != null)
+                {   //防止遗漏父类-->pid=0的父类不要
+                    var pinfo = listAll.FirstOrDefault(a => a.Id == minfo.Pid && a.Pid != 0);
+                    if (pinfo !=null&& !roleModules.Any(a=>a.Mid== pinfo.id))
+                    {
+                       var  tpinfo = new DevRoleModule();
+                        tpinfo.Rid= rolemodel.RoleId;
+                        tpinfo.Mid = pinfo.Id;
+                        roleModules.Add(tpinfo);
+                    }
+                }
+                
+
+            }
+
+
+            this.DevDb.Set<DevRoleModule>().AddRange(roleModules);
+            this.SaveChanges();//一个链接  多个sql
+            return roleModules;
+
+        }
+
+
+        #endregion
+
+
+
     }
 }

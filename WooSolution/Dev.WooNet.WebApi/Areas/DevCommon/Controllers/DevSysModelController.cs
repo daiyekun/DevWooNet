@@ -148,6 +148,45 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             });
 
         }
+        /// <summary>
+        /// 根据角色ID获取菜单集合
+        /// </summary>
+        /// <returns></returns>
+        [Route("getmodelchecks")]
+        [HttpGet]
+
+        public IActionResult GetModelChecks(int roleId)
+        {
+            return new DevResultJson(new AjaxResult<IList<DevModelCheck>>()
+            {
+                msg = "",
+                code = 0,
+                data = _IDevSysmodelService.GetModelChecks(roleId)
+
+
+            });
+        }
+        /// <summary>
+        /// 新增角色模块权限
+        /// </summary>
+        /// <param name="rolemodel">角色模块</param>
+        /// <returns></returns>
+        [Route("saverolemodel")]
+        [HttpPost]
+        public IActionResult Saverolemodel([FromBody] RoleModel rolemodel)
+        {
+
+            _IDevSysmodelService.SaveRolemodel(rolemodel);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+
+
+            });
+
+
+        }
 
     }
 }

@@ -16,4 +16,20 @@ namespace Dev.WooNet.Model.DevDTO
     {
 
     }
+    /// <summary>
+    /// 角色模块
+    /// </summary>
+
+    public class RoleModel
+    {
+        /// <summary>
+        /// 角色ID
+        /// </summary>
+        public int RoleId { get; set; }
+        /// <summary>
+        /// 模块ID
+        /// </summary>
+        public string ModelIds { get; set; }
+
+    }
 }

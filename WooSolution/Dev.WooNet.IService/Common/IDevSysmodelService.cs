@@ -49,6 +49,18 @@ namespace Dev.WooNet.IWooService
         /// <param name="updateField">字段对象</param>
         /// <returns></returns>
         int UpdateField(UpdateField updateField);
-        
+        /// <summary>
+        /// 根据角色菜单集合
+        /// </summary>
+        /// <returns></returns>
+        IList<DevModelCheck> GetModelChecks(int roleId);
+        /// <summary>
+        /// 保存角色模块
+        /// </summary>
+        /// <param name="rolemodel">角色模块对象</param>
+
+        IList<DevRoleModule> SaveRolemodel(RoleModel rolemodel);
+
+
         }
 }

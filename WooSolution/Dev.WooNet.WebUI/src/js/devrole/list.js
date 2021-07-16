@@ -38,8 +38,8 @@ layui.config({
             { field: 'Id', width: 80, title: 'ID', hide: true },
             { field: 'Name', title: '名称', width: 180,templet: '#titleTpl', fixed: 'left' },
             { field: 'Code', title: '编号', width: 140 },
-            { field: 'Remark', title: '说明', width: 300 },
-            { title: '操作', fixed: 'right', align: 'center', toolbar: '#barrole', width: 190 }
+            { field: 'Remark', title: '说明', width: 200 },
+            { title: '操作', fixed: 'right', align: 'center', toolbar: '#barrole', width: 350 }
         ]]
     });
     //监听工具条
@@ -71,6 +71,17 @@ layui.config({
             openrole('win_updaterole', data.Id, '查看角色',true);
             layer.close(index);
 
+
+        }else if(layEvent==='addsysmodel'){//设置菜单
+            var url='/views/devrole/setsysmodel.html?Id='+data.Id;
+            top.winui.window.open({
+                id: 'win_sysmodel',
+                type: 2,
+                title: '菜单设置',
+                content: url,
+                area: ['50vw', '70vh'],
+                offset: ['15vh', '25vw']
+            });
 
         }
     });

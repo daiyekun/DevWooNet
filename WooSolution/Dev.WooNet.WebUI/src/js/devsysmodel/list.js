@@ -107,7 +107,12 @@ layui.config({
     function deleteSysModel(ids, obj) {
         var msg = obj ? '确认删除数据【' + obj.data.Name + '】吗？' : '确认删除选中数据吗？'
         top.winui.window.confirm(msg, { icon: 3, title: '删除系统数据' }, function (index) {
-            parent.layer.close(index);
+            if(obj){
+                layer.close(index);
+            }else{
+                top.layer.close(index);
+
+            }
             //向服务端发送删除指令
             $.ajax({
                 type: 'GET',
