@@ -19,6 +19,8 @@ layui.config({
         ;
 
     //表格渲染
+    var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
+    var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
     var tburl = devsetter.devuserurl + "api/DevDepart/list";
     table.render({
         id: tableId,
@@ -33,6 +35,10 @@ layui.config({
         toolbar:true,
         defaultToolbar: ["filter"],
         page: true,
+        headers: {
+            "Authorization": "Bearer "+ acctoken +""
+            ,loginkey:loginkey
+        },
         limits: devsetter.listtable.mainlistlimits,
         limit: devsetter.listtable.mainlistlimit,
         cols: [[
@@ -48,6 +54,15 @@ layui.config({
             { field: 'Dstatus', title: '状态', width: 100, templet: '#stateTpl' },
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#bardepart', width: 120 }
         ]]
+        ,done:function(res, curr, count){
+            if(res.code==1001)
+            {
+                parent.location.href="/login2.html";
+            }
+            
+
+
+        }
     });
     //监听工具条
     table.on('tool(departtable)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"

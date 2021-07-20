@@ -8,6 +8,7 @@ using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using NF.Common.Utility;
@@ -22,6 +23,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+   
     public class DevUserController : ControllerBase
     {
         private IDevUserinfoService _IDevUserinfoService;
@@ -182,6 +184,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// <returns></returns>
         [Route("query")]
         [HttpGet]
+        [AllowAnonymous]//跳过授权验证
 
         public IActionResult QueryUser(string username,string password)
         {

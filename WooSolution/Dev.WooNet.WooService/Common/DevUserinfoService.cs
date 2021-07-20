@@ -356,7 +356,9 @@ namespace Dev.WooNet.WooService
                     loginuser.ShowName = userinfo.ShowName;
                     loginuser.DeptId = userinfo.DepId??0;
                     loginuser.DeptName = RedisUtility.HashGet($"{RedisKeys.RedisdeptKey}", "Name");
+                    loginuser.RoleIds= GetRoleIdsByUserId(userinfo.Id);
                     loginResult.LoginUser = loginuser;
+                    
                 }
                 else
                 {
@@ -370,6 +372,15 @@ namespace Dev.WooNet.WooService
 
             return loginResult;
 
+        }
+
+        /// <summary>
+        /// 根据用户获取角色Id集合
+        /// </summary>
+        private string GetRoleIdsByUserId(int userId)
+        {
+            var list = DevDb.Set<DevUserRole>().Where(a => a.Uid == userId).Select(a=>a.Rid).ToList();
+            return StringHelper.ArrayInt2String(list) ;
         }
 
 

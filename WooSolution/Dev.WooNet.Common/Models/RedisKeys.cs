@@ -27,5 +27,10 @@ namespace Dev.WooNet.Common.Models
         /// 系统菜单集合
         /// </summary>
         public static readonly string RedisSysModellist= $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.SysModellist}";
+
+        /// <summary>
+        /// token redis key
+        /// </summary>
+        public static readonly string TokenRedis = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DevToken}";
     }
 }

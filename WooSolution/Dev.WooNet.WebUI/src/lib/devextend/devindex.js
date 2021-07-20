@@ -15,6 +15,9 @@ layui.config({
     devsetter=layui.devsetter;
     var index = parent.layer.getFrameIndex(window.name);
     var body = layer.getChildFrame('body', index);
+    devindex = function(id){
+        return new Class(id);
+      }
     $.download = function (url, method, filedir, filename) {
         $('<form action="' + url + '" method="' + (method || 'post') + '">' +  // action请求路径及推送方法
                     '<input type="text" name="filedir" value="' + filedir + '"/>' + // 文件路径
@@ -203,14 +206,49 @@ layui.config({
             $("#ExportExcelSet").removeClass("layui-hide");
         }
         });
-    }
-}
+        },
+        devajax:function(options){
+            
+        /// <summary>
+        /// ajax请求封装
+        /// </summary>        
+        /// <param name="options" type="Object">请求参数</param>
+        var that = this
+        ,success=options.success
+        ,error = options.error
+        options.data = options.data || {};
+        options.headers = options.headers || {};
+        if(devsetter.request.tokenName){//存在token
+            var sendData = typeof options.data === 'string' 
+            ? JSON.parse(options.data) 
+          : options.data;
+          //自动给参数传入默认 token
+          options.data[devsetter.request.tokenName] = devsetter.request.tokenName in sendData
+            ?  options.data[devsetter.request.tokenName]
+          : (layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '');
+          
+          //自动给 Request Headers 传入 token
+          options.headers[devsetter.request.tokenName] = devsetter.request.tokenName in options.headers 
+            ?  options.headers[devsetter.request.tokenName]
+          : (layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '');
+
+        }
+        $.ajax(options);
+       
+
+        }
+    };
+    //一些工具类结束----------------------------------------------------------------
+             
+           
+
     
   
     //加载公共模块
     //layui.use('common');
     //对外输出
-    exports('devindex', {
+    // exports('devindex', {
       
-    });
+    // });
+     exports('devindex', devindex);
   });

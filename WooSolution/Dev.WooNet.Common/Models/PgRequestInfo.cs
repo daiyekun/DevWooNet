@@ -40,5 +40,9 @@ namespace Dev.WooNet.Common.Models
         /// 
         /// </summary>
         public string searchWhre { get; set; }
+        /// <summary>
+        /// token
+        /// </summary>
+        public string acToken { get; set; }
     }
 }

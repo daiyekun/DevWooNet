@@ -18,6 +18,9 @@ layui.config({
     //表格渲染
    
     var tburl=devsetter.devuserurl+"api/DevUser/list";
+    var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
+    var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
+    
     var usertable=table.render({
         id: tableId,
         elem: '#woouser',
@@ -31,6 +34,11 @@ layui.config({
         defaultToolbar: ["filter"],
         even:true,  //隔行变色
         page: true,
+        headers: {
+            "Authorization": "Bearer "+ acctoken +""
+            ,loginkey:loginkey
+        },
+       
         limits:devsetter.listtable.mainlistlimits,
         limit: devsetter.listtable.mainlistlimit,
         cols: [[
@@ -45,7 +53,12 @@ layui.config({
             { field: 'Email', title: '邮箱', width: 130 },
             { field: 'Ustate', title: '状态', width: 60, templet: '#stateTpl' },
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#barUser', width: 120 }
-        ]]
+        ]],
+        done:function(res, curr, count){
+           
+
+
+        }
     });
     //监听工具条
     table.on('tool(usertable)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"

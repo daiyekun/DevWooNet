@@ -1,4 +1,5 @@
 using Dev.WooNet.AutoMapper.Extend;
+using Dev.WooNet.Common.Models;
 using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.Models;
@@ -12,6 +13,7 @@ using log4net.Config;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,6 +23,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,10 +78,11 @@ namespace Dev.WooNet.WebApi
             #endregion
 
             #region jwt校验  HS
+
             JWTTokenOptions tokenOptions = new JWTTokenOptions();
             Configuration.Bind("JWTTokenOptions", tokenOptions);
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//Scheme
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)//Scheme-->JwtBearerDefaults.AuthenticationScheme
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -92,7 +96,27 @@ namespace Dev.WooNet.WebApi
                     ValidIssuer = tokenOptions.Issuer,//Issuer，这两项和前面签发jwt的设置一致
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenOptions.SecurityKey))
                 };
+                //授权失败的时候返回结果
+                options.Events = new JwtBearerEvents
+                {
+                    OnChallenge = context =>{
+                        context.HandleResponse();
+
+                        context.Response.ContentType = "application/json";
+                        context.Response.StatusCode = StatusCodes.Status200OK;
+                        context.Response.WriteAsync(JsonConvert.SerializeObject(new AjaxResult()
+                        {
+                            msg = "没权限访问接口",
+                            code = StatusCodes.Status401Unauthorized,
+                            count = 0
+                        }));
+                        return Task.FromResult(0);
+
+                    }
+
+                };
             });
+
             #endregion
 
 
@@ -107,6 +131,8 @@ namespace Dev.WooNet.WebApi
                 });
             });
             #endregion 跨域
+
+
             //关闭模型验证否则会出现状态400：One or more validation errors occurred.
             services.Configure<ApiBehaviorOptions>(opt => opt.SuppressModelStateInvalidFilter = true);
             //services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
@@ -124,11 +150,18 @@ namespace Dev.WooNet.WebApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dev.WooNet.WebApi v1"));
             }
             //app.UsePreOptionsRequest();
-            app.UseRouting();
-
-            app.UseAuthorization();
             //跨域
             app.UseCors("default");
+
+            #region jwt授权,放在Cors后面，不然存在跨域问题
+            app.UseAuthentication();
+            #endregion
+
+            app.UseRouting();
+           
+          
+            app.UseAuthorization();
+           
             app.UseStaticFiles(new StaticFileOptions
             {
 

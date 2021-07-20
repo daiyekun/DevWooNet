@@ -39,6 +39,10 @@ namespace Dev.WooNet.Common.Models
         /// 系统菜单
         /// </summary>
         public static  string SysModellist = "sysmodelList";
+        /// <summary>
+        /// Token
+        /// </summary>
+        public static string DevToken = "Token";
 
     }
 }

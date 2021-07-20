@@ -79,6 +79,16 @@ namespace Dev.WooNet.Common.Utility
             return RedisDbHelper.GetRedisDb().StringSet(key, Value);
         }
         /// <summary>
+        /// 设置String值
+        /// </summary>
+        /// <param name="key">key</param>
+        /// <param name="Value">值</param>
+        /// <returns>bool True/False</returns>
+        public static bool StringSet(string key, string Value, TimeSpan? expiry = null)
+        {
+            return RedisDbHelper.GetRedisDb().StringSet(key, Value, expiry);
+        }
+        /// <summary>
         /// 将list转化成Json保存到数据库
         /// </summary>
         /// <typeparam name="T">当前对象类型</typeparam>
@@ -412,6 +422,7 @@ namespace Dev.WooNet.Common.Utility
             }
             HashSet(key, hashField, value);
         }
+        
 
         /// <summary>
         /// 为多个哈希字段分别设置它们的值

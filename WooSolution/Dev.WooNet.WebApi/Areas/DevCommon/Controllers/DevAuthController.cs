@@ -41,7 +41,10 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             {
                 if(ajaxResult.data!=null&&ajaxResult.data.LoginUser != null) { 
                 string token = this._iJWTService.GetToken(devLogin.UserName, devLogin.Password, ajaxResult.data.LoginUser);
-                ajaxResult.OtherValue = token;
+                //ajaxResult.OtherValue = token;
+                 ajaxResult.data.Token = token;
+                 ajaxResult.data.LoginKey = EncryptUtility.DesEncrypt(ajaxResult.data.LoginUser.Id.ToString());
+                 TokenSessionUtility.SetTokenToRedis(ajaxResult.data.LoginKey, "1");
                 }
                 else
                 {
@@ -52,6 +55,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             Console.WriteLine($"Accredit Result : {JsonUtility.SerializeObject(ajaxResult)}");
             return new JsonResult(ajaxResult);
         }
+
+
     }
 
     public class DevLoginInfo

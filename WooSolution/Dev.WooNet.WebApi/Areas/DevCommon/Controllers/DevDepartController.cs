@@ -23,6 +23,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [TokenSessionActionFilter]
+    [Microsoft.AspNetCore.Authorization.Authorize]
     public class DevDepartController : ControllerBase
     {
         private IDevDepartmentService _IDevDepartmentService;

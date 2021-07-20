@@ -18,6 +18,8 @@ layui.config({
     //表格渲染
    
     var tburl=devsetter.devbaseurl+"api/DevRole/list";
+    var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
+    var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
     table.render({
         id: tableId,
         elem: '#table-woorole',
@@ -33,6 +35,7 @@ layui.config({
         page: true,
         limits:devsetter.listtable.mainlistlimits,
         limit: devsetter.listtable.mainlistlimit,
+        headers:{acToken:acctoken,loginkey:loginkey},
         cols: [[
             { type: 'checkbox',fixed: 'left' },
             { field: 'Id', width: 80, title: 'ID', hide: true },
@@ -40,7 +43,15 @@ layui.config({
             { field: 'Code', title: '编号', width: 140 },
             { field: 'Remark', title: '说明', width: 200 },
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#barrole', width: 350 }
-        ]]
+        ]],done:function(res, curr, count){
+            if(res.code==1001)
+            {
+                parent.location.href="/login2.html";
+            }
+            
+
+
+        }
     });
     //监听工具条
     table.on('tool(table-woorole)', function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"

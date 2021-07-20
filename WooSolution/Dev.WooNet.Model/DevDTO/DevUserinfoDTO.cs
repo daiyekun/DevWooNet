@@ -57,8 +57,16 @@ namespace Dev.WooNet.Model.DevDTO
         /// </summary>
         public LoginUser LoginUser
         {
-            get;set;
+            get; set;
         }
+        /// <summary>
+        /// 登录token
+        /// </summary>
+        public string Token { get; set; }
+        /// <summary>
+        /// 登录key 当作sessionkey使用
+        /// </summary>
+        public string LoginKey { get; set; }
     }
     /// <summary>
     /// 登录用户
@@ -85,6 +93,11 @@ namespace Dev.WooNet.Model.DevDTO
         /// 部门名称
         /// </summary>
         public string DeptName { get; set; }
+        /// <summary>
+        ///角色ID集合
+        /// </summary>
+
+        public string RoleIds { get; set; }
         
     }
 

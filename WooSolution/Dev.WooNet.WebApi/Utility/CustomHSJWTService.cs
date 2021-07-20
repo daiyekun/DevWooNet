@@ -1,4 +1,5 @@
-﻿using Dev.WooNet.Model.DevDTO;
+﻿using Dev.WooNet.Common.Utility;
+using Dev.WooNet.Model.DevDTO;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -55,7 +56,8 @@ namespace Dev.WooNet.WebAPI.Utility
                  new Claim("Name", user.Name),
                  new Claim("Id", user.Id.ToString()),
                  new Claim("DeptId", user.DeptId.ToString()),
-                 //new Claim("DeptName", user.DeptName)
+                 new Claim("DeptName",string.IsNullOrEmpty(user.DeptName)?"": user.DeptName),
+                 new Claim("RoleIds", user.RoleIds)
             };
 
             //需要加密：需要加密key:
@@ -65,10 +67,12 @@ namespace Dev.WooNet.WebAPI.Utility
              issuer: _JWTTokenOptions.Issuer,
              audience: _JWTTokenOptions.Audience,
              claims: claims,
-             expires: DateTime.Now.AddMinutes(5),
+             expires: DateTime.Now.AddDays(1),
              signingCredentials: creds);
             string returnToken = new JwtSecurityTokenHandler().WriteToken(token);
             return returnToken;
         }
+
+       
     }
 }

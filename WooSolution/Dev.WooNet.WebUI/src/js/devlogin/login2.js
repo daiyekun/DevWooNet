@@ -30,7 +30,11 @@ layui.config({
                     ,contentType: "application/json; charset=utf-8"
                     ,success: function(res){
                         if(res.tag==0){
-                            layui.data(devsetter.devtableName,{key:devsetter.request.tokenName,value:res.otherValue});//保存token
+                            layui.data(devsetter.devtableName,{key:devsetter.request.tokenName,value:res.data.token});//保存token
+                            layui.data(devsetter.devtableName,{key:devsetter.request.loginname,value:res.data.loginUser.name});//登录名称
+                            layui.data(devsetter.devtableName,{key:devsetter.request.showname,value:res.data.loginUser.showName});//显示名称
+                            layui.data(devsetter.devtableName,{key:devsetter.request.loginkey,value:res.data.loginKey});//登录key
+                            
                             //登入成功的提示与跳转
                             layer.msg('登入成功', {
                               offset: '15px'
@@ -93,5 +97,5 @@ layui.config({
 
 
 
-    exports('login', {});
+    exports('login2', {});
 });
