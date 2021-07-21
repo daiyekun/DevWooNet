@@ -5,16 +5,21 @@
  @License：MIT
     
  */
-layui.define(['jquery', 'element', 'layer', 'winui'], function (exports) {
+layui.define(['jquery', 'element', 'layer', 'winui','devsetter'], function (exports) {
     "use strict";
 
     var $ = layui.jquery,
-        element = layui.element;;
-
+        element = layui.element
+        ,devsetter=layui.devsetter
+        ;
+   
+    var _url=devsetter.devuserurl+"api/DevSysModel/allmenus"
     //开始菜单构造函数
     var Menu = function (options) {
+      // //url: winui.path + 'json/allmenu.json',
         this.options = options || {
-            url: winui.path + 'json/allmenu.json',
+           
+            url:_url,
             method: 'get'
         };
         this.data = null;
@@ -22,9 +27,11 @@ layui.define(['jquery', 'element', 'layer', 'winui'], function (exports) {
 
     //渲染HTML
     Menu.prototype.render = function (callback) {
+       
         if (this.data === null) return;
         var html = '';
         $(this.data).each(function (index, item) {
+  
             var id = (item.id == '' || item.id == undefined) ? '' : 'win-id="' + item.id + '"',
                 url = (item.pageURL == '' || item.pageURL == undefined) ? '' : 'win-url="' + item.pageURL + '"',
                 title = (item.title == '' || item.title == undefined) ? '' : 'win-title="' + item.title + '"',
@@ -36,11 +43,13 @@ layui.define(['jquery', 'element', 'layer', 'winui'], function (exports) {
                 //icon的算法存在纰漏，但出现错误几率较小
                 icon = (item.icon.indexOf('fa-') != -1 && item.icon.indexOf('.') == -1) ? '<i class="fa ' + item.icon + ' fa-fw"></i>' : '<img src="' + item.icon + '" />';
             html += '<li class="layui-nav-item ' + isParent + ' ' + extend + '" ' + id + ' ' + url + ' ' + title + ' ' + opentype + ' ' + maxopen + ' ' + winIcon + '>';
-            html += '<a><div class="winui-menu-icon">'
+            //html += '<a><div class="winui-menu-icon">'
+            html += '<a ' +id+' '+url+' '+title+' '+opentype+' '+maxopen+ ' '+isParent+'><div class="winui-menu-icon">'
             html += icon;
             html += '</div>';
             html += '<span class="winui-menu-name">' + item.name + '</span></a>';
             if (item.childs) {
+                
                 html += '<dl class="layui-nav-child">';
                 $(item.childs).each(function (cIndex, cItem) {
                     var cId = (cItem.id == '' || cItem.id == undefined) ? '' : 'win-id="' + cItem.id + '"',
@@ -51,7 +60,8 @@ layui.define(['jquery', 'element', 'layer', 'winui'], function (exports) {
                         cWinIcon = (cItem.icon == '' || cItem.icon == undefined) ? '' : 'win-icon="' + cItem.icon + '"',
                         cicon = (cItem.icon.indexOf('fa-') != -1 && cItem.icon.indexOf('.') == -1) ? '<i class="fa ' + cItem.icon + ' fa-fw"></i>' : '<img src="' + cItem.icon + '" />';;
                     html += '<dd ' + cId + ' ' + cUrl + ' ' + cTitle + ' ' + cOpentype + ' ' + cMaxopen + ' ' + cWinIcon + '>';
-                    html += '<a><div class="winui-menu-icon">'
+                   // html += '<a><div class="winui-menu-icon">'
+                    html += '<a ' +cId+' '+cUrl+' '+cTitle+' '+cOpentype+' '+cMaxopen+ '><div class="winui-menu-icon">'
                     html += cicon;
                     html += '</div>';
                     html += '<span class="winui-menu-name">' + cItem.name + '</span></a>';
@@ -71,18 +81,26 @@ layui.define(['jquery', 'element', 'layer', 'winui'], function (exports) {
     }
 
     //设置数据
+    var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
+    var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
     Menu.prototype.setData = function (callback) {
         var obj = this
             , currOptions = obj.options;
 
         if (!currOptions.url || !currOptions.method)
             return
+          
         $.ajax({
             url: currOptions.url,
             type: currOptions.method,
             data: $.extend({}, currOptions.data),
+            headers: {
+                "Authorization": "Bearer "+ acctoken +""
+                ,loginkey:loginkey
+            },
             dataType: 'json',
             success: function (res) {
+                
                 res = res.data;
                 if (typeof res === "string") {
                     obj.data = JSON.parse(res);
@@ -119,6 +137,7 @@ layui.define(['jquery', 'element', 'layer', 'winui'], function (exports) {
 
     //菜单项单击事件
     MenuItem.prototype.onclick = function (callback) {
+        
         element.on('nav(winuimenu)', callback);
     };
 

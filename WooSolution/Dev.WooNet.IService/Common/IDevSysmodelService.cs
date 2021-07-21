@@ -67,6 +67,12 @@ namespace Dev.WooNet.IWooService
         /// <returns></returns>
 
         IList<WinuiMenu> GetWinDeskMenus(int userId);
+        /// <summary>
+        /// 开始菜单-查询系统菜单为是的
+        /// </summary>
+        /// <param name="userId">当前用户ID</param>
+        /// <returns>系统菜单</returns>
+        IList<WinuiMenu> GetWinStartMenus(int userId);
 
 
         }

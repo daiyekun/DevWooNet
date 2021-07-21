@@ -412,7 +412,76 @@ namespace Dev.WooNet.WooService
 
 
         }
+
        
+        #endregion
+
+        #region 开始菜单获取
+        
+        /// <summary>
+        /// 开始菜单-查询系统菜单为是的
+        /// </summary>
+        /// <param name="userId">当前用户ID</param>
+        /// <returns>系统菜单</returns>
+        public IList<WinuiMenu> GetWinStartMenus(int userId)
+        {
+            var listmenus = new List<WinuiMenu>();
+            var roleIds = DevDb.Set<DevUserRole>().Where(a => a.Uid == userId).Select(a => a.Rid).ToList();
+            var listall = GetListAll().Where(a=>a.IsSystem==1&&a.IsDelete==0).ToList();
+            //查询角色菜单
+            var menuIds = DevDb.Set<DevRoleModule>().Where(a => roleIds.Contains(a.Rid)).Select(a => a.Mid).ToList();
+            var deskmenus = listall.Where(a => a.IsDelete != 1  && menuIds.Contains(a.Id)).ToList();
+            foreach (var item in deskmenus.Where(a => a.Pid==1))//排除pid=0的菜单。从实际一级菜单开始
+            {
+                var menu = new WinuiMenu();
+                menu.id = item.Id;
+                menu.icon = item.Ico;
+                menu.title = item.Title;
+                menu.name = item.Name;
+                menu.openType = item.PageType;
+                menu.pageURL = item.RequestUrl;
+                Chrenstratmenus(deskmenus, menu, item);
+                listmenus.Add(menu);
+
+            }
+            return listmenus;
+        }
+
+        /// <summary>
+        /// 递归
+        /// </summary>
+        /// <param name="listmodels">菜单集合</param>
+        /// <param name="Info">循环对象</param>
+        /// <param name="item">父类对象</param>
+        public void Chrenstratmenus(IList<DevSysmodelDTO> deskmenus,
+            WinuiMenu Info, DevSysmodelDTO item)
+        {
+            var listchren = deskmenus.Where(a => a.Pid == item.Id);
+            var listchrennode = new List<WinuiMenu>();
+            if (listchren.Any())
+            {
+                foreach (var chrenItem in listchren.ToList())
+                {
+                    WinuiMenu menu = new WinuiMenu();
+                    menu.id = chrenItem.Id;
+                    menu.icon = chrenItem.Ico;
+                    menu.title = chrenItem.Title;
+                    menu.name = chrenItem.Name;
+                    menu.openType = chrenItem.PageType;
+                    menu.pageURL = chrenItem.RequestUrl;
+                    Chrenstratmenus(deskmenus, menu, chrenItem);
+                  
+                    listchrennode.Add(menu);
+                }
+                Info.childs = listchrennode;
+
+            }
+
+
+
+        }
+
+
         #endregion
 
 

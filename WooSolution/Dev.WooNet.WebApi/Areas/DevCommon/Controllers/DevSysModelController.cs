@@ -195,7 +195,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         }
 
         /// <summary>
-        /// 
+        /// 首页桌面菜单查询
         /// </summary>
         /// <returns></returns>
         [Route("deskmenus")]
@@ -216,6 +216,36 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
                 msg = "success",
                 code = (int)MessageEnums.success,
                 data = _IDevSysmodelService.GetWinDeskMenus(userid)
+
+
+
+            });
+
+
+
+        }
+
+        /// <summary>
+        /// 开始菜单，查询系统菜单为是的
+        /// </summary>
+        /// <returns></returns>
+        [Route("allmenus")]
+        [HttpGet]
+        public IActionResult GetWindowStartmenus()
+        {
+            // string struse = Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.User.Claims.Select(c => c.Value));
+
+            var claim = HttpContext.User.Claims.Where(a => a.Type == "UserId").FirstOrDefault();
+            var userid = 0;
+            if (claim != null)
+            {
+                int.TryParse(claim.Value, out userid);
+            }
+            return new DevResultJson(new AjaxResult<IList<WinuiMenu>>
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+                data = _IDevSysmodelService.GetWinStartMenus(userid)
 
 
 

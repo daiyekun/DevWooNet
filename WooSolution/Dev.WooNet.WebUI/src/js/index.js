@@ -6,9 +6,10 @@
     desktop: 'js/winui.desktop',
     start: 'js/winui.start',
     helper: 'js/winui.helper'
-}).define(['window', 'desktop', 'start', 'helper'], function (exports) {
-    var $ = layui.jquery;
-
+}).define(['window', 'desktop', 'start', 'helper','devsetter'], function (exports) {
+    var $ = layui.jquery
+    ,devsetter=layui.devsetter;
+    var _url=devsetter.devuserurl+"api/DevSysModel/allmenus"
     $(function () {
         winui.window.msg('Welcome To System', {
             time: 4500,
@@ -62,11 +63,12 @@
             },
             menu: {
                 options: {
-                    url: 'json/allmenu.json',
+                    url: _url,//'json/allmenu.json',
                     method: 'get',
                     data: { nihaoa: '' }
                 },
                 done: function (menuItem) {
+                    
                     //监听开始菜单点击
                     menuItem.onclick(function (elem) {
                         OpenWindow(elem);
@@ -104,8 +106,9 @@
         });
     });
 
-    //开始菜单磁贴点击
+    //开始菜单点击
     $('.winui-tile').on('click', function () {
+       
         OpenWindow(this);
     });
 
@@ -116,8 +119,8 @@
 
     //打开窗口的方法（可自己根据需求来写）
     function OpenWindow(menuItem) {
+       
         var $this = $(menuItem);
-
         var url = $this.attr('win-url');
         var title = $this.attr('win-title');
         var id = $this.attr('win-id');
@@ -128,7 +131,7 @@
             return;
         }
         if (!url || !title || !id) {
-            winui.window.msg('菜单配置错误（菜单链接、标题、id缺一不可）');
+            //winui.window.msg('菜单配置错误（菜单链接、标题、id缺一不可）');
             return;
         }
 
