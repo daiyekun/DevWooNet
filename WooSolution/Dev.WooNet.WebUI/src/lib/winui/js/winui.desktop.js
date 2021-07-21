@@ -5,15 +5,17 @@
  @License：MIT
     
  */
-layui.define(['jquery', 'layer', 'winui'], function (exports) {
+layui.define(['jquery', 'layer', 'winui','devsetter'], function (exports) {
     "use strict";
 
-    var $ = layui.jquery;
-
+    var $ = layui.jquery
+     ,devsetter=layui.devsetter
+     var _url=devsetter.devuserurl+"api/DevSysModel/deskmenus"
     //桌面构造函数
     var Desktop = function (options) {
         this.options = options || {
-            url: winui.path + 'json/desktopmenu.json',
+            //url: winui.path + 'json/desktopmenu.json',
+            url:_url,//动态获取
             method: 'get'
         };
         this.data = null;
@@ -48,16 +50,23 @@ layui.define(['jquery', 'layer', 'winui'], function (exports) {
     };
 
     //设置数据
+    var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
+    var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
     Desktop.prototype.setData = function (callback) {
         var obj = this
-            , currOptions = obj.options;
-
+         , currOptions = obj.options;
+     
         if (!currOptions.url || !currOptions.method)
             return
         $.ajax({
             url: currOptions.url,
             type: currOptions.method,
             data: $.extend({}, currOptions.data),
+            headers: {
+                "Authorization": "Bearer "+ acctoken +""
+                ,loginkey:loginkey
+            },
+           
             dataType: 'json',
             success: function (res) {
                 res = res.data;

@@ -15,15 +15,15 @@ namespace Dev.WooNet.Model.Enums
     public enum PageTypeEnum
     {
         /// <summary>
-        /// Iframe：1
+        /// Iframe：2
         /// </summary>
-        [EnumItem(Value = 1, Desc = "Iframe")]
-        Iframe = 1,
+        [EnumItem(Value = 2, Desc = "Iframe")]
+        Iframe = 2,
         /// <summary>
-        /// html:0
+        /// html:1
         /// </summary>
-        [EnumItem(Value = 0, Desc = "html")]
-        html = 0,
+        [EnumItem(Value = 1, Desc = "html")]
+        html = 1,
 
 
     

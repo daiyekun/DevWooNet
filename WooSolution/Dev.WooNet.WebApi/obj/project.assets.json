@@ -2971,7 +2971,8 @@
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.AspNetCore.Mvc.Formatters.Json": "2.2.0",
           "Microsoft.AspNetCore.StaticFiles": "2.2.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
+          "System.IdentityModel.Tokens.Jwt": "6.10.2"
         },
         "compile": {
           "bin/placeholder/Dev.WooNet.WebCore.dll": {}

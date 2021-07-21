@@ -5,7 +5,9 @@ using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
 using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
+using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NF.Common.Utility;
 using System;
@@ -27,10 +29,14 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
     {
         private IDevSysmodelService _IDevSysmodelService;
         private IMapper _IMapper;
-        public DevSysModelController(IDevSysmodelService iDevSysmodelService, IMapper iMapper)
+        private IHttpContextAccessor _IHttpContextAccessor;
+        public DevSysModelController(IDevSysmodelService iDevSysmodelService
+            , IMapper iMapper
+            , IHttpContextAccessor iHttpContextAccessor)
         {
             _IDevSysmodelService = iDevSysmodelService;
             _IMapper = iMapper;
+            _IHttpContextAccessor = iHttpContextAccessor;
         }
 
        
@@ -184,6 +190,37 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 
 
             });
+
+
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [Route("deskmenus")]
+        [HttpGet]
+       
+        public IActionResult GetDeskmenus()
+        {
+           // string struse = Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.User.Claims.Select(c => c.Value));
+           
+            var claim= HttpContext.User.Claims.Where(a => a.Type == "UserId").FirstOrDefault();
+            var userid = 0;
+            if (claim != null)
+            {
+                int.TryParse(claim.Value, out userid);
+            }
+            return new DevResultJson(new AjaxResult<IList<WinuiMenu>>
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+                data = _IDevSysmodelService.GetWinDeskMenus(userid)
+
+
+
+            });
+
 
 
         }

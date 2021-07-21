@@ -64,6 +64,7 @@ layui.config({
         if (json.Result) {
             msg('操作成功');
             closeWin();
+            top.winui.window.tablelaod({id:'16'});
             //parent.table.reload(tableId, {});
         } else {
             msg(json.msg)

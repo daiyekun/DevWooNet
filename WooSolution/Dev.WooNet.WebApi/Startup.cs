@@ -76,6 +76,7 @@ namespace Dev.WooNet.WebApi
             //注册服务扩展类
             services.AddDevServices();
             #endregion
+            services.AddHttpContextAccessor();
 
             #region jwt校验  HS
 

@@ -97,7 +97,7 @@ layui.config({
                 icon: 1
             },function(){
                 closeWin();
-                top.winui.window.tablelaod({id:'2'});
+                top.winui.window.tablelaod({id:'20'});
             });
 
         } else {

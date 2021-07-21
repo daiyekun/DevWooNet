@@ -60,6 +60,13 @@ namespace Dev.WooNet.IWooService
         /// <param name="rolemodel">角色模块对象</param>
 
         IList<DevRoleModule> SaveRolemodel(RoleModel rolemodel);
+        /// <summary>
+        /// 根据用户获取菜单权限
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <returns></returns>
+
+        IList<WinuiMenu> GetWinDeskMenus(int userId);
 
 
         }

@@ -54,7 +54,7 @@ namespace Dev.WooNet.WebAPI.Utility
             var claims = new[]
             {
                  new Claim("Name", user.Name),
-                 new Claim("Id", user.Id.ToString()),
+                 new Claim("UserId", user.Id.ToString()),
                  new Claim("DeptId", user.DeptId.ToString()),
                  new Claim("DeptName",string.IsNullOrEmpty(user.DeptName)?"": user.DeptName),
                  new Claim("RoleIds", user.RoleIds)

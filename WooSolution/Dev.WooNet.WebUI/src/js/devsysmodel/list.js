@@ -14,7 +14,7 @@ layui.config({
     var table = layui.table
    
         $ = layui.$,
-        devsdevindexetter = layui.devindex,
+        devindex = layui.devindex,
          msg = winui.window.msg,
          treetable=layui.treetable,
          tableId = 'sysmodelidtableid';
@@ -42,7 +42,7 @@ layui.config({
                 { field: 'Ico', title: '图标', width: 100, templet: '#IcoTpl' }
                 , { field: 'RequestUrl', title: '页面地址', width: 140 }
                 , { field: 'PageType', title: '页面类型', width: 140,templet:'#pagetypeTpl'}
-                , { field: 'IsShow', title: '是否显示', width: 130, templet: '#IsshowTpl' }
+                , { field: 'IsShow', title: '桌面显示', width: 130, templet: '#IsshowTpl' }
                 , { field: 'Sort', title: '排序', width: 130,edit: 'text'}
                 , { title: '操作', width: 150, align: 'center', templet: '#devsysmodeltbar',fixed: 'right' }
             ]],

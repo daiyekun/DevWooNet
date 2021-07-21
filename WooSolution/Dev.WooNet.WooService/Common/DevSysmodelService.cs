@@ -279,7 +279,7 @@ namespace Dev.WooNet.WooService
             IList<DevModelCheck> listChecks = new List<DevModelCheck>();
             var listAll = GetListAll();
             var listrolemodel = GetRoleModel(roleId);
-            var list = listAll.Where(a => a.IsDelete == 0 && a.IsShow == 1).ToList();
+            var list = listAll.Where(a => a.IsDelete == 0).ToList();
             foreach (var item in list.Where(a => a.Pid == 1))//排除pid=0的菜单。从实际一级菜单开始
             {
                 var chkmodel = new DevModelCheck();
@@ -377,6 +377,42 @@ namespace Dev.WooNet.WooService
         }
 
 
+        #endregion
+
+
+        #region 桌面菜单
+        /// <summary>
+        /// 根据用户获取菜单权限
+        /// </summary>
+        /// <param name="userId">用户ID</param>
+        /// <returns></returns>
+
+        public IList<WinuiMenu> GetWinDeskMenus(int userId)
+        {
+            var listmenus = new List<WinuiMenu>();
+            var roleIds = DevDb.Set<DevUserRole>().Where(a => a.Uid == userId).Select(a => a.Rid).ToList();
+            var listall = GetListAll();
+            //查询角色菜单
+            var menuIds = DevDb.Set<DevRoleModule>().Where(a => roleIds.Contains(a.Rid)).Select(a => a.Mid).ToList();
+            var deskmenus = listall.Where(a => a.IsDelete != 1 && a.IsShow == 1 && menuIds.Contains(a.Id)).ToList();
+            foreach (var item in deskmenus)
+            {
+                var menu = new WinuiMenu();
+                menu.id = item.Id;
+                menu.icon = item.Ico;
+                menu.title = item.Title;
+                menu.name = item.Name;
+                menu.openType = item.PageType;
+                menu.pageURL = item.RequestUrl;
+                listmenus.Add(menu);
+
+            }
+            return listmenus;
+
+
+
+        }
+       
         #endregion
 
 

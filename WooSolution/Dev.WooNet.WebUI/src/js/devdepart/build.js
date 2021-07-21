@@ -99,7 +99,7 @@ layui.config({
         if (json.Result) {
             msg('操作成功');
             closeWin();
-            //parent.table.reload(tableId, {});
+            top.winui.window.tablelaod({id:'17'});
         } else {
             msg(json.msg)
         }
