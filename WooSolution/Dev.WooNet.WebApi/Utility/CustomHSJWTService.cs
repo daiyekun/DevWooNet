@@ -56,6 +56,7 @@ namespace Dev.WooNet.WebAPI.Utility
                  new Claim("Name", user.Name),
                  new Claim("UserId", user.Id.ToString()),
                  new Claim("DeptId", user.DeptId.ToString()),
+                  new Claim("ShowName", user.ShowName),
                  new Claim("DeptName",string.IsNullOrEmpty(user.DeptName)?"": user.DeptName),
                  new Claim("RoleIds", user.RoleIds)
             };

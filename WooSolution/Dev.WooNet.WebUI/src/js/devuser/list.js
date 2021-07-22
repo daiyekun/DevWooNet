@@ -18,9 +18,7 @@ layui.config({
     //表格渲染
    
     var tburl=devsetter.devuserurl+"api/DevUser/list";
-    var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
-    var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
-    
+    var localdata=wooutil.devlocaldata();
     var usertable=table.render({
         id: tableId,
         elem: '#woouser',
@@ -35,8 +33,8 @@ layui.config({
         even:true,  //隔行变色
         page: true,
         headers: {
-            "Authorization": "Bearer "+ acctoken +""
-            ,loginkey:loginkey
+            "Authorization": "Bearer "+ localdata.token +""
+            ,loginkey:localdata.loginkey
         },
        
         limits:devsetter.listtable.mainlistlimits,
@@ -55,7 +53,7 @@ layui.config({
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#barUser', width: 120 }
         ]],
         done:function(res, curr, count){
-           
+            wooutil.devloginout(res);
 
 
         }

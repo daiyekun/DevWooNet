@@ -24,7 +24,6 @@
     <Folder Include="Areas\DevCommon\Data\" />
     <Folder Include="Areas\DevCommon\Models\" />
     <Folder Include="Areas\DevCommon\Views\" />
-    <Folder Include="Areas\DevContract\Controllers\" />
     <Folder Include="Areas\DevContract\Data\" />
     <Folder Include="Areas\DevContract\Models\" />
     <Folder Include="Areas\DevContract\Views\" />

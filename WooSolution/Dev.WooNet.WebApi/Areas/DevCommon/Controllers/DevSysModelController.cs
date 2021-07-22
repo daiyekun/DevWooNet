@@ -203,8 +203,6 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
        
         public IActionResult GetDeskmenus()
         {
-           // string struse = Newtonsoft.Json.JsonConvert.SerializeObject(HttpContext.User.Claims.Select(c => c.Value));
-           
             var claim= HttpContext.User.Claims.Where(a => a.Type == "UserId").FirstOrDefault();
             var userid = 0;
             if (claim != null)

@@ -15,6 +15,84 @@ using Dev.WooNet.Model.Models;
 namespace Dev.WooNet.WooService
 {
  
+ public partial class DevCityService : BaseService<DevCity>, IDevCityService
+    {
+        public DevCityService(DevDbContext DevDb)
+           : base(DevDb)
+        {
+           
+        }
+		
+		public DevCityService(){}
+    }
+    
+   
+     
+ public partial class DevCompanyService : BaseService<DevCompany>, IDevCompanyService
+    {
+        public DevCompanyService(DevDbContext DevDb)
+           : base(DevDb)
+        {
+           
+        }
+		
+		public DevCompanyService(){}
+    }
+    
+   
+     
+ public partial class DevCompcontactService : BaseService<DevCompcontact>, IDevCompcontactService
+    {
+        public DevCompcontactService(DevDbContext DevDb)
+           : base(DevDb)
+        {
+           
+        }
+		
+		public DevCompcontactService(){}
+    }
+    
+   
+     
+ public partial class DevCompdescService : BaseService<DevCompdesc>, IDevCompdescService
+    {
+        public DevCompdescService(DevDbContext DevDb)
+           : base(DevDb)
+        {
+           
+        }
+		
+		public DevCompdescService(){}
+    }
+    
+   
+     
+ public partial class DevCompfileService : BaseService<DevCompfile>, IDevCompfileService
+    {
+        public DevCompfileService(DevDbContext DevDb)
+           : base(DevDb)
+        {
+           
+        }
+		
+		public DevCompfileService(){}
+    }
+    
+   
+     
+ public partial class DevCountryService : BaseService<DevCountry>, IDevCountryService
+    {
+        public DevCountryService(DevDbContext DevDb)
+           : base(DevDb)
+        {
+           
+        }
+		
+		public DevCountryService(){}
+    }
+    
+   
+     
  public partial class DevCurrencyManagerService : BaseService<DevCurrencyManager>, IDevCurrencyManagerService
     {
         public DevCurrencyManagerService(DevDbContext DevDb)
@@ -102,6 +180,19 @@ namespace Dev.WooNet.WooService
         }
 		
 		public DevOptionLogService(){}
+    }
+    
+   
+     
+ public partial class DevProvinceService : BaseService<DevProvince>, IDevProvinceService
+    {
+        public DevProvinceService(DevDbContext DevDb)
+           : base(DevDb)
+        {
+           
+        }
+		
+		public DevProvinceService(){}
     }
     
    

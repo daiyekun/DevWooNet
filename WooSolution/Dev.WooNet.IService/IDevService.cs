@@ -13,6 +13,36 @@ using System.Threading.Tasks;
 namespace Dev.WooNet.IWooService
 {
  
+public partial interface IDevCityService : IBaseService<DevCity>
+{ }
+    
+   
+     
+public partial interface IDevCompanyService : IBaseService<DevCompany>
+{ }
+    
+   
+     
+public partial interface IDevCompcontactService : IBaseService<DevCompcontact>
+{ }
+    
+   
+     
+public partial interface IDevCompdescService : IBaseService<DevCompdesc>
+{ }
+    
+   
+     
+public partial interface IDevCompfileService : IBaseService<DevCompfile>
+{ }
+    
+   
+     
+public partial interface IDevCountryService : IBaseService<DevCountry>
+{ }
+    
+   
+     
 public partial interface IDevCurrencyManagerService : IBaseService<DevCurrencyManager>
 { }
     
@@ -44,6 +74,11 @@ public partial interface IDevLoginLogService : IBaseService<DevLoginLog>
    
      
 public partial interface IDevOptionLogService : IBaseService<DevOptionLog>
+{ }
+    
+   
+     
+public partial interface IDevProvinceService : IBaseService<DevProvince>
 { }
     
    

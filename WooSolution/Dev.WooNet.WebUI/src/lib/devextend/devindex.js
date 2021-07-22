@@ -207,8 +207,7 @@ layui.config({
         }
         });
         },
-        devajax:function(options){
-            
+        devajax:function(options){  
         /// <summary>
         /// ajax请求封装
         /// </summary>        
@@ -217,26 +216,60 @@ layui.config({
         ,success=options.success
         ,error = options.error
         options.data = options.data || {};
-        options.headers = options.headers || {};
-        if(devsetter.request.tokenName){//存在token
-            var sendData = typeof options.data === 'string' 
-            ? JSON.parse(options.data) 
-          : options.data;
-          //自动给参数传入默认 token
-          options.data[devsetter.request.tokenName] = devsetter.request.tokenName in sendData
-            ?  options.data[devsetter.request.tokenName]
-          : (layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '');
+        var localdata=wooutil.devlocaldata();
+        options.headers = {
+            "Authorization": "Bearer "+ localdata.token +""
+            ,loginkey:localdata.loginkey
+        },
+        // if(devsetter.request.tokenName){//存在token
+        //     var sendData = typeof options.data === 'string' 
+        //     ? JSON.parse(options.data) 
+        //   : options.data;
+        //   //自动给参数传入默认 token
+        //   options.data[devsetter.request.tokenName] = devsetter.request.tokenName in sendData
+        //     ?  options.data[devsetter.request.tokenName]
+        //   : (layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '');
           
-          //自动给 Request Headers 传入 token
-          options.headers[devsetter.request.tokenName] = devsetter.request.tokenName in options.headers 
-            ?  options.headers[devsetter.request.tokenName]
-          : (layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '');
+        //   //自动给 Request Headers 传入 token
+        //   options.headers[devsetter.request.tokenName] = devsetter.request.tokenName in options.headers 
+        //     ?  options.headers[devsetter.request.tokenName]
+        //   : (layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '');
 
-        }
+        // }
         $.ajax(options);
        
 
+        },
+        devloginout:function(res){
+        /// <summary>
+        /// 登录超时返回登录界面
+        /// </summary>        
+        /// <param name="res" type="Object">反馈数据对象</param>
+           if(res.code==1001)
+            {
+            layer.msg('由于长时间没有操作,登录已经失效，请重新登录', {
+                offset: '15px'
+                ,icon: 5
+                ,time: 1000
+              }, function(){
+                parent.location.href="/login2.html";
+              });
+           
+           }
+        },devlocaldata:function(){
+         /// <summary>
+         /// 返回本地缓存数据
+         /// </summary>    
+         var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
+         var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
+         var obj=new Object();
+             obj.token= acctoken;
+             obj.loginkey=loginkey;
+             return obj;
+      
+
         }
+        
     };
     //一些工具类结束----------------------------------------------------------------
              

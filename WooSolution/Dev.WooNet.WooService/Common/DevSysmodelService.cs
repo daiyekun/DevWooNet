@@ -94,7 +94,7 @@ namespace Dev.WooNet.WooService
         {
             IList<TreeSelectInfo> listTree = new List<TreeSelectInfo>();
             var listAll = GetListAll();
-            var list = listAll.Where(a => a.IsDelete == 0 && a.IsShow == 1).ToList();
+            var list = listAll.Where(a => a.IsDelete == 0 ).ToList();
             foreach (var item in list.Where(a => a.Pid ==0))
             {
                 TreeSelectInfo treeInfo = new TreeSelectInfo();

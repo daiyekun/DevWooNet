@@ -33,11 +33,7 @@ namespace Dev.WooNet.AutoMapper.ProFiles
             CreateMap<DevSysmodelDTO, DevSysmodel>();
 
             
-            //.ForMember(a => a.ContId, opt => opt.Ignore())
-            //.ForMember(a => a.CreateUserId, opt => opt.Ignore())
-            //.ForMember(a => a.CreateDateTime, opt => opt.Ignore())
-            //.ForMember(a => a.ModifyUserId, opt => opt.Ignore())
-            //.ForMember(a => a.ModifyDateTime, opt => opt.Ignore());
+           
         }
        
     }

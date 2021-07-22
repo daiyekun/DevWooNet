@@ -6,21 +6,21 @@ layui.config({
 }).extend({
     winui: 'winui/winui',
     window: 'winui/js/winui.window',
-    devsetter: 'devextend/devsetter'
-}).define(['table', 'jquery', 'winui', 'window', 'layer', 'devsetter'], function (exports) {
+    devindex: 'devextend/devindex',
+}).define(['table', 'jquery', 'winui', 'window', 'layer', 'devindex'], function (exports) {
 
     winui.renderColor();
-
     var table = layui.table,
         $ = layui.$,
-        devsetter = layui.devsetter,
+        devindex = layui.devindex,
         tableId = 'depttableid'
     msg = winui.window.msg
         ;
 
     //表格渲染
-    var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
-    var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
+    var localdata=wooutil.devlocaldata();
+    // var loginkey=layui.data(devsetter.devtableName)[devsetter.request.loginkey] || '';
+    // var acctoken=layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '';
     var tburl = devsetter.devuserurl + "api/DevDepart/list";
     table.render({
         id: tableId,
@@ -36,8 +36,8 @@ layui.config({
         defaultToolbar: ["filter"],
         page: true,
         headers: {
-            "Authorization": "Bearer "+ acctoken +""
-            ,loginkey:loginkey
+            "Authorization": "Bearer "+ localdata.token +""
+            ,loginkey:localdata.loginkey
         },
         limits: devsetter.listtable.mainlistlimits,
         limit: devsetter.listtable.mainlistlimit,
@@ -55,11 +55,7 @@ layui.config({
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#bardepart', width: 120 }
         ]]
         ,done:function(res, curr, count){
-            if(res.code==1001)
-            {
-                parent.location.href="/login2.html";
-            }
-            
+            wooutil.devloginout(res);
 
 
         }
