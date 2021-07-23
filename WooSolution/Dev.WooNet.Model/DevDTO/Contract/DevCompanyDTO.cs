@@ -13,6 +13,10 @@ namespace Dev.WooNet.Model.DevDTO
     /// </summary>
     public class DevCompanyDTO: DevCompany
     {
+        /// <summary>
+        /// 创建人
+        /// </summary>
+        public string AddUserName { get; set; }
 
     }
 }

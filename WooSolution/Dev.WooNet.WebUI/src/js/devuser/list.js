@@ -108,7 +108,7 @@ layui.config({
     }
 
   
-    //删除角色
+    //删除
     function deleteUser(ids, obj) {
         var msg = obj ? '确认删除数据【' + obj.data.ShowName + '】吗？' : '确认删除选中数据吗？'
         top.winui.window.confirm(msg, { icon: 3, title: '删除系统数据' }, function (index) {

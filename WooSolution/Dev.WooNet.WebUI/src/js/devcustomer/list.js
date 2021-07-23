@@ -81,12 +81,12 @@ layui.config({
         } else if (layEvent === 'edit') { //编辑
             if (!data.Id) return;
             var index = layer.load(1);
-            openUser('win_updateuser', data.Id, '修改客户');
+            devopenwin('win_updatecustomer', data.Id, '修改客户');
             layer.close(index);
         }else if(layEvent === 'showview'){
             if (!data.Id) return;
             var index = layer.load(1);
-            openUser('win_updateuser', data.Id, '查看客户',true);
+            devopenwin('win_viewcustomer', data.Id, '查看客户',true);
             layer.close(index);
 
 
@@ -167,7 +167,7 @@ layui.config({
     //绑定按钮事件
     $('#adddev').on('click', function () {
 
-        devopenwin('win_adduser', 0, '新增用户');
+        devopenwin('win_addcustomer', 0, '新增客户');
     });
     //删除按钮
     $('#deletedev').on('click', function () {

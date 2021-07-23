@@ -33,5 +33,11 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <returns></returns>
         DevCompany SaveCompany(DevCompany info);
+        /// <summary>
+        /// 根据Id 信息
+        /// </summary>
+        /// <returns>返回基本信息</returns>
+        DevCompanyDTO GetInfoById(int Id);
+
     }
 }

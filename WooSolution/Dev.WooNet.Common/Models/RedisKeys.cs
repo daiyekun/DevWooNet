@@ -32,5 +32,21 @@ namespace Dev.WooNet.Common.Models
         /// token redis key
         /// </summary>
         public static readonly string TokenRedis = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DevToken}";
+        /// <summary>
+        /// 国家
+        /// </summary>
+        public static readonly string RedisCountryKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Country}";
+        /// <summary>
+        /// 省
+        /// </summary>
+        public static readonly string RedisProvinceKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Province}";
+        /// <summary>
+        /// 市
+        /// </summary>
+        public static readonly string RedisCityKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.City}";
+        /// <summary>
+        /// 币种
+        /// </summary>
+        public static readonly string RedisCurrencyKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Currency}";
     }
 }

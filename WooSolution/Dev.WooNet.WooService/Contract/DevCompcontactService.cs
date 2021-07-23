@@ -1,4 +1,5 @@
 ﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Models;
 using Microsoft.EntityFrameworkCore;
@@ -91,6 +92,54 @@ namespace Dev.WooNet.WooService
 
 
             };
+        }
+
+        /// <summary>
+        /// 根据ID获取信息
+        /// </summary>
+        /// <returns>返回基本信息</returns>
+        public DevCompcontactDTO GetInfoById(int Id)
+        {
+            var query = from a in this.DevDb.Set<DevCompcontact>().AsTracking()
+                        where a.Id == Id
+                        select new
+                        {
+                            Id = a.Id,
+                            CompId=a.CompId,
+                            Name = a.Name,
+                            Dname = a.Dname,
+                            RoleName = a.RoleName,
+                            PhoneTel = a.PhoneTel,
+                            PhoneNo = a.PhoneNo,
+                            Fax = a.Fax,
+                            Email = a.Email,
+                            Remark = a.Remark,
+                            Qq = a.Qq,
+                            AddUserId = a.AddUserId,
+                            AddDateTime = a.AddDateTime,
+
+
+                        };
+            var local = from a in query.AsEnumerable()
+                        select new DevCompcontactDTO
+                        {
+                            Id = a.Id,
+                            CompId = a.CompId,
+                            Name = a.Name,
+                            Dname = a.Dname,
+                            RoleName = a.RoleName,
+                            PhoneTel = a.PhoneTel,
+                            PhoneNo = a.PhoneNo,
+                            Fax = a.Fax,
+                            Email = a.Email,
+                            Remark = a.Remark,
+                            Qq = a.Qq,
+                            AddUserId = a.AddUserId,
+                            AddDateTime = a.AddDateTime,
+                            AddUserName= RedisDevCommUtility.GetUserName(a.AddUserId??0)
+
+                        };
+            return local.FirstOrDefault();
         }
     }
 }

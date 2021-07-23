@@ -40,6 +40,17 @@ layui.define(['layer', 'winui','table'], function (exports) {
     winiframe.attr('src', winiframe.attr('src'))
 
     }
+    //调用某个列表按钮，实现刷新
+    WinLayer.prototype.devtablelaod = function (options) {
+        //id:windows Id 
+        //resbtn 刷新按钮ID或者样式等等，建议ID
+        var currwin=common.getWindow(options.id);
+       var resbtn=$(currwin).find("iframe").contents().find('#'+options.resbtn);
+       resbtn.click();//刷新按钮点击
+   
+       }
+
+    var body = $(window).find('iframe').contents().find('body.winui-window-body');
     //打开窗口
     WinLayer.prototype.open = function (options) {
         var windowfunc = this;

@@ -11,16 +11,13 @@ layui.config({
     var table = layui.table,
         $ = layui.$,
         devindex = layui.devindex,
-       
         msg = winui.window.msg
         ,laydate=layui.laydate
         ,form = layui.form
-        , tableId = 'customertableid'
+        , tableId = 'useridtableid'
         ;
     var $devId = wooutil.getUrlVar('Id');
-
-    //-------------------------------基本信息--begin---------------------------------------------------------------------------
-  
+    var localdata=wooutil.devlocaldata();
   //日期
   laydate.render({
     elem: '#EntryDatetime'
@@ -34,42 +31,24 @@ layui.config({
 
         //表单验证
         if (winui.verifyForm(data.elem)) {
-            wooutil.devajax({
-                type: 'POST',
-                url: devsetter.devuserurl + 'api/DevCompany/companySave',
-                data: JSON.stringify(postdata),
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (res) {
-                    if(res.code==1001){
-                        wooutil.devloginout(res);
-                    }else{
-                        submitsuccess(json);
+           wooutil.devajax({
+            type: 'POST',
+            url: devsetter.devuserurl + 'api/DevCompany/companySave',
+            data: JSON.stringify(postdata),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (json) {
+                submitsuccess(json);
 
-                    }
-                },
-                error: function (xml) {
-                    msg('操作失败');
-                    console.log(xml.responseText);
-                }
+            },
+            error: function (xml) {
+                msg('操作失败');
+                console.log(xml.responseText);
+            }
 
-            })
-            // $.ajax({
-            //     type: 'POST',
-            //     url: devsetter.devuserurl + 'api/DevCompany/userSave',
-            //     processData: false,
-            //     data: JSON.stringify(postdata),
-            //     dataType: "json",
-            //     contentType: "application/json; charset=utf-8",
-            //     success: function (json) {
-            //         submitsuccess(json);
+           });
 
-            //     },
-            //     error: function (xml) {
-            //         msg('操作失败');
-            //         console.log(xml.responseText);
-            //     }
-            // });
+            
         }
         return false;
     });
@@ -78,7 +57,7 @@ layui.config({
         closeWin();
         return false;
     });
-    
+   
     /**关闭窗体 */
     function closeWin() {
         if ($devId > 0) {
@@ -112,10 +91,10 @@ layui.config({
     function devSetValues() {
 
         if ($devId !== "" && $devId !== undefined) {
-           
             $.ajax({
                 type: 'GET',
                 url: devsetter.devuserurl + 'api/DevCompany/showView',
+                //async: false,
                 data: { Id: $devId },
                 dataType: 'json',
                 success: function (res) {
@@ -130,48 +109,55 @@ layui.config({
 
 
         } else {
-            
+          
         }
     }
     //执行赋值表单
     devSetValues();
     form.render(null, 'DEV-CustomerForm');
 
-//--------------------------------------基本信息-end--------------------------------------------------------------------------------------------------
-
 /***********************联系人-begin***************************************************************************************************/
 table.render({
-    elem: '#Dev-CustomerContact'
-       , url: devsetter.devuserurl +'api/DevCompContact/list?otherId=' + $devId  + '&rand=' + wooutil.getRandom()
-       , toolbar: '#tooCustomerContact'
+       elem: '#Dev-CustomerContact'
+       ,id:'Dev-CustomerContact'
+      ,url:devsetter.devuserurl + 'api/DevCompContact/list?otherId='+$devId + '&rand=' + wooutil.getRandom()
+      , toolbar: '#tooCustomerContact'
        , defaultToolbar: ['filter']
+        ,method: 'POST'
+        ,contentType: 'application/json'
+        ,headers: {
+        "Authorization": "Bearer "+ localdata.token +""
+        ,loginkey:localdata.loginkey
+        }
        , cols: [[
            { type: 'numbers', fixed: 'left' }
            ,{ type: 'checkbox', fixed: 'left' }
            , { field: 'Id', title: 'Id', width: 50, hide: true }
            , { field: 'Name', title: '姓名', width: 130, fixed: 'left' }
            , { field: 'Dname', title: '部门名称', width: 150 }
-           , { field: 'RoleName', title: '职位', width: 130 }
+           , { field: 'RoleName', title: '职位', width: 120 }
            , { field: 'PhoneTel', title: '办公电话', width: 145 }
-           , { field: 'PhoneNo', title: '手机号码', width: 130 }
+           , { field: 'PhoneNo', title: '移动电话', width: 130 }
            , { field: 'Email', title: 'E-mail', width: 130 }
            , { field: 'Fax', title: '传真', width: 130 }
            , { field: 'Qq', title: '其他联系方式', width: 140 }
            , { field: 'AddDateTime', title: '建立日期', width: 120, hide: true }
            , { field: 'AddUserName', title: '建立人', width: 120, hide: true }
-           , { field: 'Remark', title: '备注', width: 150, hide: true }
+           , { field: 'Remark', title: '备注', width: 140, hide: true }
            , { title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#tableCustomerContacttbar' }
        ]]
        , page: false
        , loading: true
-       , height: 300
+       , height:350
        , limit: 20
-   
+       ,done:function(res, curr, count){
+        wooutil.devloginout(res);
+       }
+       
 
 });
-//事件
-var contactEvent = {
-    contactbuild:function(winid,wintitle,url){//联系人新增修改
+var contactEvent={
+    winopen:function(winid,wintitle,url){
         top.winui.window.open({
             id: winid,
             type: 2,
@@ -179,23 +165,87 @@ var contactEvent = {
             content: url,
             area: ['50vw', '70vh'],
             offset: ['15vh', '25vw']
+           
+       
         });
+    },
+   reloadtable:function(){
+    table.reload('Dev-CustomerContact', {});
+   },
+      //删除
+      deletedata:function (ids, obj) {
+        var msg = obj ? '确认删除数据【' + obj.data.Name + '】吗？' : '确认删除选中数据吗？'
+        top.winui.window.confirm(msg, { icon: 3, title: '删除系统数据' }, function (index) {
+            if(obj){
+                layer.close(index);
+            }else{
+                top.layer.close(index);
 
+            }
+            //向服务端发送删除指令
+            wooutil.devajax({
+                type: 'GET',
+                url: devsetter.devuserurl + 'api/DevCompContact/deletecontact',
+                data: { Ids: ids.toString() },
+                dataType: 'json',
+                success: function (res) {
+                    wooutil.devloginout(res);
+                    //刷新表格
+                    if (obj) {
+                        top.winui.window.msg('删除成功', {
+                            icon: 1,
+                            time: 2000
+                        });
+                        obj.del(); //删除对应行（tr）的DOM结构
+                    } else {
+                        contactEvent.reloadtable();
+                    }
+
+                },
+                error: function (xml) {
+                    top.winui.window.msg('删除失败', {
+                        // icon: 1,
+                        time: 2000
+                    });
+
+                }
+            });
+
+
+
+
+        });
     }
 
 };
-
-//联系人头部工具栏
+//其他联系人头部工具栏
 table.on('toolbar(Dev-CustomerContact)', function (obj) {
     switch (obj.event) {
         case 'add':
-            var url = "/views/devcustomer/custcontact/build.html";
-            contactEvent.contactbuild('win_addcontact','新增联系人',url);
+            contactEvent.winopen('win_addcontact','新增联系人','/views/devcustomer/contactbuild.html?CompId='+$devId);
             break;
         case 'batchdel':
-            contactEvent.batchdel();
+            {
+                var checkStatus = table.checkStatus('Dev-CustomerContact');
+                var checkCount = checkStatus.data.length;
+                if (checkCount < 1) {
+                    top.winui.window.msg('请选择一条数据', {
+                        time: 2000
+                    });
+                    return false;
+                }
+                var ids = [];
+                $(checkStatus.data).each(function (index, item) {
+                    ids.push(item.Id);
+                });
+                contactEvent. deletedata(ids);
+            }
             break
         case 'LAYTABLE_COLS'://选择列-系统默认不管
+            break;
+        case 'reloadTable'://刷新
+        contactEvent.reloadtable();
+
             break;
         default:
             layer.alert("暂不支持（" + obj.event + "）");
@@ -203,16 +253,19 @@ table.on('toolbar(Dev-CustomerContact)', function (obj) {
 
     };
 });
-//列表操作列
+//列表操作栏
 table.on('tool(Dev-CustomerContact)', function (obj) {
     var _data = obj.data;
     switch (obj.event) {
-        case 'del':
-            contactEvent.tooldel(obj);
+        case 'del'://删除
+        var ids = [];   
+        $(_data).each(function (index, item) {
+            ids.push(item.Id);
+        });
+            contactEvent.deletedata(ids,obj);
             break;
         case 'edit':
-            var url = "/views/devcustomer/custcontact/build.html?Id="+_data.Id;
-            contactEvent.contactbuild('win_addcontact','修改联系人',url);
+            contactEvent.winopen('win_updatecontact','修改联系人','/views/devcustomer/contactbuild.html?CompId='+$devId+'&Id='+_data.Id);
             break;
         default:
             layer.alert("暂不支持（" + obj.event + "）");
@@ -221,7 +274,5 @@ table.on('tool(Dev-CustomerContact)', function (obj) {
 });
 
 /***********************联系人-end***************************************************************************************************/
-
-
-    exports('customerbuild', {});
+ exports('customerbuild', {});
 });

@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Dev.WooNet.Model\Dev.WooNet.Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extend\" />
-  </ItemGroup>
-
 </Project>

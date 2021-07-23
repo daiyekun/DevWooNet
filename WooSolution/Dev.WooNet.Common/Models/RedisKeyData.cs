@@ -43,6 +43,24 @@ namespace Dev.WooNet.Common.Models
         /// Token
         /// </summary>
         public static string DevToken = "Token";
+        /// <summary>
+        /// 国家
+        /// </summary>
+        public static string Country = "Country";
+        /// <summary>
+        /// 省
+        /// </summary>
+        public static string Province = "Province";
+        /// <summary>
+        /// 市
+        /// </summary>
+        public static string City = "City";
+        /// <summary>
+        /// 币种
+        /// </summary>
+        public static string Currency = "Currency";
+
+        
 
     }
 }

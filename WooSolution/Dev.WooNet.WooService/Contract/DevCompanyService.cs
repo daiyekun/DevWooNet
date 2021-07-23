@@ -1,4 +1,5 @@
 ﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Models;
 using Microsoft.EntityFrameworkCore;
@@ -146,6 +147,104 @@ namespace Dev.WooNet.WooService
 
             };
         }
+        /// <summary>
+        /// 根据Id 信息
+        /// </summary>
+        /// <returns>返回基本信息</returns>
+        public DevCompanyDTO GetInfoById(int Id)
+        {
+            var query = from a in this.DevDb.Set<DevCompany>().AsTracking()
+                        where a.Id == Id
+                        select new
+                        {
+                            Id = a.Id,
+                            Name = a.Name,
+                            Code = a.Code,
+                            Dtype = a.Dtype,
+                            LevelId = a.LevelId,//级别
+                            CareditId = a.CareditId,//信用等级
+                            CompClassId = a.CompClassId,//公司类别
+                            CountryId = a.CountryId,//国家
+                            ProvinceId = a.ProvinceId,//省
+                            CityId = a.CityId,//省份
+                            Trade = a.Trade,//行业
+                            Telephone = a.Telephone,//电话
+                            PostCode = a.PostCode,//邮编
+                            Cfax = a.Cfax,//传值
+                            RegCapital = a.RegCapital,//注册资金
+                            RegAddress = a.RegAddress,//注册地址
+                            EsDateTime = a.EsDateTime,//成立日期
+                            BusTerm = a.BusTerm,//营业期限
+                            ExpDateTime = a.ExpDateTime,//营业执照日期
+                            InvTitle = a.InvTitle,//发票标题
+                            DutyNo = a.DutyNo,//纳税人识别号
+                            InvAddress = a.InvAddress,//发票地址
+                            InvTel = a.InvTel,//发票电话
+                            BankName = a.BankName,//银行
+                            Account = a.Account,//账号
+                            PaidCapital = a.PaidCapital,//实收
+                            LegalPerson = a.LegalPerson,//法人
+                            WebUrl = a.WebUrl,//网站地址
+                            Dstatus = a.Dstatus,//状态
+                            Wstatus = a.Wstatus,//流程状态
+                            FlowTo = a.FlowTo,//审批事项
+                            WnodeName = a.WnodeName,//流程节点名称
+                            AddUserId = a.AddUserId,//创建人
+                            AddDateTime = a.AddDateTime,//创建时间
+                            FaceUserId = a.FaceUserId,//负责人
+                            BusScope = a.BusScope,//经营范围
+                            Reserve1 = a.Reserve1,
+                            Reserve2 = a.Reserve2
+
+
+                        };
+            var local = from a in query.AsEnumerable()
+                        select new DevCompanyDTO
+                        {
+                            Id = a.Id,
+                            Name = a.Name,
+                            Code = a.Code,
+                            Dtype = a.Dtype,
+                            LevelId = a.LevelId,//级别
+                            CareditId = a.CareditId,//信用等级
+                            CompClassId = a.CompClassId,//公司类别
+                            CountryId = a.CountryId,//国家
+                            ProvinceId = a.ProvinceId,//省
+                            CityId = a.CityId,//省份
+                            Trade = a.Trade,//行业
+                            Telephone = a.Telephone,//电话
+                            PostCode = a.PostCode,//邮编
+                            Cfax = a.Cfax,//传值
+                            RegCapital = a.RegCapital,//注册资金
+                            RegAddress = a.RegAddress,//注册地址
+                            EsDateTime = a.EsDateTime,//成立日期
+                            BusTerm = a.BusTerm,//营业期限
+                            ExpDateTime = a.ExpDateTime,//营业执照日期
+                            InvTitle = a.InvTitle,//发票标题
+                            DutyNo = a.DutyNo,//纳税人识别号
+                            InvAddress = a.InvAddress,//发票地址
+                            InvTel = a.InvTel,//发票电话
+                            BankName = a.BankName,//银行
+                            Account = a.Account,//账号
+                            PaidCapital = a.PaidCapital,//实收
+                            LegalPerson = a.LegalPerson,//法人
+                            WebUrl = a.WebUrl,//网站地址
+                            Dstatus = a.Dstatus,//状态
+                            Wstatus = a.Wstatus,//流程状态
+                            FlowTo = a.FlowTo,//审批事项
+                            WnodeName = a.WnodeName,//流程节点名称
+                            AddUserId = a.AddUserId,//创建人
+                            AddDateTime = a.AddDateTime,//创建时间
+                            FaceUserId = a.FaceUserId,//负责人
+                            BusScope = a.BusScope,//经营范围
+                            Reserve1 = a.Reserve1,
+                            Reserve2 = a.Reserve2,
+                            AddUserName= RedisDevCommUtility.GetUserName(a.AddUserId ?? 0)
+
+                        };
+            return local.FirstOrDefault();
+        }
+
 
         #endregion
 

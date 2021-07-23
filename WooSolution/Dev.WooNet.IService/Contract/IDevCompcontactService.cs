@@ -27,5 +27,10 @@ namespace Dev.WooNet.IWooService
         /// <returns></returns>
         AjaxListResult<DevCompcontactDTO> GetList<s>(PageInfo<DevCompcontact> pageInfo, Expression<Func<DevCompcontact, bool>> whereLambda,
              Expression<Func<DevCompcontact, s>> orderbyLambda, bool isAsc);
+        /// <summary>
+        /// 根据ID获取信息
+        /// </summary>
+        /// <returns>返回基本信息</returns>
+        DevCompcontactDTO GetInfoById(int Id);
     }
 }

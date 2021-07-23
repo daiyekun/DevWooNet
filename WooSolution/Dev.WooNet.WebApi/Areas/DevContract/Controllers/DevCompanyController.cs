@@ -4,6 +4,7 @@ using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
 using Dev.WooNet.Model.Models;
+using Dev.WooNet.WebCore.Extend;
 using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
+/// <summary>
+/// 合同对方 操作
+/// </summary>
 
 namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
 {
@@ -23,7 +27,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [TokenSessionActionFilter]
-    public class DevCompanyController : DevController
+    public class DevCompanyController : ControllerBase
     {
         private IMapper _IMapper;
         private IDevCompanyService _IDevCompanyService;
@@ -68,9 +72,12 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
         [HttpPost]
         public IActionResult CompanySave([FromBody] DevCompanyDTO info)
         {
+            var userId = HttpContext.User.Claims.GetTokenUserId();
             if (info.Id > 0)
             {//修改
                 var currinfo = _IDevCompanyService.Find(info.Id);
+                var saveinfo = _IMapper.Map<DevCompanyDTO, DevCompany>(info);
+                _IDevCompanyService.Update(saveinfo);
 
             }
             else
@@ -78,9 +85,9 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
                 var savinfo = _IMapper.Map<DevCompany>(info);
                 savinfo.AddDateTime = DateTime.Now;
                 savinfo.UpdateDateTime = DateTime.Now;
-                savinfo.UpdateUserId = this.ReqData.UserId;
-                savinfo.UpdateUserId= this.ReqData.UserId;
-                _IDevCompanyService.SaveCompany(savinfo);
+                savinfo.UpdateUserId = userId;
+                savinfo.UpdateUserId= userId;
+                _IDevCompanyService.Add(savinfo);
 
             }
             
@@ -96,6 +103,26 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
 
 
         }
+        /// <summary>
+        /// 显示详情
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("showView")]
+        [HttpGet]
+        public IActionResult ShowView(int Id)
+        {
+            return new DevResultJson(new AjaxResult<DevCompanyDTO>()
+            {
+                msg = "",
+                code = 0,
+                data = _IDevCompanyService.GetInfoById(Id)
+
+
+            });
+
+        }
+
 
 
     }
