@@ -1,7 +1,7 @@
 /**
  * 客户联系人
  */
-layui.config({
+ layui.config({
     base: '../../../lib/' //指定 winui 路径
     , version: '1.0.0-beta'
 }).extend({
@@ -18,13 +18,13 @@ layui.config({
         msg = winui.window.msg
         ,laydate=layui.laydate
         ,form = layui.form
-      ;
+         ;
     var $devId = wooutil.getUrlVar('Id');
     var CompId=wooutil.getUrlVar('CompId');
     $("#CompId").val(CompId);
     
     //提交
-    form.on('submit(dev-formSaveContact)', function (data) {
+    form.on('submit(dev-formSavedesc)', function (data) {
         var postdata = data.field;
         //无赖之举目前没有更好办法，如果不这样制定一个int的id到后端API接收时对象为null
         postdata.Id = $devId > 0 ? $devId : 0;
@@ -32,7 +32,7 @@ layui.config({
         if (winui.verifyForm(data.elem)) {
             wooutil.devajax({
                 type: 'POST',
-                url: devsetter.devuserurl + 'api/DevCompContact/custcontactsave',
+                url: devsetter.devuserurl + 'api/DevCompDesc/save',
                 //async: false,
                 processData: false,
                 data: JSON.stringify(postdata),
@@ -63,9 +63,9 @@ layui.config({
     function closeWin() {
         
         if ($devId > 0) {
-            top.winui.window.close('win_updatecontact');
+            top.winui.window.close('win_updatedesc');
         } else {
-            top.winui.window.close('win_addcontact');
+            top.winui.window.close('win_adddesc');
 
         }
     }
@@ -76,7 +76,7 @@ layui.config({
                 icon: 1
             },function(){
                 closeWin();
-                top.winui.window.devtablelaod({id:'win_addcustomer',resbtn:'custContactrefresh'});
+                top.winui.window.devtablelaod({id:'win_addcustomer',resbtn:'custdescrefresh'});
             });
            
             
@@ -95,13 +95,13 @@ layui.config({
         if ($devId !== "" && $devId !== undefined) {
             wooutil.devajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevCompContact/showView',
+                url: devsetter.devuserurl + 'api/DevCompDesc/showView',
                 //async: false,
                 data: { Id: $devId },
                 dataType: 'json',
                 success: function (res) {
                     wooutil.devloginout(res);
-                    form.val("DEV-customercontactForm", res.data);
+                    form.val("DEV-customerdescForm", res.data);
                    
                     $("#Id").val(res.data.Id);
                 },
@@ -118,6 +118,6 @@ layui.config({
     }
     //执行赋值表单
     devSetValues();
-    form.render(null, 'DEV-customercontactForm');
-    exports('contactbuild', {});
+    form.render(null, 'DEV-customerdescForm');
+    exports('descbuild', {});
 });

@@ -46,7 +46,7 @@ namespace Dev.WooNet.Model.Enums
         /// <summary>
         /// 信用等级：6
         /// </summary>
-        [EnumItem(Value = 6, Desc = "信用等级")]
+        [EnumItem(Value = 6, Desc = "客户信用等级")]
         customerCaredit = 6,
         /// <summary>
         /// 公司类型：7

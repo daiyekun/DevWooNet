@@ -303,10 +303,16 @@
                     <div class="layui-card-body" style="padding: 15px;">
                         <table id="Dev-CustomerFiles" lay-filter="Dev-CustomerFiles"></table>
                         <script id="toolCustomerFiles" type="text/html">
-                            <div class="layui-inline">
-                                <button class="layui-btn " lay-event="add"><i class="layui-icon layui-icon-edit"></i> 新增</button>
-                                <button class="layui-btn  layui-btn-danger" lay-event="batchdel"><i class="layui-icon layui-icon-delete"></i>批量删除</button>
-                            </div>
+                            <div class="winui-toolbar">
+                                <div class="winui-tool">
+                                <div class="layui-inline">
+                                    <button  lay-event="reloadTable" id="custdescrefresh" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                    <button  lay-event="add" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                    <button  lay-event="batchdel" class="winui-toolbtn"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+
+                                </div>
+                                </div>
+                              </div>
                         </script>
                         <script type="text/html" id="tableCustomerFilesbar">
                             <a class="layui-btn layui-btn-xs" lay-event="download"><i class="layui-icon layui-icon-edit"></i>下载</a>
@@ -326,10 +332,16 @@
                         <div class="layui-card-body" style="padding: 15px;">
                             <table id="Dev-CustomerDesc" lay-filter="Dev-CustomerDesc"></table>
                             <script id="toolCustomerDesc" type="text/html">
+                                <div class="winui-toolbar">
+                                <div class="winui-tool">
                                 <div class="layui-inline">
-                                    <button class="layui-btn " lay-event="add"><i class="layui-icon layui-icon-edit"></i> 新增</button>
-                                    <button class="layui-btn  layui-btn-danger" lay-event="batchdel"><i class="layui-icon layui-icon-delete"></i>批量删除</button>
+                                    <button  lay-event="reloadTable" id="custdescrefresh" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                    <button  lay-event="add" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                    <button  lay-event="batchdel" class="winui-toolbtn"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+
                                 </div>
+                                </div>
+                              </div>
                             </script>
                             <script type="text/html" id="tablecustomerDescbar">
                                 <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>修改</a>

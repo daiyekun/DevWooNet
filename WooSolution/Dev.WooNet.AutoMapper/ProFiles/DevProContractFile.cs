@@ -26,15 +26,22 @@ namespace Dev.WooNet.AutoMapper.ProFiles
            .ForMember(a => a.AddUserId, opt => opt.Ignore())
            .ForMember(a => a.AddDateTime, opt => opt.Ignore())
            .ForMember(a => a.UpdateUserId, opt => opt.MapFrom(src => 0));
-            //合同对方连接
+            //合同对方联系人
            CreateMap<DevCompcontactDTO, DevCompcontact>()
           .ForMember(a => a.IsDelete, opt => opt.MapFrom(src => 0))
           .ForMember(a => a.UpdateDateTime, opt => opt.MapFrom(src => DateTime.Now))
           .ForMember(a => a.AddUserId,  opt =>opt.Ignore())
           .ForMember(a => a.AddDateTime, opt => opt.Ignore())
           .ForMember(a => a.UpdateUserId, opt => opt.Ignore());
+            //合同对方备忘录
+            CreateMap<DevCompdescDTO, DevCompdesc>()
+           .ForMember(a => a.IsDelete, opt => opt.MapFrom(src => 0))
+           .ForMember(a => a.UpdateDateTime, opt => opt.MapFrom(src => DateTime.Now))
+           .ForMember(a => a.AddUserId, opt => opt.Ignore())
+           .ForMember(a => a.AddDateTime, opt => opt.Ignore())
+           .ForMember(a => a.UpdateUserId, opt => opt.Ignore());
 
-            
+
             #endregion
 
 

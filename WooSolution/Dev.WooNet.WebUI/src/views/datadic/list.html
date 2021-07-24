@@ -26,10 +26,10 @@
                     <li class="winui-this"><i class="fa fa-info-circle fa-fw"></i>机构类别</li>
                     <li><i class="fa fa-clock-o fa-fw"></i>合同类别</li>
                     <li><i class="fa fa-bug fa-fw"></i>客户类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
+                    <li><i class="fa fa-bug fa-fw"></i>客户附件类别</li>
+                    <li><i class="fa fa-bug fa-fw"></i>客户级别</li>
+                    <li><i class="fa fa-bug fa-fw"></i>客户信用等级</li>
+                    <li><i class="fa fa-bug fa-fw"></i>公司类型</li>
                     <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
                     <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
                     <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
@@ -64,24 +64,66 @@
                         <table id="woodepartdic" lay-filter="woodepartdic"></table>
                     </div>
                     <div class="winui-tab-item">
-                        <ul class="layui-timeline">
-                            <li class="layui-timeline-item">
-                                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                                <div class="layui-timeline-content layui-text">
-                                    <h3 class="layui-timeline-title">2018年04月18日</h3>
-                                    <p>
-                                        WinAdmin 1.0.0 开源于Github、码云
-                                    </p>
-                                </div>
-                            </li>
-                            <li class="layui-timeline-item">
-                                <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
-                                <div class="layui-timeline-content layui-text">
-                                    <div class="layui-timeline-title">开发阶段</div>
-                                </div>
-                            </li>
-                        </ul>
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woocontdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woocontdic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woocontdic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woocontdic" lay-filter="woocontdic"></table>
                     </div>
+                    <div class="winui-tab-item" >
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodcustomerdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodcustomerdic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodcustomerdic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodcustomerdic" lay-filter="woodcustomerdic"></table>
+                    </div>
+                    <div class="winui-tab-item" >
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodcustfiledic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodcustfiledic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodcustfiledic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodcustfiledic" lay-filter="woodcustfiledic"></table>
+                    </div>
+                    <div class="winui-tab-item" >
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodcustLeveldic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodcustLeveldic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodcustLeveldic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodcustLeveldic" lay-filter="woodcustLeveldic"></table>
+                    </div>
+                    <div class="winui-tab-item" >
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodcustCareditdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodcustCareditdic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodcustCareditdic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodcustCareditdic" lay-filter="woodcustCareditdic"></table>
+                    </div>
+                    <div class="winui-tab-item" >
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodcustTypetdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodcustTypetdic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodcustTypetdic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodcustTypetdic" lay-filter="woodcustTypetdic"></table>
+                    </div>
+
                     <div class="winui-tab-item">
                         <ol>
                             <li>最大化后改变浏览器视口大小，窗口的位置会错乱</li>

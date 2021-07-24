@@ -21,15 +21,73 @@ layui.config({
         $ = layui.$,
         devindex = layui.devindex;
     /*****************************************新增可能存在的修改--begin***************************************************** */
+    //部门类别
     var departtabcols = [
         { type: 'checkbox' },
         { field: 'Id', width: 80, title: 'ID', hide: true },
         { field: 'Name', title: '名称', width: 160, edit: 'text' },
         { field: 'Remark', title: '备注', width: 200, edit: 'text' }
     ];
-    //渲染表格
-    tablerender('woodepartdic', 0, departtabcols);
-    tableEdit('woodepartdic');//注册编辑
+     
+     tablerender('woodepartdic', departtabcols);
+     tableEdit('woodepartdic');
+    //合同类别
+    var conttabcols = [
+        { type: 'checkbox' },
+        { field: 'Id', width: 80, title: 'ID', hide: true },
+        { field: 'Name', title: '名称', width: 160, edit: 'text' },
+        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
+    ];
+    tablerender('woocontdic',  conttabcols);
+    tableEdit('woocontdic');
+    //客户类别
+    var customertabcols = [
+        { type: 'checkbox' },
+        { field: 'Id', width: 80, title: 'ID', hide: true },
+        { field: 'Name', title: '名称', width: 160, edit: 'text' },
+        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
+    ];
+    tablerender('woodcustomerdic',  customertabcols);
+    tableEdit('woodcustomerdic');
+    //客户附件类别
+    var custfiletabcols = [
+        { type: 'checkbox' },
+        { field: 'Id', width: 80, title: 'ID', hide: true },
+        { field: 'Name', title: '名称', width: 160, edit: 'text' },
+        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
+    ];
+    tablerender('woodcustfiledic', custfiletabcols);
+    tableEdit('woodcustfiledic');
+    //客户级别
+    var custLeveltabcols = [
+        { type: 'checkbox' },
+        { field: 'Id', width: 80, title: 'ID', hide: true },
+        { field: 'Name', title: '名称', width: 160, edit: 'text' },
+        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
+    ];
+    tablerender('woodcustLeveldic', custLeveltabcols);
+    tableEdit('woodcustLeveldic');
+    //信用等级
+    var custCaredittabcols = [
+        { type: 'checkbox' },
+        { field: 'Id', width: 80, title: 'ID', hide: true },
+        { field: 'Name', title: '名称', width: 160, edit: 'text' },
+        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
+    ];
+    tablerender('woodcustCareditdic', custCaredittabcols);
+    tableEdit('woodcustCareditdic');
+    //公司类型
+    var custdcustTypetabcols = [
+        { type: 'checkbox' },
+        { field: 'Id', width: 80, title: 'ID', hide: true },
+        { field: 'Name', title: '名称', width: 160, edit: 'text' },
+        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
+    ];
+    tablerender('woodcustTypetdic', custdcustTypetabcols);
+    tableEdit('woodcustTypetdic');
+
+    
+   
     /*
     *根据表格ID获取枚举值
     *如果是增加枚举一定要记得增加
@@ -40,6 +98,24 @@ layui.config({
             case "woodepartdic"://部门类别
                 tpId = 0;
                 break;
+                case "woocontdic"://合同类别
+                tpId = 1;
+                break;
+                case "woodcustomerdic"://客户类别
+                tpId = 3;
+                break;
+                case "woodcustfiledic"://客户附件类别
+                tpId = 8;
+                break;
+                case "woodcustLeveldic"://客户级别
+                tpId = 5;
+                break;
+                case "woodcustCareditdic"://信用等级
+                tpId = 6;
+                break;
+                case "woodcustTypetdic"://公司类型
+                tpId = 7;
+                break;
 
         }
         return tpId;
@@ -47,7 +123,7 @@ layui.config({
     /*****************************************新增可能存在的修改--end***************************************************** */
 
     //创建表格
-    function tablerender(tableId, dataint, tabcols) {
+    function tablerender(tableId,  tabcols) {
         var tburl = devsetter.devuserurl + "api/DataDic/list";
         table.render({
             id: tableId,
@@ -55,7 +131,7 @@ layui.config({
             url: tburl,
             method: 'POST',
             contentType: 'application/json',
-            where: { "otherId": dataint },
+            where: { "otherId": GetTypeEnum(tableId) },
             page: true,
             limits: devsetter.listtable.mainlistlimits,
             limit: devsetter.listtable.mainlistlimit,
