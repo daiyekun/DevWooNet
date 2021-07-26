@@ -124,6 +124,7 @@ layui.config({
      laydate.render({ elem: '#EsDateTime', trigger: 'click' });
     //证件有效期
      laydate.render({ elem: '#ExpDateTime', trigger: 'click' });
+     wooutil.selverpen();//下拉小笔头
     //执行赋值表单
     devSetValues();
     form.render(null, 'DEV-CustomerForm');

@@ -17,7 +17,5 @@
 /*必填标识*/
 .dev-input-pen{
     background: url(/images/pen.png) no-repeat 3px center;
-    padding-left: 25px;
-
-
+    padding-left: 20px;
 }

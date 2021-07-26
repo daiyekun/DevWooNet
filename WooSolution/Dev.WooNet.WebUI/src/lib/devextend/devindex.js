@@ -269,6 +269,19 @@ layui.config({
       
 
         }
+        ,selverpen: function () {///<summary>添加下拉框小笔头</summary>
+            setTimeout(function () {
+                $("select").each(function (_index, el) {
+
+                    if ($(el).attr("lay-verify") != "" && $(el).attr("lay-verify") != undefined) {
+                        $(el).siblings("div").find("input").addClass("dev-input-pen");
+                    }
+
+                });
+
+            }, 500)
+
+        }
         
     };
     //一些工具类结束----------------------------------------------------------------
