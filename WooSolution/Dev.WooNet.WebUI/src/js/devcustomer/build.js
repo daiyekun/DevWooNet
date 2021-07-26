@@ -4,9 +4,10 @@ layui.config({
 }).extend({
     winui: 'winui/winui',
     window: 'winui/js/winui.window',
-    devindex: 'devextend/devindex'
+    devindex: 'devextend/devindex',
+    address: 'devextend/address',
    
-}).define(['table', 'winui', 'window', 'layer', 'devindex', 'laydate'], function (exports) {
+}).define(['table', 'winui', 'window', 'layer', 'devindex', 'laydate','address'], function (exports) {
     winui.renderColor();
     var table = layui.table,
         $ = layui.$,
@@ -14,16 +15,14 @@ layui.config({
         msg = winui.window.msg
         ,laydate=layui.laydate
         ,form = layui.form
+        ,address=layui.address()
         , tableId = 'useridtableid'
         ;
     var $devId = wooutil.getUrlVar('Id');
     var localdata=wooutil.devlocaldata();
 
 /***********************基本信息-begin***************************************************************************************************/
-  //日期
-  laydate.render({
-    elem: '#EntryDatetime'
-  });
+ 
    
     //提交
     form.on('submit(Dev-SubmitSave)', function (data) {
@@ -114,6 +113,17 @@ layui.config({
           
         }
     }
+    
+    //客户类别
+     wooutil.getdatadic({ dataenum: 3, selectEl: "#CompClassId" });
+     //单位级别
+     wooutil.getdatadic({ dataenum: 5, selectEl: "#LevelId" });
+     //信用等级
+     wooutil.getdatadic({ dataenum: 5, selectEl: "#CareditId" });
+    //成立日期
+     laydate.render({ elem: '#EsDateTime', trigger: 'click' });
+    //证件有效期
+     laydate.render({ elem: '#ExpDateTime', trigger: 'click' });
     //执行赋值表单
     devSetValues();
     form.render(null, 'DEV-CustomerForm');
@@ -136,14 +146,14 @@ table.render({
     , cols: [[
         { type: 'numbers', fixed: 'left' }
         ,{ type: 'checkbox', fixed: 'left' }
-        , { field: 'Id', title: 'Id', width: 50, hide: true }
-        , { field: 'Name', title: '附件名称', width: 150, fixed: 'left' }
-        , { field: 'FileClassName', title: '文件类别', width: 130}
-        , { field: 'FileName', title: '文件名称', width: 150}
-        , { field: 'Remark', title: '说明', width: 500 }
+        , { field: 'Name', title: '附件名称', width: 200, fixed: 'left' }
+        , { field: 'FileClassName', title: '文件类别', width: 140}
+        , { field: 'FileName', title: '文件名称', width: 200}
+        , { field: 'Remark', title: '说明', width: 400 }
         , { field: 'AddDateTime', title: '建立日期', width: 120, hide: true }
         , { field: 'AddUserName', title: '建立人', width: 120, hide: true }
-        , { title: '操作', width: 150, align: 'center', fixed: 'right', toolbar: '#tableCustomerFilesbar' }
+        , { field: 'Id', title: 'Id', width: 50, hide: true }
+        , { title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#tableCustomerFilesbar' }
     ]]
     , page: false
     , loading: true
@@ -155,7 +165,7 @@ table.render({
     
 
 });
-var descEvent={
+var fileEvent={
  winopen:function(winid,wintitle,url){
      top.winui.window.open({
          id: winid,
@@ -197,7 +207,7 @@ reloadtable:function(){
                      });
                      obj.del(); //删除对应行（tr）的DOM结构
                  } else {
-                    descEvent.reloadtable();
+                    fileEvent.reloadtable();
                  }
 
              },
@@ -221,7 +231,7 @@ reloadtable:function(){
 table.on('toolbar(Dev-CustomerFiles)', function (obj) {
  switch (obj.event) {
      case 'add':
-        descEvent.winopen('win_adddesc','新增附件','/views/devcustomer/compfilebuild.html?CompId='+$devId);
+        fileEvent.winopen('win_addcustfile','新增附件','/views/devcustomer/compfilebuild.html?CompId='+$devId+'&Ctype=0');
          break;
      case 'batchdel':
          {
@@ -237,13 +247,13 @@ table.on('toolbar(Dev-CustomerFiles)', function (obj) {
              $(checkStatus.data).each(function (index, item) {
                  ids.push(item.Id);
              });
-             descEvent.deletedata(ids);
+             fileEvent.deletedata(ids);
          }
          break
      case 'LAYTABLE_COLS'://选择列-系统默认不管
          break;
      case 'reloadTable'://刷新
-     descEvent.reloadtable();
+     fileEvent.reloadtable();
         break;
      default:
          layer.alert("暂不支持（" + obj.event + "）");
@@ -260,10 +270,10 @@ table.on('tool(Dev-CustomerFiles)', function (obj) {
      $(_data).each(function (index, item) {
          ids.push(item.Id);
      });
-       descEvent.deletedata(ids,obj);
+     fileEvent.deletedata(ids,obj);
          break;
      case 'edit':
-        descEvent.winopen('win_updatedesc','修改附件','/views/devcustomer/compfilebuild.html?CompId='+$devId+'&Id='+_data.Id);
+        fileEvent.winopen('win_updatecustfile','修改附件','/views/devcustomer/compfilebuild.html?CompId='+$devId+'&Id='+_data.Id);
          break;
      default:
          layer.alert("暂不支持（" + obj.event + "）");

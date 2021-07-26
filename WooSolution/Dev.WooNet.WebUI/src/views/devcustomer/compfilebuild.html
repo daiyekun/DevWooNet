@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>客户联系人</title>
+    <link href="/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="/lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="/lib/winui/css/winui.css" rel="stylesheet" />
+    <link href="/lib/winui/css/devcommon.css" rel="stylesheet"/>
+</head>
+<body>
+<div style="margin:0 auto;padding-top:20px;">
+    <div class="layui-form" lay-filter="DEV-customerfileForm">
+        <input  type="hidden" id="Id" name="Id"  />
+        <!-- 合同对方ID -->
+        <input  type="hidden" id="CompId" name="CompId"  />
+           <!--标识客户-->
+           <input type="hidden" name="Ctype" />
+           <!-- 文件夹名称 -->
+           <input type="hidden" name="FolderName" />
+           <!--Guid名称-->
+           <input type="hidden" name="GuidFileName" />
+           <!-- 扩展名称 -->
+           <input type="hidden" name="Extension" />
+        
+        <div class="layui-card ">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body" style="padding: 15px;">
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">文件名</label>
+                        <div class="layui-input-block">
+                            <div class="layui-input-inline" style="width:70%;">
+                                <input type="text" name="FileName" lay-verify="required" readonly  class="layui-input dev-input-pen" />
+                            </div>
+                            <div class="layui-form-mid layui-word-aux" style="margin-top:-9px;">
+                                <button class="layui-btn layui-btn layui-btn-sm nf-btn-customer" id="custfileUpload" style="height:38px;line-height:38px;">浏览</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">附件名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Name" lay-verify="required"  class="layui-input dev-input-pen" />
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">附件类别</label>
+                        <div class="layui-input-block">
+                            <select name="FileClassId" id="FileClassId" readonly lay-verify="required" lay-search>
+                                <option value="">请选择..</option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">附件说明</label>
+                        <div class="layui-input-block">
+                            <textarea name="Remark" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <!--需要在最后加这个或者没有也加一个 <div class="layui-form-item">，这样不会导致隐藏菜单是显示问题-->
+                <div class="layui-form-item">
+
+                </div>
+            </div>
+        </div>
+        <!--基本信息end-->
+      
+        <!--按钮begin-->
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div class="layui-footer" style="left: 0;">
+                    <button class="winui-btn" lay-submit lay-filter="dev-formSavefile">确定</button>
+                    <button class="winui-btn" id="quxiaobtn" >取消</button>
+                </div>
+            </div>
+            </div>
+        <!--按钮begin-->
+    </div>
+    
+</div>
+<script src="/lib/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../js/'
+        }).extend({
+            compfilebuild:'devcustomer/compfilebuild',
+            
+        })
+        .use('compfilebuild');
+</script>
+</body>
+</html>

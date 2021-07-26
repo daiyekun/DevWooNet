@@ -59,8 +59,13 @@ namespace Dev.WooNet.Common.Models
         /// 币种
         /// </summary>
         public static string Currency = "Currency";
+        /// <summary>
+        /// 地址
+        /// </summary>
+        public static string DevAddress = "DevAddress";
 
-        
+
+
 
     }
 }

@@ -66,6 +66,15 @@ namespace Dev.WooNet.Common.Utility
         {
             return deptId <= 0 ? "" : RedisUtility.HashGet($"{RedisKeys.RedisdeptKey}:{deptId}", fieldName).ToString();
         }
+
+        /// <summary>
+        /// 获取hash数据字典
+        /// </summary>
+        /// <returns></returns>
+        public static string GetHashDataDic(int Id, string fieldName="Name")
+        {
+            return Id <= 0 ? "" : RedisUtility.HashGet($"{RedisKeys.RedisDataDicKey}:{Id}", fieldName).ToString();
+        }
         
     }
 }

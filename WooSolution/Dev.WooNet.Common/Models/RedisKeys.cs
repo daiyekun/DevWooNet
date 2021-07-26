@@ -48,5 +48,14 @@ namespace Dev.WooNet.Common.Models
         /// 币种
         /// </summary>
         public static readonly string RedisCurrencyKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.Currency}";
+        /// <summary>
+        /// 数据字典
+        /// </summary>
+        public static readonly string RedisDataDicKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DataDic}";
+
+        /// <summary>
+        /// 省-市级联字符串
+        /// </summary>
+        public static readonly string redisAddressKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DevAddress}";
     }
 }

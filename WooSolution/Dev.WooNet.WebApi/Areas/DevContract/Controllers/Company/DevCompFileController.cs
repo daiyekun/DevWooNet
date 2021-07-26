@@ -14,7 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+
 
 namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
 {
@@ -43,9 +43,10 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
         [HttpPost]
         public IActionResult GetList([FromBody] PgRequestInfo pgInfo)
         {
+            var userId = HttpContext.User.Claims.GetTokenUserId();
             var pageInfo = new NoPageInfo<DevCompfile>();
             var prdAnd = PredBuilder.True<DevCompfile>();
-            prdAnd = prdAnd.And(a => a.IsDelete == 0 && a.CompId == pgInfo.otherId);
+            prdAnd = prdAnd.And(a => a.IsDelete == 0 && (a.CompId == pgInfo.otherId||a.CompId==-userId));
             var prdOr = PredBuilder.False<DevCompfile>();
 
             var pagelist = _IDevCompfileService.GetList(pageInfo, prdAnd, a => a.Id, false);
@@ -53,15 +54,16 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
 
         }
         /// <summary>
-        /// 用户新增修改
+        ///新增修改
         /// </summary>
-        /// <param name="userdto">用户信息</param>
+        /// <param name="infodto">新增修改信息</param>
         /// <returns></returns>
         [Route("save")]
         [HttpPost]
-        public IActionResult CustcontactSave([FromBody] DevCompfileDTO infodto)
+        public IActionResult Save([FromBody] DevCompfileDTO infodto)
         {
             var userId = HttpContext.User.Claims.GetTokenUserId();
+            infodto.FilePath = $"Uploads/{infodto.FolderName}/{infodto.GuidFileName}";
             if (infodto.Id > 0)
             {
                 var cinfo = _IDevCompfileService.Find(infodto.Id);
@@ -77,6 +79,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
                 saveinfo.AddUserId = userId;
                 saveinfo.AddDateTime = DateTime.Now;
                 saveinfo.UpdateUserId = userId;
+                saveinfo.DowNumber = 0;
+                saveinfo.UpdateDateTime = DateTime.Now;
                 saveinfo.CompId = (saveinfo.CompId ?? 0) == 0 ? -userId : saveinfo.CompId;
                 _IDevCompfileService.Add(saveinfo);
 
@@ -117,7 +121,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
         /// <returns></returns>
         [Route("delete")]
         [HttpGet]
-        public IActionResult DeleteContact(string Ids)
+        public IActionResult Delete(string Ids)
         {
             string strsql = $"DELETE from dev_compfile where Id in({Ids})";
 

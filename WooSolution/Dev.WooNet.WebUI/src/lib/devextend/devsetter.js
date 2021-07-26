@@ -26,7 +26,13 @@
       }
       ,msgName: 'msg' //状态信息的字段名称
       ,dataName: 'data' //数据详情的字段名称
-    }
+    },
+     devupload: {//上传组件配置
+       size: '5368709120'
+      , accept: 'file'
+      , exts: 'txt|doc|jpg|gif|png|rar|zip|docx|pdf|xls|xlsx|jpeg|mdi|tif|dwg|psd|3ds|eps|vsd|TXT|DOC|JPG|JPEG|MDI|TIF|GIF|PNG|RAR|ZIP|DOCX|PDF|XLS|XLSX|DWG|PSD|3DS|EPS|VSD'
+      , uploadIp: 'http://localhost:8059/'
+      }
  
     }
   );

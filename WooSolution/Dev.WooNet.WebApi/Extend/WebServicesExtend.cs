@@ -29,6 +29,9 @@ namespace Dev.WooNet.WebAPI.Extend
             services.AddTransient<IDevCompcontactService, DevCompcontactService>();
             services.AddTransient<IDevCompfileService, DevCompfileService>();
             services.AddTransient<IDevCompdescService, DevCompdescService>();
+            services.AddTransient<IDevCountryService, DevCountryService>();
+
+            
 
             #endregion
 

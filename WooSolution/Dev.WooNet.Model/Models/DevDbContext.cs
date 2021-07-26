@@ -61,11 +61,13 @@ namespace Dev.WooNet.Model.Models
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.ShowName)
+                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
@@ -74,8 +76,6 @@ namespace Dev.WooNet.Model.Models
             modelBuilder.Entity<DevCompany>(entity =>
             {
                 entity.ToTable("dev_company");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Account)
                     .HasColumnType("varchar(255)")
@@ -210,8 +210,6 @@ namespace Dev.WooNet.Model.Models
             {
                 entity.ToTable("dev_compcontact");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.AddDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Dname)
@@ -261,8 +259,6 @@ namespace Dev.WooNet.Model.Models
             {
                 entity.ToTable("dev_compdesc");
 
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.AddDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.Item)
@@ -281,8 +277,6 @@ namespace Dev.WooNet.Model.Models
             modelBuilder.Entity<DevCompfile>(entity =>
             {
                 entity.ToTable("dev_compfile");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.AddDateTime).HasColumnType("datetime");
 
@@ -331,11 +325,13 @@ namespace Dev.WooNet.Model.Models
                 entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.ShowName)
+                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
@@ -344,8 +340,6 @@ namespace Dev.WooNet.Model.Models
             modelBuilder.Entity<DevCurrencyManager>(entity =>
             {
                 entity.ToTable("dev_currency_manager");
-
-                entity.Property(e => e.Id).ValueGeneratedNever();
 
                 entity.Property(e => e.Abbreviation)
                     .HasColumnType("varchar(50)")
@@ -570,11 +564,13 @@ namespace Dev.WooNet.Model.Models
                 entity.Property(e => e.Cid).HasColumnName("CId");
 
                 entity.Property(e => e.Name)
+                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.ShowName)
+                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");

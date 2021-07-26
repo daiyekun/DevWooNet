@@ -80,7 +80,8 @@ namespace Dev.WooNet.WooService
                             Extension = a.Extension,
                             AddUserId = a.AddUserId,
                             AddDateTime = a.AddDateTime,
-                            AddUserName = RedisDevCommUtility.GetUserName(a.AddUserId ?? 0)
+                            AddUserName = RedisDevCommUtility.GetUserName(a.AddUserId ?? 0),
+                            FileClassName = RedisDevCommUtility.GetHashDataDic(a.FileClassId??0)
 
                         };
             return new AjaxListResult<DevCompfileDTO>()
@@ -136,7 +137,8 @@ namespace Dev.WooNet.WooService
                             Extension = a.Extension,
                             AddUserId = a.AddUserId,
                             AddDateTime = a.AddDateTime,
-                            AddUserName = RedisDevCommUtility.GetUserName(a.AddUserId ?? 0)
+                            AddUserName = RedisDevCommUtility.GetUserName(a.AddUserId ?? 0),
+                            FileClassName= RedisDevCommUtility.GetHashDataDic(a.FileClassId??0)
 
                         };
             return local.FirstOrDefault();

@@ -19,7 +19,7 @@ namespace Dev.WooNet.WooService
     /// </summary>
     public partial class DevDatadicService
     {
-        private string RedisKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DataDic}";
+       // private string RedisKey = $"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DataDic}";
 
         /// <summary>
         /// 数据字典列表
@@ -135,7 +135,7 @@ namespace Dev.WooNet.WooService
         {
             try
             {
-                var curdickey = $"{this.RedisKey}";
+                var curdickey = $"{RedisKeys.RedisDataDicKey}";
                 var list = GetAll();
                 foreach (var item in list)
                 {

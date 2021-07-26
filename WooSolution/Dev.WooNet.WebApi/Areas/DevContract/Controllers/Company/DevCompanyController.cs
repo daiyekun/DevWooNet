@@ -118,7 +118,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
                 code = 0,
                 data = _IDevCompanyService.GetInfoById(Id)
 
-
+                
             });
 
         }

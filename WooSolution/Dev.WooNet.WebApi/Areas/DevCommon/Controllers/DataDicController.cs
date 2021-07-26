@@ -1,4 +1,5 @@
 ﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Models;
@@ -82,7 +83,9 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             info.Name = "新增类别";
             info.TypeInt = TypeInt;
             _IDevDatadicService.Add(info);
-            var result = new AjaxResult
+            _IDevDatadicService.SetRedisHash();
+            RedisUtility.KeyDeleteAsync($"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DataDicList}");
+             var result = new AjaxResult
             {
                 code = 0,
                 msg = "",
@@ -110,6 +113,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             if (!string.IsNullOrEmpty(sqlstr))
             {
                 _IDevDatadicService.ExecuteSqlCommand(sqlstr);
+                _IDevDatadicService.SetRedisHash();
+                RedisUtility.KeyDeleteAsync($"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DataDicList}");
 
             }
            
@@ -131,6 +136,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         {
             string sqlstr = $"delete from dev_datadic where Id in({Ids})";
             _IDevDatadicService.ExecuteSqlCommand(sqlstr);
+            _IDevDatadicService.SetRedisHash();
+            RedisUtility.KeyDeleteAsync($"{RedisKeyData.RedisBaseRoot}:{RedisKeyData.DataDicList}");
             var result = new AjaxResult
             {
                 code = 0,

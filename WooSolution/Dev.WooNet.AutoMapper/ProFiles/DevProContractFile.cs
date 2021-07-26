@@ -40,6 +40,13 @@ namespace Dev.WooNet.AutoMapper.ProFiles
            .ForMember(a => a.AddUserId, opt => opt.Ignore())
            .ForMember(a => a.AddDateTime, opt => opt.Ignore())
            .ForMember(a => a.UpdateUserId, opt => opt.Ignore());
+            //合同对方--附件
+            CreateMap<DevCompfileDTO, DevCompfile>()
+           .ForMember(a => a.IsDelete, opt => opt.MapFrom(src => 0))
+           .ForMember(a => a.UpdateDateTime, opt => opt.MapFrom(src => DateTime.Now))
+           .ForMember(a => a.AddUserId, opt => opt.Ignore())
+           .ForMember(a => a.AddDateTime, opt => opt.Ignore())
+           .ForMember(a => a.UpdateUserId, opt => opt.Ignore());
 
 
             #endregion

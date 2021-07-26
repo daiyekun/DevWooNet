@@ -44,13 +44,21 @@
                              <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                                  <label class="layui-form-label">类别</label>
                                  <div class="layui-input-block">
-                                    <input type="text" name="CompClassId" lay-verify="required"  class="layui-input dev-input-pen"  />
+                                    <select name="CompClassId" id="CompClassId" readonly lay-verify="required" lay-search>
+                                        <option value="">请选择..</option>
+        
+                                    </select>
+                                   
                                  </div>
                              </div>
                              <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                                  <label class="layui-form-label">单位级别</label>
                                  <div class="layui-input-block">
-                                    <input type="text" name="LevelId"   class="layui-input "  />
+                                    <select name="LevelId" id="LevelId" readonly lay-verify="required" lay-search>
+                                        <option value="">请选择..</option>
+        
+                                    </select>
+                                   
                                     
                                  </div>
                              </div>
@@ -61,14 +69,20 @@
                              <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                                  <label class="layui-form-label">信用等级</label>
                                  <div class="layui-input-block">
-                                    <input type="text" name="CareditId" lay-verify="required"  class="layui-input "  />
+                                    <select name="CareditId" id="CareditId" readonly lay-verify="required" lay-search>
+                                        <option value="">请选择..</option>
+        
+                                    </select>
+                                    
                                  </div>
                              </div>
                              <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                                  <label class="layui-form-label">国家</label>
                                  <div class="layui-input-block">
-                                    <input type="text" name="CountryId" lay-verify="required"  class="layui-input "  />
-         
+                                   
+                                    <select name="CountryId" lay-search lay-filter="CountryId">
+                                        <option value="">请选择..</option>
+                                    </select>
                                  </div>
                              </div>
                          </div>
@@ -76,14 +90,18 @@
                              
                              <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                                  <label class="layui-form-label">省份</label>
-                                 <div class="layui-input-block">
-                                     <input type="text" name="ProvinceId"  class="layui-input">
-                                 </div>
+                                
+                                    <div class="layui-input-block">
+                                        <select name="ProvinceId" lay-search lay-filter="ProvinceId"></select>
+                                    </div>
+                                   
+                                
                              </div>
                              <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
                                  <label class="layui-form-label">市</label>
                                  <div class="layui-input-block">
-                                     <input type="text" name="CityId" class="layui-input" />
+                                    
+                                     <select name="CityId" lay-search lay-filter="CityId"></select>
          
                                  </div>
                              </div>
@@ -306,7 +324,7 @@
                             <div class="winui-toolbar">
                                 <div class="winui-tool">
                                 <div class="layui-inline">
-                                    <button  lay-event="reloadTable" id="custdescrefresh" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                    <button  lay-event="reloadTable" id="custfilerefresh" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
                                     <button  lay-event="add" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
                                     <button  lay-event="batchdel" class="winui-toolbtn"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
 

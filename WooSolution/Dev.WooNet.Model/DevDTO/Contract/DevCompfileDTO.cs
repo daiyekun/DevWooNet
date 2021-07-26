@@ -13,5 +13,9 @@ namespace Dev.WooNet.Model.DevDTO
         /// 添加人
         /// </summary>
         public string AddUserName { get; set; }
+        /// <summary>
+        /// 文件类别
+        /// </summary>
+        public string FileClassName { get; set; }
     }
 }

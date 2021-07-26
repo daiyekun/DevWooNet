@@ -20,14 +20,14 @@ namespace Dev.WooNet.Model.ExtendModel
         public string FileName { get; set; }
     }
     /// <summary>
-    /// 上传文件相关信息
+    /// 上传文件返回相关信息
     /// </summary>
     public class UploadFileInfo
     {
         /// <summary>
         /// 原始文件名称
         /// </summary>
-        public string SourceFileName { get; set; }
+        public string FileName { get; set; }
         /// <summary>
         /// Guid后文件名称
         /// </summary>
@@ -39,7 +39,7 @@ namespace Dev.WooNet.Model.ExtendModel
         /// <summary>
         /// 没有扩展的文件名
         /// </summary>
-        public string NotExtenFileName { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// 文件扩展
         /// </summary>
@@ -47,7 +47,7 @@ namespace Dev.WooNet.Model.ExtendModel
         /// <summary>
         /// 是否使用Guid文件名称
         /// </summary>
-        public bool RemGuidName { get; set; } = true;
+        public bool IsGuidName { get; set; } = true;
 
 
     }
@@ -73,6 +73,43 @@ namespace Dev.WooNet.Model.ExtendModel
         /// 文件后缀
         /// </summary>
         public string Memi { get; set; }
+    }
+    /// <summary>
+    /// 目前没有意义
+    /// </summary>
+    public class DevViewModel
+    {
+        public string Username { get; set; }
+        /// <summary>
+        /// 文件名称
+        /// </summary>
+        public string Name { get; set; }
+    }
+
+    /// <summary>
+    /// 上传下载请求对象
+    /// </summary>
+    public class DownAndUploadInfo
+    {
+        /// <summary>
+        /// 下载ID
+        /// </summary>
+        public int Id { get; set; }
+        /// <summary>
+        /// 下载文件夹枚举值：Dev.WooNet.Model/Enums/DevFoldersEnum
+        /// </summary>
+        public int Folderenum { get; set; }
+        /// <summary>
+        /// 特殊标识，比如合同历史文本下载
+        /// </summary>
+        public int Dtype { get; set; } = 0;
+        /// <summary>
+        /// 下载类型（主要用于合同文本下载）
+        /// 0：默认值
+        /// 1：下载Word
+        /// 2:下载PDF
+        /// </summary>
+        public int DownType { get; set; } = 0;
     }
 
 

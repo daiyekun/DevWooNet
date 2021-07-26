@@ -27,6 +27,7 @@
     <Folder Include="Areas\DevContract\Data\" />
     <Folder Include="Areas\DevContract\Models\" />
     <Folder Include="Areas\DevContract\Views\" />
+    <Folder Include="Upload\" />
   </ItemGroup>
 
   <ItemGroup>
