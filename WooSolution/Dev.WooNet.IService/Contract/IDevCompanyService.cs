@@ -50,6 +50,13 @@ namespace Dev.WooNet.IWooService
         /// <param name="Id">当前ID</param>
         /// <param name="currUserId">当前用户ID</param>
         int UpdateItems(int Id, int currUserId);
+        /// <summary>
+        /// 删除信息
+        /// </summary>
+        /// <param name="Ids">删除Ids</param>
+        /// <returns></returns>
+        AjaxResult DelCompany(string Ids);
+        
 
 
 

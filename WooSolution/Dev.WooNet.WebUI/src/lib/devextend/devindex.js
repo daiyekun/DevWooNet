@@ -88,11 +88,11 @@ layui.config({
        },
        subitexel:function(postdata){
       
-        $.ajax({
+        wooutil.devajax({
             type: 'POST',
-            url:  devsetter.devuserurl+"api/DevUser/exportexcel",
+            url: postdata.url, //devsetter.devuserurl+"api/DevUser/exportexcel",
             //async: false,
-            processData: false,
+            // processData: false,
             data: JSON.stringify(postdata),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -199,6 +199,7 @@ layui.config({
             postdata.SelCell = selcell == 1;
             postdata.SelRow = selrow == 1;
             postdata.KeyWord = param.keyword;
+            postdata.url=param.url;
             wooutil.subitexel(postdata);
             //wooutil.openPostWindow(param.url, postdata, true);
             layer.close(index);

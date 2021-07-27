@@ -1,13 +1,16 @@
 ﻿using AutoMapper;
 using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
 using Dev.WooNet.IWooService;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using Dev.WooNet.WebCore.Extend;
 using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using NF.Common.Utility;
 using System;
 using System.Collections.Generic;
@@ -31,10 +34,13 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
     {
         private IMapper _IMapper;
         private IDevCompanyService _IDevCompanyService;
-        public DevCompanyController(IMapper iMapper, IDevCompanyService iDevCompanyService)
+        private IConfiguration _Configuration;
+        public DevCompanyController(IMapper iMapper, IDevCompanyService iDevCompanyService
+            , IConfiguration iConfiguration)
         {
             _IMapper = iMapper;
             _IDevCompanyService = iDevCompanyService;
+            _Configuration = iConfiguration;
 
         }
         /// <summary>
@@ -99,6 +105,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
                 {
                     var currinfo = _IDevCompanyService.Find(info.Id);
                     var saveinfo = _IMapper.Map<DevCompanyDTO, DevCompany>(info);
+                    saveinfo.Dstatus = 0;
                     _IDevCompanyService.Update(saveinfo);
                     _IDevCompanyService.UpdateItems(saveinfo.Id, userId);
 
@@ -110,8 +117,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
             }
             else
             {
-                var existname = _IDevCompanyService.GetQueryable(a => a.Name == info.Name).Any();
-                var existno = _IDevCompanyService.GetQueryable(a => a.Code == info.Code).Any();
+                var existname = _IDevCompanyService.GetQueryable(a => a.Name == info.Name&&a.IsDelete!=1).Any();
+                var existno = _IDevCompanyService.GetQueryable(a => a.Code == info.Code&& a.IsDelete != 1).Any();
                 if (existname)
                 {
                     result.code = (int)MessageEnums.IsExist;
@@ -183,6 +190,59 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
             });
 
         }
+
+        /// <summary>
+        /// 删除信息
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("delete")]
+        [HttpGet]
+        public IActionResult DeleteCompany(string Ids)
+        {
+            var reslut = _IDevCompanyService.DelCompany(Ids);
+            return new DevResultJson(reslut);
+
+        }
+
+        [Route("exportexcel")]
+        [HttpPost]
+        /// <summary>
+        /// 导出Excel
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult ExportExcel([FromBody] ExportRequestInfo exportRequestInfo)
+        {
+
+            var pageInfo = new NoPageInfo<DevCompany>();
+            var predicateAnd = PredBuilder.True<DevCompany>();
+            //predicateAnd = predicateAnd.And(GetQueryExpression(pageInfo, exportRequestInfo.KeyWord));
+            if (exportRequestInfo.SelRow)
+            {//选择行
+                predicateAnd = predicateAnd.And(p => exportRequestInfo.GetSelectListIds().Contains(p.Id));
+            }
+            var layPage = _IDevCompanyService.GetList(pageInfo, predicateAnd, a => a.Id, true);
+            var downInfo = DevExportDataHelper.ExportExcelExtend(exportRequestInfo, "客户列表", layPage.data);
+           
+
+            var excelfile = new ExportFileInfo
+            {
+                FileName = downInfo.FileName,
+                Memi = downInfo.Memi,
+                FilePath = $"Uploads/{EmunUtility.GetDesc(typeof(DevFoldersEnum), 3)}",
+                DowIp = _Configuration["DevAppSeting:filedownIp"]
+
+
+            };
+            var ajaxResult = new AjaxResult<ExportFileInfo>()
+            {
+                Result = true,
+                data = excelfile
+            };
+            return new JsonResult(ajaxResult);
+
+        }
+
 
 
 

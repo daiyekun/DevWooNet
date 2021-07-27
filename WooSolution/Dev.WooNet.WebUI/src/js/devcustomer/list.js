@@ -49,16 +49,16 @@ layui.config({
             { field: 'LevelName', title: '级别', width: 120 },
             { field: 'Reserve1', title: '备用1', width: 120,hide: true },
             { field: 'Reserve2', title: '备用2', width: 120,hide: true},
-            { field: 'Ustate', title: '负责人', width: 120,hide: true},
+            { field: 'FaceUserName', title: '负责人', width: 120,hide: true},
             { field: 'GjName', title: '国家', width: 100,hide: true},
             { field: 'PrName', title: '省', width: 100},
             { field: 'CityName', title: '市', width: 100},
             { field: 'Trade', title: '行业', width: 120},
             { field: 'AddUserName', title: '创建人', width: 100},
             { field: 'AddDateTime', title: '创建日期', width: 100},
-            { field: 'WnodeName', title: '流程节点', width: 140},
-            { field: 'Ustate', title: '流程状态', width: 120},
-            { field: 'Ustate', title: '审批事项', width: 130},
+            // { field: 'WnodeName', title: '流程节点', width: 140},
+            // { field: 'Ustate', title: '流程状态', width: 120},
+            // { field: 'Ustate', title: '审批事项', width: 130},
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#devtablebar', width: 120 }
         ]],
         done:function(res, curr, count){
@@ -77,7 +77,7 @@ layui.config({
             ids.push(item.Id);
         });
         if (layEvent === 'del') { //删除
-            deleteUser(ids, obj);
+            devdelete(ids, obj);
         } else if (layEvent === 'edit') { //编辑
             if (!data.Id) return;
             var index = layer.load(1);
@@ -119,7 +119,7 @@ layui.config({
   
     //删除角色
     function devdelete(ids, obj) {
-        var msg = obj ? '确认删除数据【' + obj.data.ShowName + '】吗？' : '确认删除选中数据吗？'
+        var msg = obj ? '确认删除数据【' + obj.data.Name + '】吗？' : '确认删除选中数据吗？'
         top.winui.window.confirm(msg, { icon: 3, title: '删除系统数据' }, function (index) {
             if(obj){
                 layer.close(index);
@@ -128,14 +128,14 @@ layui.config({
 
             }
             //向服务端发送删除指令
-            $.ajax({
+            wooutil.devajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevCompany/delcompany',
-                //async: false,
+                url: devsetter.devuserurl + 'api/DevCompany/delete',
                 data: { Ids: ids.toString() },
                 dataType: 'json',
                 success: function (res) {
-                    //刷新表格
+                    if(res.code==0){
+                         //刷新表格
                     if (obj) {
                         top.winui.window.msg('删除成功', {
                             icon: 1,
@@ -145,6 +145,13 @@ layui.config({
                     } else {
                         reloadTable();  //直接刷新表格
                     }
+                    }else{
+                        top.winui.window.msg(res.msg, {
+                            time: 1000
+                        });
+                        reloadTable();  //直接刷新表格
+                    }
+                   
 
                 },
                 error: function (xml) {

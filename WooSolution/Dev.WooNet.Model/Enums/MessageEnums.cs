@@ -28,6 +28,11 @@ namespace Dev.WooNet.Model.Enums
         /// </summary>
         [EnumItem(Value = 10000, Desc = "已经存在相关数据")]
         IsExist = 10000,
+        /// <summary>
+        /// 存在部分数据状态不能删除：10005
+        /// </summary>
+        [EnumItem(Value = 10005, Desc = "存在部分数据状态不能删除")]
+         deletestate = 10005,
 
     }
 }

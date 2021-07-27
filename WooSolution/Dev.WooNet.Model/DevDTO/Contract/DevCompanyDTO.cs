@@ -1,4 +1,8 @@
-﻿using Dev.WooNet.Model.Models;
+﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
+using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.ExtendModel;
+using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +15,7 @@ namespace Dev.WooNet.Model.DevDTO
     /// <summary>
     /// 合同对方
     /// </summary>
-    public class DevCompanyDTO: DevCompany
+    public class DevCompanyDTO: DevCompany, IModelDTO, IDevEntityHandle
     {
         /// <summary>
         /// 创建人
@@ -46,6 +50,41 @@ namespace Dev.WooNet.Model.DevDTO
         /// 信用等级
         /// </summary>
         public string CareditName { get; set; }
+        /// <summary>
+        /// 负责人
+        /// </summary>
 
+        public string FaceUserName { get; set; }
+
+        public FieldInfo GetPropValue(string propName)
+        {
+            var fieldinfo = new FieldInfo();
+            //if (propName == "Cstate")
+            //{
+            //    try
+            //    {
+            //        fieldinfo.FileValue = EmunUtility.GetDesc(typeof(CompanyStateEnum), Convert.ToInt32(this.GetType().GetProperty(propName).GetValue(this, null)));
+            //    }
+            //    catch (Exception)
+            //    {
+
+            //        return fieldinfo;
+            //    }
+
+            //}
+            //else
+            //{
+            //    var obj = this.GetType().GetProperty(propName);
+            //    fieldinfo.FileType = obj.PropertyType;
+            //    fieldinfo.FileValue = obj.GetValue(this, null);
+            //}
+            //return fieldinfo;
+
+            var obj = this.GetType().GetProperty(propName);
+            fieldinfo.FileType = obj.PropertyType;
+            fieldinfo.FileValue = obj.GetValue(this, null);
+
+            return fieldinfo;
+        }
     }
 }

@@ -117,7 +117,7 @@ function cleardata(){
     function devSetValues() {
 
         if ($devId !== "" && $devId !== undefined) {
-            $.ajax({
+            wooutil.devajax({
                 type: 'GET',
                 url: devsetter.devuserurl + 'api/DevCompany/showView',
                 //async: false,

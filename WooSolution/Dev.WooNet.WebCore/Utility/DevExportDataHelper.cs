@@ -28,28 +28,32 @@ namespace Dev.WooNet.WebCore.Utility
         public static DownLoadInfo ExportExcelExtend<T>(ExportRequestInfo exportRequestInfo, string fileName, IList<T> listData)
             where T : class, IDevEntityHandle
         {
-          
-            FileInfo file = CreateExportFile(fileName);
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            using (ExcelPackage package = new ExcelPackage(file))
-            {
-                // 添加worksheet
-                ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(fileName);
-                var coltitles = exportRequestInfo.GetCellsTitleList();
-                var colfields = exportRequestInfo.GetCellsFieldList();
-                //绑定头
-                BindExcelHeader(worksheet, coltitles);
-                //绑定数据
-                BindExcelData(listData, worksheet, colfields);
+
+                var file = CreateExportFile(fileName);
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using (ExcelPackage package = new ExcelPackage(file))
+                {
+                    // 添加worksheet
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.Add(fileName);
+                    var coltitles = exportRequestInfo.GetCellsTitleList();
+                    var colfields = exportRequestInfo.GetCellsFieldList();
+                    //绑定头
+                    BindExcelHeader(worksheet, coltitles);
+                    //绑定数据
+                    BindExcelData(listData, worksheet, colfields);
 
 
-                worksheet.Cells.AutoFitColumns();//自动列宽
-                package.Save();
+                    worksheet.Cells.AutoFitColumns();//自动列宽
+                    package.Save();
+                    // file.Close();
 
 
-            }
 
-            return FileStreamHelper.Download(file.FullName);
+                }
+
+                
+           return FileStreamHelper.Download(file.FullName);
+         // return FileStreamHelper.Download(pathf);
 
 
         }
@@ -62,7 +66,12 @@ namespace Dev.WooNet.WebCore.Utility
         {
            var  pathf = Path.Combine(
                             Directory.GetCurrentDirectory(), "Uploads", EmunUtility.GetDesc(typeof(DevFoldersEnum), 3),
-                            fileName + ".xlsx");
+                           $"{fileName}{System.DateTime.Now.Ticks}.xlsx"  + "");
+
+            if (File.Exists(pathf))
+            {
+                File.Delete(pathf);
+            }
             var dicpathf = Path.Combine(
               Directory.GetCurrentDirectory(), "Uploads", EmunUtility.GetDesc(typeof(DevFoldersEnum), 3));
 
@@ -71,14 +80,13 @@ namespace Dev.WooNet.WebCore.Utility
                 Directory.CreateDirectory(dicpathf);
             }
             FileInfo file = new FileInfo(pathf);
-            if (file.Exists)
-            {
-                file.Delete();
-                file = new FileInfo(pathf);
-            }
+          
 
+           
             return file;
         }
+
+        
 
         /// <summary>
         /// 绑定Excel数据

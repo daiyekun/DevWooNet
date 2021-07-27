@@ -72,7 +72,7 @@ namespace Dev.WooNet.WebApi
             var connectionString = Configuration.GetConnectionString("MysqlConn");
             ServerVersion serverVersion = ServerVersion.AutoDetect(connectionString);
             services.AddDbContext<DevDbContext>(options =>
-                options.UseMySql(connectionString, serverVersion));
+                options.UseMySql(connectionString, serverVersion).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
             //注册服务扩展类
             services.AddDevServices();
             #endregion

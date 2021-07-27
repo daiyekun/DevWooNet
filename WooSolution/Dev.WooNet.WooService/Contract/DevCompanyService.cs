@@ -90,7 +90,8 @@ namespace Dev.WooNet.WooService
                             FaceUserId=a.FaceUserId,//负责人
                             BusScope=a.BusScope,//经营范围
                             Reserve1 = a.Reserve1,
-                            Reserve2=a.Reserve2
+                            Reserve2=a.Reserve2,
+                            Caddress=a.Caddress,
 
 
 
@@ -137,7 +138,8 @@ namespace Dev.WooNet.WooService
                             BusScope = a.BusScope,//经营范围
                             Reserve1 = a.Reserve1,
                             Reserve2 = a.Reserve2,
-                            AddUserName= RedisDevCommUtility.GetUserName(a.AddUserId ?? 0),
+                            Caddress = a.Caddress,
+                            AddUserName = RedisDevCommUtility.GetUserName(a.AddUserId ?? 0),
                             StateDic= EmunUtility.GetDesc(typeof(CompanyStateEnum),a.Dstatus??-1),
                             GjName= RedisDevCommUtility.GetCountryName(a.CountryId??0),
                             PrName = RedisDevCommUtility.GetProvinceName(a.ProvinceId ?? 0),
@@ -145,7 +147,7 @@ namespace Dev.WooNet.WooService
                             CompClassName = RedisDevCommUtility.GetHashDataDic(a.CompClassId ?? 0),
                             LevelName = RedisDevCommUtility.GetHashDataDic(a.LevelId ?? 0),
                             CareditName = RedisDevCommUtility.GetHashDataDic(a.CareditId ?? 0),
-
+                            FaceUserName= RedisDevCommUtility.GetUserName(a.FaceUserId ?? 0),
 
 
 
@@ -206,7 +208,9 @@ namespace Dev.WooNet.WooService
                             FaceUserId = a.FaceUserId,//负责人
                             BusScope = a.BusScope,//经营范围
                             Reserve1 = a.Reserve1,
-                            Reserve2 = a.Reserve2
+                            Reserve2 = a.Reserve2,
+                            Caddress = a.Caddress,
+                          
 
 
                         };
@@ -251,7 +255,8 @@ namespace Dev.WooNet.WooService
                             BusScope = a.BusScope,//经营范围
                             Reserve1 = a.Reserve1,
                             Reserve2 = a.Reserve2,
-                            AddUserName= RedisDevCommUtility.GetUserName(a.AddUserId ?? 0),
+                            Caddress = a.Caddress,
+                            AddUserName = RedisDevCommUtility.GetUserName(a.AddUserId ?? 0),
                             StateDic = EmunUtility.GetDesc(typeof(CompanyStateEnum), a.Dstatus ?? -1),
                             GjName = RedisDevCommUtility.GetCountryName(a.CountryId ?? 0),
                             PrName = RedisDevCommUtility.GetProvinceName(a.ProvinceId ?? 0),
@@ -259,6 +264,7 @@ namespace Dev.WooNet.WooService
                             CompClassName= RedisDevCommUtility.GetHashDataDic(a.CompClassId??0),
                             LevelName = RedisDevCommUtility.GetHashDataDic(a.LevelId ?? 0),
                             CareditName = RedisDevCommUtility.GetHashDataDic(a.CareditId ?? 0),
+                            FaceUserName = RedisDevCommUtility.GetUserName(a.FaceUserId ?? 0),
 
                         };
             return local.FirstOrDefault();
@@ -314,6 +320,56 @@ namespace Dev.WooNet.WooService
             strsql.Append($"update dev_compfile set CompId={Id} where CompId={-currUserId};");
             //添加其他标签表
             return ExecuteSqlCommand(strsql.ToString());
+
+        }
+
+        /// <summary>
+        /// 删除信息
+        /// </summary>
+        /// <param name="Ids">删除Ids</param>
+        /// <returns></returns>
+        public AjaxResult DelCompany(string Ids)
+        {
+            var result = new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+
+
+            };
+            var listIds = StringHelper.String2ArrayInt(Ids);
+            var listcomps = DevDb.Set<DevCompany>().Where(a => listIds.Contains(a.Id)).ToList();
+            IList<int> delIds = new List<int>();
+            var nodel = false;
+            foreach (var item in listcomps)
+            {
+                if (item.Dstatus==0)
+                {
+                    delIds.Add(item.Id);
+                }
+                else
+                {
+                    nodel = true;
+                }
+            }
+            StringBuilder sqlstr = new StringBuilder();
+            if (delIds.Count() > 0)
+            {
+                var tempids = StringHelper.ArrayInt2String(delIds);
+                sqlstr.Append($"update dev_compcontact set IsDelete=1  where CompId in({tempids});");
+                sqlstr.Append($"update dev_compdesc set IsDelete=1  where CompId in({tempids});");
+                sqlstr.Append($"update dev_compfile set IsDelete=1  where CompId in({tempids});");
+                sqlstr.Append($"update dev_company set IsDelete=1 where Id in({tempids});");
+                ExecuteSqlCommand(sqlstr.ToString()); ;
+
+            }
+            if (nodel)
+            {//存在状态不能删除的
+                result.code = (int)MessageEnums.deletestate;
+                result.msg = EmunUtility.GetDesc(typeof(MessageEnums), result.code);
+            }
+
+            return result;
 
         }
 
