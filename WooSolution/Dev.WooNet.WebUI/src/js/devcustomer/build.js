@@ -6,8 +6,10 @@ layui.config({
     window: 'winui/js/winui.window',
     devindex: 'devextend/devindex',
     address: 'devextend/address',
+    tableSelect: 'devextend/tableSelect',
+    devselitem: 'devextend/devselitem',
    
-}).define(['table', 'winui', 'window', 'layer', 'devindex', 'laydate','address'], function (exports) {
+}).define(['table', 'winui', 'window', 'layer', 'devindex', 'laydate','address','tableSelect','devselitem'], function (exports) {
     winui.renderColor();
     var table = layui.table,
         $ = layui.$,
@@ -16,13 +18,36 @@ layui.config({
         ,laydate=layui.laydate
         ,form = layui.form
         ,address=layui.address()
+        ,tableSelect=layui.tableSelect
+        ,devselitem=layui.devselitem
         , tableId = 'useridtableid'
         ;
     var $devId = wooutil.getUrlVar('Id');
     var localdata=wooutil.devlocaldata();
 
 /***********************基本信息-begin***************************************************************************************************/
- 
+ /**
+  * 清除-userId问题
+  * */ 
+function cleardata(){
+    wooutil.devajax({
+        type: 'GET',
+        url: devsetter.devuserurl + 'api/DevCompany/cleardata',
+        // data: JSON.stringify(postdata),
+        dataType: "json",
+        success: function (res) {
+            
+
+        },
+        error: function (res) {
+           
+            
+        }
+
+       });
+
+     }
+     cleardata();
    
     //提交
     form.on('submit(Dev-SubmitSave)', function (data) {
@@ -38,8 +63,9 @@ layui.config({
             data: JSON.stringify(postdata),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            success: function (json) {
-                submitsuccess(json);
+            success: function (res) {
+                wooutil.devloginout(res);
+                submitsuccess(res);
 
             },
             error: function (xml) {
@@ -70,17 +96,16 @@ layui.config({
     }
     /**提交成功 */
     function submitsuccess(json) {
-        if (json.Result) {
+        if (json.code==0) {
             top.winui.window.msg('操作成功', {
                 icon: 1
             },function(){
                 closeWin();
                 top.winui.window.tablelaod({id:'22'});
             });
-           
-            
-            
-        } else {
+ 
+        }
+        else {
             msg(json.msg)
         }
 
@@ -125,6 +150,14 @@ layui.config({
     //证件有效期
      laydate.render({ elem: '#ExpDateTime', trigger: 'click' });
      wooutil.selverpen();//下拉小笔头
+     //负责人
+     devselitem.selectUserItem(
+        {
+            tableSelect: tableSelect,
+            elem: '#FaceUserName',
+            hide_elem: '#FaceUserId'
+
+        });
     //执行赋值表单
     devSetValues();
     form.render(null, 'DEV-CustomerForm');

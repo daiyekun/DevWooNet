@@ -1,4 +1,6 @@
-﻿using Dev.WooNet.Model.DevDTO;
+﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
+using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -97,6 +99,70 @@ namespace Dev.WooNet.WooService
 
 
 
+
+        }
+
+        /// <summary>
+        /// 初始化地址--国家/省/市
+        /// </summary>
+        public void SetHashAddress()
+        {
+            try
+            {
+                var curdickey = $"{RedisKeys.RedisCountryKey}";
+                //国家
+                var listCountry = GetQueryable(a => a.IsShow == 1).Select(a=>new DevCountryDTO{ 
+                    Id=a.Id,
+                    Name=a.Name,
+                    ShowName=a.ShowName,
+                    IsShow=a.IsShow
+                
+                } ).ToList();
+                //省
+                var listProvince = DevDb.Set<DevProvince>().Where(a=>a.IsShow==1).Select(a=>new DevProvinceDTO {
+                Id=a.Id,
+                Name=a.Name,
+                ShowName=a.ShowName,
+                IsShow=a.IsShow
+                } ).ToList();
+                //市
+                var listCity = DevDb.Set<DevCity>().Where(a=>a.IsShow==1).Select(a=>new DevCityDTO { 
+                    Id=a.Id,
+                    ShowName=a.ShowName,
+                    Name=a.Name,
+                    IsShow=a.IsShow,
+                    PrId=a.PrId
+                
+                } ).ToList();
+               
+                foreach (var item in listCountry)
+                {
+                    item.SetRedisHash<DevCountryDTO>($"{RedisKeys.RedisCountryKey}", (a, c) =>
+                    {
+                        return $"{a}:{c}";
+                    });
+                }
+                //省
+                foreach (var item in listProvince)
+                {
+                    item.SetRedisHash<DevProvinceDTO>($"{RedisKeys.RedisProvinceKey}", (a, c) =>
+                    {
+                        return $"{a}:{c}";
+                    });
+                }
+                foreach (var item in listCity)
+                {
+                    item.SetRedisHash<DevCityDTO>($"{RedisKeys.RedisCityKey}", (a, c) =>
+                    {
+                        return $"{a}:{c}";
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Log4netHelper.Error(ex.Message);
+
+            }
 
         }
     }

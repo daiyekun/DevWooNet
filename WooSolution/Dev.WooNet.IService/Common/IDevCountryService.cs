@@ -18,6 +18,11 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <returns></returns>
         IList<AddressDTO> GetAddress();
+        /// <summary>
+        /// 初始化地址--国家/省/市
+        /// </summary>
+        void SetHashAddress();
         
+
         }
 }

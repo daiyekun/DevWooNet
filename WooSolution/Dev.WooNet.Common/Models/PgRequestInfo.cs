@@ -44,5 +44,9 @@ namespace Dev.WooNet.Common.Models
         /// token
         /// </summary>
         public string acToken { get; set; }
+        /// <summary>
+        /// 选择项
+        /// </summary>
+        public int selItem { get; set; } = 0;
     }
 }

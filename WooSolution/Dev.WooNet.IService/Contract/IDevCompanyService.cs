@@ -38,6 +38,20 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <returns>返回基本信息</returns>
         DevCompanyDTO GetInfoById(int Id);
+        /// <summary>
+        /// 清除标签垃圾数据
+        /// </summary>
+        /// <param name="currUserId">当前用户ID</param>
+        /// <returns></returns>
+        int ClearItemData(int currUserId);
+        /// <summary>
+        /// 修改当前对应标签下的-UserId数据
+        /// </summary>
+        /// <param name="Id">当前ID</param>
+        /// <param name="currUserId">当前用户ID</param>
+        int UpdateItems(int Id, int currUserId);
 
-    }
+
+
+        }
 }

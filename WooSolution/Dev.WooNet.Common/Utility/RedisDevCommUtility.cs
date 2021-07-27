@@ -35,7 +35,7 @@ namespace Dev.WooNet.Common.Utility
         /// 省
         /// </summary>
         /// <returns></returns>
-        public static string GetProvinceNameName(int? ProvinceId)
+        public static string GetProvinceName(int? ProvinceId)
         {
             return (ProvinceId ?? -1) < 0 ? "" : RedisUtility.HashGet($"{RedisKeys.RedisProvinceKey}:{ProvinceId}", "Name").ToString();
         }

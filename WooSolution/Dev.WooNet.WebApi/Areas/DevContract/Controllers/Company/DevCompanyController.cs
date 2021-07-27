@@ -71,35 +71,75 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
         [Route("companySave")]
         [HttpPost]
         public IActionResult CompanySave([FromBody] DevCompanyDTO info)
-        {
+        {   
             var userId = HttpContext.User.Claims.GetTokenUserId();
-            if (info.Id > 0)
-            {//修改
-                var currinfo = _IDevCompanyService.Find(info.Id);
-                var saveinfo = _IMapper.Map<DevCompanyDTO, DevCompany>(info);
-                _IDevCompanyService.Update(saveinfo);
-
-            }
-            else
-            {
-                var savinfo = _IMapper.Map<DevCompany>(info);
-                savinfo.AddDateTime = DateTime.Now;
-                savinfo.UpdateDateTime = DateTime.Now;
-                savinfo.UpdateUserId = userId;
-                savinfo.UpdateUserId= userId;
-                _IDevCompanyService.Add(savinfo);
-
-            }
-            
-            
-            
-            return new DevResultJson(new AjaxResult()
+            var result = new AjaxResult()
             {
                 msg = "success",
                 code = (int)MessageEnums.success,
 
 
-            });
+            };
+            if (info.Id > 0)
+            {//修改
+                var existname = _IDevCompanyService.GetQueryable(a => a.Name == info.Name && a.Id != info.Id).Any();
+                var existno = _IDevCompanyService.GetQueryable(a => a.Code == info.Code&&a.Id!=info.Id).Any();
+                if (existname)
+                {
+                    result.code = (int)MessageEnums.IsExist;
+                    result.msg = "当前名称已经存在";
+
+                }
+                else if (existno)
+                {
+                    result.code = (int)MessageEnums.IsExist;
+                    result.msg = "当前编号已经存在";
+                }
+                else
+                {
+                    var currinfo = _IDevCompanyService.Find(info.Id);
+                    var saveinfo = _IMapper.Map<DevCompanyDTO, DevCompany>(info);
+                    _IDevCompanyService.Update(saveinfo);
+                    _IDevCompanyService.UpdateItems(saveinfo.Id, userId);
+
+                }
+               
+
+              
+
+            }
+            else
+            {
+                var existname = _IDevCompanyService.GetQueryable(a => a.Name == info.Name).Any();
+                var existno = _IDevCompanyService.GetQueryable(a => a.Code == info.Code).Any();
+                if (existname)
+                {
+                    result.code = (int)MessageEnums.IsExist;
+                    result.msg = "当前名称已经存在";
+                }
+                else if (existno)
+                {
+                    result.code = (int)MessageEnums.IsExist;
+                    result.msg = "当前编号已经存在";
+                }
+                else
+                {
+                    var savinfo = _IMapper.Map<DevCompany>(info);
+                    savinfo.AddDateTime = DateTime.Now;
+                    savinfo.UpdateDateTime = DateTime.Now;
+                    savinfo.UpdateUserId = userId;
+                    savinfo.AddUserId = userId;
+                    savinfo.Dstatus = 0;
+                    var teminfo = _IDevCompanyService.Add(savinfo);
+                    _IDevCompanyService.UpdateItems(teminfo.Id, userId);
+                }
+                
+
+            }
+            
+            
+            
+            return new DevResultJson(result);
 
 
         }
@@ -119,6 +159,27 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
                 data = _IDevCompanyService.GetInfoById(Id)
 
                 
+            });
+
+        }
+
+        /// <summary>
+        /// 清除垃圾数据
+        /// </summary>
+        /// <returns></returns>
+        [Route("cleardata")]
+        [HttpGet]
+        public IActionResult ClearData()
+        {
+            var userId = HttpContext.User.Claims.GetTokenUserId();
+            _IDevCompanyService.ClearItemData(userId);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "",
+                code = 0
+                
+
+
             });
 
         }

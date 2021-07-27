@@ -126,6 +126,9 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 
                 }
 
+            }else if (pgInfo.searchType == 2)
+            {//启用
+                prdAnd = prdAnd.And(a =>a.Ustate==1);
             }
             var pagelist = _IDevUserinfoService.GetList(pageInfo, prdAnd, a => a.Id, false);
             return new DevResultJson(pagelist);

@@ -23,6 +23,11 @@ namespace Dev.WooNet.Model.Enums
         /// </summary>
         [EnumItem(Value = 500, Desc = "系统异常")]
         Error = 500,
+        /// <summary>
+        /// 已经存在相关数据：10000
+        /// </summary>
+        [EnumItem(Value = 10000, Desc = "已经存在相关数据")]
+        IsExist = 10000,
 
     }
 }

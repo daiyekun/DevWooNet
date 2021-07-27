@@ -20,14 +20,17 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         private IDevDatadicService _IDevDatadicService;
         private IDevUserinfoService _IDevUserinfoService;
         private IDevDepartmentService _DevDepartmentService;
+        private IDevCountryService _IDevCountryService;
 
         public DevCommonController(IDevDatadicService iDevDatadicService,
             IDevUserinfoService iDevUserinfoService
-            ,IDevDepartmentService iDevDepartmentService)
+            ,IDevDepartmentService iDevDepartmentService
+            , IDevCountryService iDevCountryService)
         {
             _IDevDatadicService = iDevDatadicService;
             _IDevUserinfoService = iDevUserinfoService;
             _DevDepartmentService = iDevDepartmentService;
+            _IDevCountryService = iDevCountryService;
         }
 
         /// <summary>
@@ -41,6 +44,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             _IDevDatadicService.SetRedisHash();
             _IDevUserinfoService.SetRedisHash();
             _DevDepartmentService.SetRedisHash();
+            _IDevCountryService.SetHashAddress();
             return "Redis Init OK";
         }
     }

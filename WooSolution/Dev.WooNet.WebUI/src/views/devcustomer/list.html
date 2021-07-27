@@ -31,12 +31,12 @@
             <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
         </script>
         <script type="text/html" id="stateTpl">
-            {{#  if(d.Ustate == 0){ }}
-            {{d.StateDic}}
-            {{#  } else if(d.Ustate==1) { }}
-            {{d.StateDic}}
-            {{#  } else if(d.Ustate==2) { }}
-            {{d.StateDic}}
+            {{#  if(d.Dstatus == 0){ }}
+             <span style="color:blue">{{d.StateDic}}</span> 
+            {{#  } else if(d.Dstatus==1) { }}
+            <span style="color:limegreen">{{d.StateDic}}</span> 
+            {{#  } else if(d.Dstatus==2) { }}
+            <span style="color:steelblue">{{d.StateDic}}</span> 
             {{#  }else{ }}
             {{d.Ustate}}
             {{#  } }}

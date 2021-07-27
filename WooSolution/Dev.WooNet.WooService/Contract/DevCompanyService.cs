@@ -1,6 +1,7 @@
 ﻿using Dev.WooNet.Common.Models;
 using Dev.WooNet.Common.Utility;
 using Dev.WooNet.Model.DevDTO;
+using Dev.WooNet.Model.Enums;
 using Dev.WooNet.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -135,7 +136,18 @@ namespace Dev.WooNet.WooService
                             FaceUserId = a.FaceUserId,//负责人
                             BusScope = a.BusScope,//经营范围
                             Reserve1 = a.Reserve1,
-                            Reserve2 = a.Reserve2
+                            Reserve2 = a.Reserve2,
+                            AddUserName= RedisDevCommUtility.GetUserName(a.AddUserId ?? 0),
+                            StateDic= EmunUtility.GetDesc(typeof(CompanyStateEnum),a.Dstatus??-1),
+                            GjName= RedisDevCommUtility.GetCountryName(a.CountryId??0),
+                            PrName = RedisDevCommUtility.GetProvinceName(a.ProvinceId ?? 0),
+                            CityName = RedisDevCommUtility.GetCityName(a.CityId ?? 0),
+                            CompClassName = RedisDevCommUtility.GetHashDataDic(a.CompClassId ?? 0),
+                            LevelName = RedisDevCommUtility.GetHashDataDic(a.LevelId ?? 0),
+                            CareditName = RedisDevCommUtility.GetHashDataDic(a.CareditId ?? 0),
+
+
+
 
                         };
             return new AjaxListResult<DevCompanyDTO>()
@@ -239,7 +251,14 @@ namespace Dev.WooNet.WooService
                             BusScope = a.BusScope,//经营范围
                             Reserve1 = a.Reserve1,
                             Reserve2 = a.Reserve2,
-                            AddUserName= RedisDevCommUtility.GetUserName(a.AddUserId ?? 0)
+                            AddUserName= RedisDevCommUtility.GetUserName(a.AddUserId ?? 0),
+                            StateDic = EmunUtility.GetDesc(typeof(CompanyStateEnum), a.Dstatus ?? -1),
+                            GjName = RedisDevCommUtility.GetCountryName(a.CountryId ?? 0),
+                            PrName = RedisDevCommUtility.GetProvinceName(a.ProvinceId ?? 0),
+                            CityName = RedisDevCommUtility.GetCityName(a.CityId ?? 0),
+                            CompClassName= RedisDevCommUtility.GetHashDataDic(a.CompClassId??0),
+                            LevelName = RedisDevCommUtility.GetHashDataDic(a.LevelId ?? 0),
+                            CareditName = RedisDevCommUtility.GetHashDataDic(a.CareditId ?? 0),
 
                         };
             return local.FirstOrDefault();
@@ -267,7 +286,38 @@ namespace Dev.WooNet.WooService
             }
             return resul;
         }
-        
+
+        /// <summary>
+        /// 清除标签垃圾数据
+        /// </summary>
+        /// <param name="currUserId">当前用户ID</param>
+        /// <returns></returns>
+        public int ClearItemData(int currUserId)
+        {
+            StringBuilder strsql = new StringBuilder();
+            strsql.Append($"delete from  dev_compcontact  where CompId={-currUserId};");
+            strsql.Append($"delete from  dev_compdesc  where CompId={-currUserId};");
+            strsql.Append($"delete from  dev_compfile  where CompId={-currUserId};");
+            //添加其他标签表
+            return ExecuteSqlCommand(strsql.ToString());
+        }
+        /// <summary>
+        /// 修改当前对应标签下的-UserId数据
+        /// </summary>
+        /// <param name="Id">当前ID</param>
+        /// <param name="currUserId">当前用户ID</param>
+        public int UpdateItems(int Id, int currUserId)
+        {
+            StringBuilder strsql = new StringBuilder();
+            strsql.Append($"update dev_compcontact set CompId={Id} where CompId={-currUserId};");
+            strsql.Append($"update dev_compdesc set CompId={Id} where CompId={-currUserId};");
+            strsql.Append($"update dev_compfile set CompId={Id} where CompId={-currUserId};");
+            //添加其他标签表
+            return ExecuteSqlCommand(strsql.ToString());
+
+        }
+
+
         #endregion
 
     }
