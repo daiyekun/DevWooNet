@@ -106,6 +106,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
                     var currinfo = _IDevCompanyService.Find(info.Id);
                     var saveinfo = _IMapper.Map<DevCompanyDTO, DevCompany>(info);
                     saveinfo.Dstatus = 0;
+                    saveinfo.AddDateTime = currinfo.AddDateTime;
+                    saveinfo.AddUserId= currinfo.AddUserId;
                     _IDevCompanyService.Update(saveinfo);
                     _IDevCompanyService.UpdateItems(saveinfo.Id, userId);
 
