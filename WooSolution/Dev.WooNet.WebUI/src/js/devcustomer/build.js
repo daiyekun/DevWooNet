@@ -261,7 +261,17 @@ reloadtable:function(){
 
 
      });
- }
+ },tooldownload: function (obj) {
+
+    wooutil.download({
+        url: devsetter.devuserurl + 'api/DevFileCommon/download',
+        Id: obj.data.Id,
+        folder: 0//标识客户附件
+
+
+    });
+}
+ 
 
 };
 //头部工具栏
@@ -312,6 +322,9 @@ table.on('tool(Dev-CustomerFiles)', function (obj) {
      case 'edit':
         fileEvent.winopen('win_updatecustfile','修改附件','/views/devcustomer/compfilebuild.html?CompId='+$devId+'&Id='+_data.Id);
          break;
+         case 'download'://下载
+         fileEvent.tooldownload(obj);
+             break;
      default:
          layer.alert("暂不支持（" + obj.event + "）");
          break;

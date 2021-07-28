@@ -278,7 +278,7 @@ layui.config({
             /// <param name="folder" type="number">文件夹索引,参考枚举：UploadAndDownloadFoldersEnum</param>
             var _url = param.url;
             if (param.url == undefined || param.url == "") {
-                _url = devsetter.devupload.uploadIp+"api/DevFileCommon/Download";
+                _url = devsetter.devupload.uploadIp+"api/DevFileCommon/download";
             }
             // var loadurl =_url + '?Id=' + param.Id + "&Folderenum=" + param.folder + "&Dtype=" + param.dtype + "&DownType=" + param.downType + "&rand=" + wooutil.getRandom();
             // console.log(loadurl);
