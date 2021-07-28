@@ -149,3 +149,4 @@ E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IdentityMode
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\EPPlus.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.IO.RecyclableMemoryStream.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\System.Xml.XPath.XmlDocument.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Interop.Microsoft.Office.Interop.Word.dll

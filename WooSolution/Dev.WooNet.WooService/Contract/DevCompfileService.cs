@@ -1,6 +1,7 @@
 ﻿using Dev.WooNet.Common.Models;
 using Dev.WooNet.Common.Utility;
 using Dev.WooNet.Model.DevDTO;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -142,6 +143,29 @@ namespace Dev.WooNet.WooService
 
                         };
             return local.FirstOrDefault();
+        }
+
+        /// <summary>
+        /// 获取图片集合
+        /// </summary>
+        /// <param name="contId">图片ID</param>
+        /// <returns></returns>
+        public IList<PicViewDTO> GetPicViews(int contId,string basurl)
+        {
+            var extens = new string[] {
+                ".png",".jpg",".jpeg",".bmp",".svg",".gif",".tif",".psd",".pcx",".svg",".cdr",".raw",
+                ".avif",".raw",".ai",".tga",".exif",".fpx",".eps",".webp"
+            };
+            var list = DevDb.Set<DevCompfile>().Where(a => a.CompId == contId && extens.Contains(a.Extension.ToLower()))
+                .Select(a => new PicViewDTO
+                {
+                    Id = a.Id,
+                    Name = a.Name,
+                    Url = $"{basurl}/{a.FilePath}",
+                }).ToList();
+
+            return list;
+
         }
     }
 }

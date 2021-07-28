@@ -88,7 +88,7 @@ function cleardata(){
     /**关闭窗体 */
     function closeWin() {
         if ($devId > 0) {
-            top.winui.window.close('win_updatecustomer');
+            top.winui.window.close('win_viewcustomer');
         } else {
             top.winui.window.close('win_addcustomer');
 
@@ -168,7 +168,7 @@ function cleardata(){
 table.render({
     elem: '#Dev-CustomerFiles'
     ,id:'Dev-CustomerFiles'
-   ,url:devsetter.devuserurl + 'api/DevCompFile/list?otherId='+$devId + '&rand=' + wooutil.getRandom()
+   ,url:devsetter.devuserurl + 'api/DevCompFile/list?otherId='+$devId+'&rand=' + wooutil.getRandom()
    , toolbar: '#toolCustomerFiles'
     , defaultToolbar: ['filter']
      ,method: 'POST'
@@ -176,6 +176,9 @@ table.render({
      ,headers: {
      "Authorization": "Bearer "+ localdata.token +""
      ,loginkey:localdata.loginkey
+     },
+     where:{
+        otherId:$devId
      }
     , cols: [[
         { type: 'numbers', fixed: 'left' }
@@ -187,7 +190,7 @@ table.render({
         , { field: 'AddDateTime', title: '建立日期', width: 120, hide: true }
         , { field: 'AddUserName', title: '建立人', width: 120, hide: true }
         , { field: 'Id', title: 'Id', width: 50, hide: true }
-        , { title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#tableCustomerFilesbar' }
+        , { title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#tableCustomerFilesbar' }
     ]]
     , page: false
     , loading: true
@@ -258,7 +261,82 @@ reloadtable:function(){
 
 
      });
- }
+ },
+ tooldownload: function (obj) {
+
+    wooutil.download({
+        url: devsetter.devuserurl + 'api/DevFileCommon/download',
+        Id: obj.data.Id,
+        folder: 0//标识客户附件
+
+
+    });
+},
+devbrowse:function(){//预览
+    var checkStatus = table.checkStatus("Dev-CustomerFiles")
+                , checkData = checkStatus.data; //得到选中的数据
+            if (checkData.length === 0) {
+                return layer.msg('请选择数据');
+            } else {
+                if (checkData[0].Extension.toLowerCase().indexOf("pdf")>=0) {//pdf
+                    var fileurl = layui.cache.base + 'pdfjs/web/viewer.html?file=' +
+                    encodeURIComponent(devsetter.devupload.uploadIp+'api/DevCompFile/getpdf?Id=' + checkData[0].Id+'&Folder=0');
+                    top.winui.window.open({
+                        id: 'win_breaw'+checkData[0].Id,
+                        type: 2,
+                        title: '客户文件预览',
+                        content: fileurl,
+                        area: ['50vw', '70vh'],
+                        offset: ['15vh', '25vw']
+                       
+                   
+                    });
+
+
+            }else if (checkData[0].Extension.toLowerCase().indexOf("png") >= 0
+            || checkData[0].Extension.toLowerCase().indexOf("jpg") >= 0
+            || checkData[0].Extension.toLowerCase().indexOf("jpeg") >= 0
+            || checkData[0].Extension.toLowerCase().indexOf("bpm") >= 0
+            || checkData[0].Extension.toLowerCase().indexOf("tif") >= 0
+            || checkData[0].Extension.toLowerCase().indexOf("gif") >= 0
+            || checkData[0].Extension.toLowerCase().indexOf("svg") >= 0)
+              {//图片
+                var pcurl = "/views/devcustomer/pictureview.html?CompId=" + checkData[0].CompId;
+                top.winui.window.open({
+                    id: 'win_breaw'+checkData[0].CompId,
+                    type: 2,
+                    title: '客户图片预览',
+                    content: pcurl,
+                    area: ['50vw', '70vh'],
+                    offset: ['15vh', '25vw']
+                   
+               
+                });
+
+              }
+              else if (checkData[0].Extension.toLowerCase().indexOf("docx") >= 0) 
+              {
+                  //word
+                  var fileurl = layui.cache.base + 'pdfjs/web/viewer.html?file=' +
+                  encodeURIComponent(devsetter.devupload.uploadIp+'api/DevCompFile/wordtopdfview?Id=' + checkData[0].Id+'&Folder=0');
+                  top.winui.window.open({
+                      id: 'win_breaw'+checkData[0].Id,
+                      type: 2,
+                      title: '客户文件预览',
+                      content: fileurl,
+                      area: ['50vw', '70vh'],
+                      offset: ['15vh', '25vw']
+                     
+                 
+                  });
+
+
+              }else{
+                return layer.msg('只支持PDF、dodx、png、jpg、jpeg、bpm、tif、gif、svg预览', { icon: 5 });
+              }
+        }
+
+}
 
 };
 //头部工具栏
@@ -289,6 +367,9 @@ table.on('toolbar(Dev-CustomerFiles)', function (obj) {
      case 'reloadTable'://刷新
      fileEvent.reloadtable();
         break;
+    case  'devbrowse'://浏览
+    fileEvent.devbrowse();
+         break;
      default:
          layer.alert("暂不支持（" + obj.event + "）");
          break;
@@ -309,6 +390,9 @@ table.on('tool(Dev-CustomerFiles)', function (obj) {
      case 'edit':
         fileEvent.winopen('win_updatecustfile','修改附件','/views/devcustomer/compfilebuild.html?CompId='+$devId+'&Id='+_data.Id);
          break;
+     case 'download'://下载
+     fileEvent.tooldownload(obj);
+         break;
      default:
          layer.alert("暂不支持（" + obj.event + "）");
          break;
@@ -322,7 +406,7 @@ table.on('tool(Dev-CustomerFiles)', function (obj) {
 table.render({
        elem: '#Dev-CustomerContact'
        ,id:'Dev-CustomerContact'
-      ,url:devsetter.devuserurl + 'api/DevCompContact/list?otherId='+$devId + '&rand=' + wooutil.getRandom()
+      ,url:devsetter.devuserurl + 'api/DevCompContact/list?rand=' + wooutil.getRandom()
       , toolbar: '#tooCustomerContact'
        , defaultToolbar: ['filter']
         ,method: 'POST'
@@ -330,7 +414,10 @@ table.render({
         ,headers: {
         "Authorization": "Bearer "+ localdata.token +""
         ,loginkey:localdata.loginkey
-        }
+        },
+        where:{
+            otherId:$devId
+         }
        , cols: [[
            { type: 'numbers', fixed: 'left' }
            ,{ type: 'checkbox', fixed: 'left' }
@@ -482,7 +569,7 @@ table.on('tool(Dev-CustomerContact)', function (obj) {
 table.render({
     elem: '#Dev-CustomerDesc'
     ,id:'Dev-CustomerDesc'
-   ,url:devsetter.devuserurl + 'api/DevCompDesc/list?otherId='+$devId + '&rand=' + wooutil.getRandom()
+   ,url:devsetter.devuserurl + 'api/DevCompDesc/list?rand=' + wooutil.getRandom()
    , toolbar: '#toolCustomerDesc'
     , defaultToolbar: ['filter']
      ,method: 'POST'
@@ -490,6 +577,9 @@ table.render({
      ,headers: {
      "Authorization": "Bearer "+ localdata.token +""
      ,loginkey:localdata.loginkey
+     },
+     where:{
+        otherId:$devId
      }
     , cols: [[
         { type: 'numbers', fixed: 'left' }

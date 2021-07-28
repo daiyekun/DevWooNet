@@ -7,12 +7,18 @@ layui.config({
     winui: 'winui/winui',
     window: 'winui/js/winui.window',
    devindex: 'devextend/devindex',
-}).define(['table', 'jquery', 'winui', 'window', 'layer', 'devindex'], function (exports) {
+   soulTable:'soultable/soulTable',
+   tableChild:'soultable/tableChild',
+   tableMerge:'soultable/tableMerge',
+   tableFilter:'soultable/tableFilter',
+   excel:'soultable/excel'
+}).define(['table', 'jquery', 'winui', 'window', 'layer', 'devindex','soulTable'], function (exports) {
     winui.renderColor();
     var table = layui.table,
         $ = layui.$,
         devsdevindexetter = layui.devindex,
-         msg = winui.window.msg
+         msg = winui.window.msg,
+         soulTable=layui.soulTable,
          tableId = 'customertableid';
     //表格渲染
    
@@ -38,11 +44,17 @@ layui.config({
        
         limits:devsetter.listtable.mainlistlimits,
         limit: devsetter.listtable.mainlistlimit,
+        rowDrag: {
+            numbers: false
+          },
+           filter: {
+            cache: true
+           , bottom: false
+        },
         cols: [[
             { type: 'checkbox',fixed: 'left' },
-            { field: 'Id', width: 80, title: 'ID', hide: true },
-            { field: 'Name', title: '名称', width: 180,templet: '#titleTpl', fixed: 'left' },
-            { field: 'Code', title: '编号', width: 130 },
+            { field: 'Name', title: '名称', width: 180,templet: '#titleTpl',  fixed: 'left' },
+            { field: 'Code', title: '编号',  width: 130 },
             { field: 'CompClassName', title: '类别', width: 140 },
             { field: 'StateDic', title: '状态', width: 120,templet: '#stateTpl'  },
             { field: 'CareditName', title: '信用等级', width: 120 },
@@ -56,13 +68,16 @@ layui.config({
             { field: 'Trade', title: '行业', width: 120},
             { field: 'AddUserName', title: '创建人', width: 100},
             { field: 'AddDateTime', title: '创建日期', width: 100},
+            { field: 'Id', width: 80, title: 'ID', hide: true },
             // { field: 'WnodeName', title: '流程节点', width: 140},
             // { field: 'Ustate', title: '流程状态', width: 120},
             // { field: 'Ustate', title: '审批事项', width: 130},
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#devtablebar', width: 120 }
         ]],
         done:function(res, curr, count){
+            soulTable.render(this);
             wooutil.devloginout(res);
+
             
 
         }

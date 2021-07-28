@@ -15,3 +15,4 @@ E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Dev.WooNet.Model.dll
 E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Dev.WooNet.Common.pdb
 E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Dev.WooNet.Model.pdb
 E:\WooCode\WooSolution\Dev.WooNet.IService\obj\Debug\net5.0\Dev.WooNet.IWooService.csproj.CopyComplete
+E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Interop.Microsoft.Office.Interop.Word.dll

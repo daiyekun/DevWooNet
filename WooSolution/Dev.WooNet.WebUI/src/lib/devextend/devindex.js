@@ -222,21 +222,7 @@ layui.config({
             "Authorization": "Bearer "+ localdata.token +""
             ,loginkey:localdata.loginkey
         },
-        // if(devsetter.request.tokenName){//存在token
-        //     var sendData = typeof options.data === 'string' 
-        //     ? JSON.parse(options.data) 
-        //   : options.data;
-        //   //自动给参数传入默认 token
-        //   options.data[devsetter.request.tokenName] = devsetter.request.tokenName in sendData
-        //     ?  options.data[devsetter.request.tokenName]
-        //   : (layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '');
-          
-        //   //自动给 Request Headers 传入 token
-        //   options.headers[devsetter.request.tokenName] = devsetter.request.tokenName in options.headers 
-        //     ?  options.headers[devsetter.request.tokenName]
-        //   : (layui.data(devsetter.devtableName)[devsetter.request.tokenName] || '');
-
-        // }
+       
         $.ajax(options);
        
 
@@ -282,7 +268,23 @@ layui.config({
 
             }, 500)
 
-        }
+        },
+        download: function (param) {
+            /// <summary>文件下载</summary>
+            /// <param name="url" type="String">下载路径</param>
+            /// <param name="Id" type="number">下载数据对象ID</param>
+            /// <param name="DownType" type="number">下载类型，默认是0：1:下载模板起草最终Word</param>
+            /// <param name="dtype" type="number">下载类别，默认是0：1:标识下载的是历史</param>
+            /// <param name="folder" type="number">文件夹索引,参考枚举：UploadAndDownloadFoldersEnum</param>
+            var _url = param.url;
+            if (param.url == undefined || param.url == "") {
+                _url = devsetter.devupload.uploadIp+"api/DevFileCommon/Download";
+            }
+            // var loadurl =_url + '?Id=' + param.Id + "&Folderenum=" + param.folder + "&Dtype=" + param.dtype + "&DownType=" + param.downType + "&rand=" + wooutil.getRandom();
+            // console.log(loadurl);
+            // window.open(loadurl);
+            wooutil.subitexel(param);
+        },
         
     };
     //一些工具类结束----------------------------------------------------------------

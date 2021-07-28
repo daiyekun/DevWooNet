@@ -15,7 +15,8 @@
           "Microsoft.Extensions.DependencyInjection": "5.0.1",
           "Newtonsoft.Json": "12.0.3",
           "StackExchange.Redis": "2.2.4",
-          "log4net": "2.0.12"
+          "log4net": "2.0.12",
+          "Interop.Microsoft.Office.Interop.Word": "8.5.0.0"
         },
         "runtime": {
           "Dev.WooNet.Common.dll": {}
@@ -320,6 +321,14 @@
             "fileVersion": "5.0.20.51904"
           }
         }
+      },
+      "Interop.Microsoft.Office.Interop.Word/8.5.0.0": {
+        "runtime": {
+          "Interop.Microsoft.Office.Interop.Word.dll": {
+            "assemblyVersion": "8.5.0.0",
+            "fileVersion": "8.5.0.0"
+          }
+        }
       }
     }
   },
@@ -510,6 +519,11 @@
       "sha512": "sha512-c1ho9WU9ZxMZawML+ssPKZfdnrg/OjR3pe0m9v8230z3acqphwvPJqzAkH54xRYm5ntZHGG1EPP3sux9H3qSPg==",
       "path": "system.windows.extensions/5.0.0",
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
+    },
+    "Interop.Microsoft.Office.Interop.Word/8.5.0.0": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

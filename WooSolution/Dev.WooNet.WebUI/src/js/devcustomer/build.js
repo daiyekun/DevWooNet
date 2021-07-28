@@ -176,6 +176,9 @@ table.render({
      ,headers: {
      "Authorization": "Bearer "+ localdata.token +""
      ,loginkey:localdata.loginkey
+     },
+     where:{
+        otherId:$devId
      }
     , cols: [[
         { type: 'numbers', fixed: 'left' }
@@ -187,7 +190,7 @@ table.render({
         , { field: 'AddDateTime', title: '建立日期', width: 120, hide: true }
         , { field: 'AddUserName', title: '建立人', width: 120, hide: true }
         , { field: 'Id', title: 'Id', width: 50, hide: true }
-        , { title: '操作', width: 180, align: 'center', fixed: 'right', toolbar: '#tableCustomerFilesbar' }
+        , { title: '操作', width: 200, align: 'center', fixed: 'right', toolbar: '#tableCustomerFilesbar' }
     ]]
     , page: false
     , loading: true
@@ -330,7 +333,10 @@ table.render({
         ,headers: {
         "Authorization": "Bearer "+ localdata.token +""
         ,loginkey:localdata.loginkey
-        }
+        },
+        where:{
+            otherId:$devId
+         }
        , cols: [[
            { type: 'numbers', fixed: 'left' }
            ,{ type: 'checkbox', fixed: 'left' }
@@ -490,6 +496,9 @@ table.render({
      ,headers: {
      "Authorization": "Bearer "+ localdata.token +""
      ,loginkey:localdata.loginkey
+     }
+     ,where:{
+        otherId:$devId
      }
     , cols: [[
         { type: 'numbers', fixed: 'left' }

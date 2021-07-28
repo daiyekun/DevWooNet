@@ -489,6 +489,14 @@
         "runtime": {
           "Dev.WooNet.Common.dll": {}
         }
+      },
+      "Interop.Microsoft.Office.Interop.Word/8.5.0.0": {
+        "runtime": {
+          "Interop.Microsoft.Office.Interop.Word.dll": {
+            "assemblyVersion": "8.5.0.0",
+            "fileVersion": "8.5.0.0"
+          }
+        }
       }
     }
   },
@@ -808,6 +816,11 @@
     },
     "Dev.WooNet.Common/1.0.0": {
       "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Interop.Microsoft.Office.Interop.Word/8.5.0.0": {
+      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

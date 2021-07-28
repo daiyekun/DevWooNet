@@ -1,5 +1,6 @@
 ﻿using Dev.WooNet.Common.Models;
 using Dev.WooNet.Model.DevDTO;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -32,5 +33,11 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <returns>返回基本信息</returns>
         DevCompfileDTO GetInfoById(int Id);
+        /// <summary>
+        /// 获取图片集合
+        /// </summary>
+        /// <param name="contId">图片ID</param>
+        /// <returns></returns>
+        IList<PicViewDTO> GetPicViews(int contId, string basurl);
     }
 }
