@@ -120,5 +120,33 @@ namespace Dev.WooNet.WooService
                         };
             return local.FirstOrDefault();
         }
+
+        /// <summary>
+        /// 保存组用户
+        /// </summary>
+        /// <param name="Ids">当前用户ID</param>
+        /// <param name="GroupId">组ID</param>
+        /// <returns></returns>
+        public int SaveGroupUser(int GroupId, string Ids)
+        {
+            var userIds = StringHelper.String2ArrayInt(Ids);
+            string sqlstr = $"delete from dev_flow_groupuser where GroupId={GroupId} and UserId in({Ids})";
+            ExecuteSqlCommand(sqlstr);
+            IList<DevFlowGroupuser> urloes = new List<DevFlowGroupuser>();
+            foreach (var id in userIds)
+            {
+                var grole = new DevFlowGroupuser();
+                grole.GroupId = GroupId;
+                grole.UserId = id;
+
+                urloes.Add(grole);
+
+            }
+
+            DevDb.Set<DevFlowGroupuser>().AddRange(urloes);
+            SaveChanges();
+            return urloes.Count();
+
+        }
     }
 }

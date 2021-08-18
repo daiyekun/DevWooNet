@@ -27,8 +27,11 @@ namespace Dev.WooNet.WebAPI.Extend
             services.AddTransient<IDevFlowTempNodeService, DevFlowTempNodeService>();
             services.AddTransient<IDevFlowTempNodeInfoService, DevFlowTempNodeInfoService>();
             services.AddTransient<IDevFlowGroupService, DevFlowGroupService>();
+            services.AddTransient<IDevFlowGroupuserService, DevFlowGroupuserService>();
 
             
+
+
 
             #region 合同系统相关注册
             //合同对方

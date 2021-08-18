@@ -30,14 +30,17 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         private IMapper _IMapper;
         private IDevUserRoleService _IDevUserRoleService;
         private IConfiguration _Configuration;
+        private IDevFlowGroupuserService _IDevFlowGroupuserService;
         public DevUserController(IDevUserinfoService DevUserinfoService
             ,IMapper iMapper, IDevUserRoleService iDevUserRoleService
-            , IConfiguration configuration)
+            , IConfiguration configuration
+            , IDevFlowGroupuserService iDevFlowGroupuserService)
         {
             _IDevUserinfoService = DevUserinfoService;
             _IMapper = iMapper;
             _IDevUserRoleService = iDevUserRoleService;
             _Configuration = configuration;
+            _IDevFlowGroupuserService = iDevFlowGroupuserService;
         }
         /// <summary>
         /// 用户新增修改
@@ -129,6 +132,16 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             }else if (pgInfo.searchType == 2)
             {//启用
                 prdAnd = prdAnd.And(a =>a.Ustate==1);
+            }else if (pgInfo.searchType == 3)
+            {//查询组用户
+                int groupId = 0;
+                if (int.TryParse(pgInfo.searchWhre, out groupId))
+                {
+                    var userIds = GetUserIdByGroupId(groupId).ToArray();
+                    prdAnd = prdAnd.And(a => userIds.Contains(a.Id));
+
+                }
+
             }
             var pagelist = _IDevUserinfoService.GetList(pageInfo, prdAnd, a => a.Id, false);
             return new DevResultJson(pagelist);
@@ -143,6 +156,16 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         private IList<int> GetUserIdByRoleId(int roleId)
         {
           return  _IDevUserRoleService.GetQueryable(a => a.Rid == roleId).Select(a => a.Uid).ToList();
+        }
+
+        /// <summary>
+        /// 根据组Id获取用户列表
+        /// </summary>
+        /// <param name="groupId">角色ID</param>
+        /// <returns></returns>
+        private IList<int> GetUserIdByGroupId(int groupId)
+        {
+            return _IDevFlowGroupuserService.GetQueryable(a => a.GroupId == groupId).Select(a => a.UserId).ToList();
         }
 
         /// <summary>

@@ -32,10 +32,13 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
     {
         private IMapper _IMapper;
         private IDevFlowGroupService _IDevFlowGroupService;
-        public DevFlowGroupController(IMapper iMapper, IDevFlowGroupService iDevFlowGroupService)
+        
+        public DevFlowGroupController(IMapper iMapper, IDevFlowGroupService iDevFlowGroupService
+            )
         {
             _IMapper = iMapper;
             _IDevFlowGroupService = iDevFlowGroupService;
+            
 
         }
 
@@ -170,5 +173,49 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             return new DevResultJson(reslut);
 
         }
+
+        /// <summary>
+        /// 删除信息
+        /// </summary>
+        /// <param name="Ids">删除用户ID</param>
+        /// <param name="groupId">组ID</param>
+        /// <returns></returns>
+        [Route("deletegroupUser")]
+        [HttpGet]
+        public IActionResult DeletegroupUser(string Ids,int groupId)
+        {
+            string sqlstr = $"delete form  dev_flow_groupuser where UserId in({Ids}) and GroupId={groupId}";
+            var reslut = _IDevFlowGroupService.ExecuteSqlCommand(sqlstr);
+            return new DevResultJson(reslut);
+
+        }
+
+        /// <summary>
+        /// 添加组用户
+        /// </summary>
+        /// <param name="GroupId">组ID</param>
+        /// <param name="Ids">用户ID集合</param>
+        /// <returns></returns>
+        [Route("savegroupUser")]
+        [HttpGet]
+        public IActionResult SaveGroupUser(int GroupId, string Ids)
+        {
+
+            var res = _IDevFlowGroupService.SaveGroupUser(GroupId, Ids);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "",
+                code = 0,
+
+
+
+            });
+
+        }
+
+        
+
+
+
     }
 }

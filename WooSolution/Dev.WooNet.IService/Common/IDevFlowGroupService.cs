@@ -33,5 +33,12 @@ namespace Dev.WooNet.IWooService
         /// <param name="Id"></param>
         /// <returns></returns>
         DevFlowGroupDTO GetInfoById(int Id);
+        /// <summary>
+        /// 保存组用户
+        /// </summary>
+        /// <param name="Ids">当前用户ID</param>
+        /// <param name="GroupId">组ID</param>
+        /// <returns></returns>
+        int SaveGroupUser(int GroupId, string Ids);
     }
 }

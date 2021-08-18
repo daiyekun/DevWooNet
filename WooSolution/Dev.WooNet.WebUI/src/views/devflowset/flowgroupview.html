@@ -42,6 +42,42 @@
         </div>
         
     </div>
+    <!-- 角色用户列表 -->
+    <div>
+        <div class="winui-toolbar">
+            <div class="winui-tool">
+                <button id="groupuerreloadTable" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                <button id="deletegroupuser" class="winui-toolbtn"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                <button id="addgroupuser" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                <div style="color: red;float:right;">当前组下用户列表</div>
+            </div>
+        </div>
+        <div style="margin:auto 10px;">
+            <table id="woogroupuser" lay-filter="woogroupuser"></table>
+        </div>
+       
+    </div>
+    <!-- 用户表格 -->
+    <div>
+        <div class="winui-toolbar">
+            <div class="winui-tool">
+                <div class="layui-inline">
+                    <input type="text" name="keyWord" placeholder="用户名称、显示名称" style="width:200px;"  class="layui-input">
+                </div>
+                <button class="winui-toolbtn" id="btnsearchuser" >
+                    <i class="layui-icon layui-icon-search"></i>查询
+                </button>
+                <button id="reloadTable" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                <button id="roleSaveUser" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>保存</button>
+               
+                <div style="color: red;float:right;">待选择用户列表</div>
+            </div>
+        </div>
+        <div style="margin:auto 10px;">
+            <table id="woouser" lay-filter="usertable"></table>
+        </div>
+       
+    </div>
     
  
     
