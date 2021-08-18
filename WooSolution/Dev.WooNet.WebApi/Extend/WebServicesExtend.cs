@@ -23,6 +23,13 @@ namespace Dev.WooNet.WebAPI.Extend
             services.AddTransient<IDevRoleService, DevRoleService>();
             services.AddTransient<IDevUserRoleService, DevUserRoleService>();
             services.AddTransient<IDevSysmodelService, DevSysmodelService>();
+            services.AddTransient<IDevFlowTempService, DevFlowTempService>();
+            services.AddTransient<IDevFlowTempNodeService, DevFlowTempNodeService>();
+            services.AddTransient<IDevFlowTempNodeInfoService, DevFlowTempNodeInfoService>();
+            services.AddTransient<IDevFlowGroupService, DevFlowGroupService>();
+
+            
+
             #region 合同系统相关注册
             //合同对方
             services.AddTransient<IDevCompanyService, DevCompanyService>();

@@ -17,6 +17,19 @@ namespace Dev.WooNet.Model.Models
         {
         }
 
+        public virtual DbSet<DevAppGroupUser> DevAppGroupUsers { get; set; }
+        public virtual DbSet<DevAppInstNode> DevAppInstNodes { get; set; }
+        public virtual DbSet<DevAppInstNodeArea> DevAppInstNodeAreas { get; set; }
+        public virtual DbSet<DevAppInstNodeAreaHist> DevAppInstNodeAreaHists { get; set; }
+        public virtual DbSet<DevAppInstNodeHist> DevAppInstNodeHists { get; set; }
+        public virtual DbSet<DevAppInstNodeInfo> DevAppInstNodeInfos { get; set; }
+        public virtual DbSet<DevAppInstNodeLine> DevAppInstNodeLines { get; set; }
+        public virtual DbSet<DevAppInstNodeLineHist> DevAppInstNodeLineHists { get; set; }
+        public virtual DbSet<DevAppInstNodeinfoHist> DevAppInstNodeinfoHists { get; set; }
+        public virtual DbSet<DevAppInstOpin> DevAppInstOpins { get; set; }
+        public virtual DbSet<DevAppInstOpinHist> DevAppInstOpinHists { get; set; }
+        public virtual DbSet<DevAppinst> DevAppinsts { get; set; }
+        public virtual DbSet<DevAppinstHist> DevAppinstHists { get; set; }
         public virtual DbSet<DevCity> DevCities { get; set; }
         public virtual DbSet<DevCompany> DevCompanies { get; set; }
         public virtual DbSet<DevCompcontact> DevCompcontacts { get; set; }
@@ -27,6 +40,14 @@ namespace Dev.WooNet.Model.Models
         public virtual DbSet<DevDatadic> DevDatadics { get; set; }
         public virtual DbSet<DevDepartment> DevDepartments { get; set; }
         public virtual DbSet<DevDeptmain> DevDeptmains { get; set; }
+        public virtual DbSet<DevFlowGroup> DevFlowGroups { get; set; }
+        public virtual DbSet<DevFlowGroupuser> DevFlowGroupusers { get; set; }
+        public virtual DbSet<DevFlowTemp> DevFlowTemps { get; set; }
+        public virtual DbSet<DevFlowTempHist> DevFlowTempHists { get; set; }
+        public virtual DbSet<DevFlowTempNode> DevFlowTempNodes { get; set; }
+        public virtual DbSet<DevFlowTempNodeHist> DevFlowTempNodeHists { get; set; }
+        public virtual DbSet<DevFlowTempNodeInfo> DevFlowTempNodeInfos { get; set; }
+        public virtual DbSet<DevFlowTempNodeInfoHist> DevFlowTempNodeInfoHists { get; set; }
         public virtual DbSet<DevLoginLog> DevLoginLogs { get; set; }
         public virtual DbSet<DevOptionLog> DevOptionLogs { get; set; }
         public virtual DbSet<DevProvince> DevProvinces { get; set; }
@@ -37,6 +58,10 @@ namespace Dev.WooNet.Model.Models
         public virtual DbSet<DevSealmanager> DevSealmanagers { get; set; }
         public virtual DbSet<DevSysemail> DevSysemails { get; set; }
         public virtual DbSet<DevSysmodel> DevSysmodels { get; set; }
+        public virtual DbSet<DevTempNodeArea> DevTempNodeAreas { get; set; }
+        public virtual DbSet<DevTempNodeAreaHist> DevTempNodeAreaHists { get; set; }
+        public virtual DbSet<DevTempNodeLine> DevTempNodeLines { get; set; }
+        public virtual DbSet<DevTempNodeLineHist> DevTempNodeLineHists { get; set; }
         public virtual DbSet<DevUserModule> DevUserModules { get; set; }
         public virtual DbSet<DevUserPession> DevUserPessions { get; set; }
         public virtual DbSet<DevUserRole> DevUserRoles { get; set; }
@@ -54,6 +79,274 @@ namespace Dev.WooNet.Model.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DevAppGroupUser>(entity =>
+            {
+                entity.ToTable("dev_app_group_user");
+
+                entity.Property(e => e.UserIds)
+                    .HasColumnType("varchar(500)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppInstNode>(entity =>
+            {
+                entity.ToTable("dev_app_inst_node");
+
+                entity.Property(e => e.CompDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ReceDateTime).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<DevAppInstNodeArea>(entity =>
+            {
+                entity.ToTable("dev_app_inst_node_area");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppInstNodeAreaHist>(entity =>
+            {
+                entity.ToTable("dev_app_inst_node_area_hist");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppInstNodeHist>(entity =>
+            {
+                entity.ToTable("dev_app_inst_node_hist");
+
+                entity.Property(e => e.AddDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.CompDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.NodeStrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.ReceDateTime).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<DevAppInstNodeInfo>(entity =>
+            {
+                entity.ToTable("dev_app_inst_node_info");
+
+                entity.Property(e => e.GroupName)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Max).HasPrecision(28, 6);
+
+                entity.Property(e => e.Min).HasPrecision(28, 6);
+            });
+
+            modelBuilder.Entity<DevAppInstNodeLine>(entity =>
+            {
+                entity.ToTable("dev_app_inst_node_line");
+
+                entity.Property(e => e.From)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(500)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.To)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppInstNodeLineHist>(entity =>
+            {
+                entity.ToTable("dev_app_inst_node_line_hist");
+
+                entity.Property(e => e.From)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(500)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.To)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppInstNodeinfoHist>(entity =>
+            {
+                entity.ToTable("dev_app_inst_nodeinfo_hist");
+
+                entity.Property(e => e.GroupName)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Max).HasPrecision(28, 6);
+
+                entity.Property(e => e.Min).HasPrecision(28, 6);
+
+                entity.Property(e => e.NodeStrId)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppInstOpin>(entity =>
+            {
+                entity.ToTable("dev_app_inst_opin");
+
+                entity.Property(e => e.AddDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.NodeStrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Opinion)
+                    .IsRequired()
+                    .HasColumnType("varchar(1000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppInstOpinHist>(entity =>
+            {
+                entity.ToTable("dev_app_inst_opin_hist");
+
+                entity.Property(e => e.AddDatetTme).HasColumnType("datetime");
+
+                entity.Property(e => e.NodeStrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Opinion)
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppinst>(entity =>
+            {
+                entity.ToTable("dev_appinst");
+
+                entity.Property(e => e.AddDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.AppObjAmount).HasPrecision(28, 6);
+
+                entity.Property(e => e.AppObjName)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CompleteDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.CurrentNodeName)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.FinceType)
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.NewInstId)
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StartDateTime).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<DevAppinstHist>(entity =>
+            {
+                entity.ToTable("dev_appinst_hist");
+
+                entity.Property(e => e.AddDatetime).HasColumnType("datetime");
+
+                entity.Property(e => e.AppObjAmount).HasPrecision(28, 6);
+
+                entity.Property(e => e.AppObjName)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.AppObjNo)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.CompleteDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.CurrentNodeName)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StartDateTime).HasColumnType("datetime");
+            });
+
             modelBuilder.Entity<DevCity>(entity =>
             {
                 entity.ToTable("dev_city");
@@ -481,6 +774,159 @@ namespace Dev.WooNet.Model.Models
                     .HasCollation("utf8_general_ci");
             });
 
+            modelBuilder.Entity<DevFlowGroup>(entity =>
+            {
+                entity.ToTable("dev_flow_group");
+
+                entity.Property(e => e.AddDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Remark)
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevFlowGroupuser>(entity =>
+            {
+                entity.ToTable("dev_flow_groupuser");
+            });
+
+            modelBuilder.Entity<DevFlowTemp>(entity =>
+            {
+                entity.ToTable("dev_flow_temp");
+
+                entity.Property(e => e.AddDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.CategoryIds)
+                    .IsRequired()
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.DeptIds)
+                    .IsRequired()
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.FlowItems)
+                    .IsRequired()
+                    .HasColumnType("varchar(1000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevFlowTempHist>(entity =>
+            {
+                entity.ToTable("dev_flow_temp_hist");
+
+                entity.Property(e => e.AddDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.CategoryIds)
+                    .IsRequired()
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.DeptIds)
+                    .IsRequired()
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.FlowItems)
+                    .IsRequired()
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevFlowTempNode>(entity =>
+            {
+                entity.ToTable("dev_flow_temp_node");
+
+                entity.Property(e => e.AddDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevFlowTempNodeHist>(entity =>
+            {
+                entity.ToTable("dev_flow_temp_node_hist");
+
+                entity.Property(e => e.AddDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevFlowTempNodeInfo>(entity =>
+            {
+                entity.ToTable("dev_flow_temp_node_info");
+
+                entity.Property(e => e.Max).HasPrecision(28, 6);
+
+                entity.Property(e => e.Min).HasPrecision(28, 6);
+
+                entity.Property(e => e.NodeStrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevFlowTempNodeInfoHist>(entity =>
+            {
+                entity.ToTable("dev_flow_temp_node_info_hist");
+
+                entity.Property(e => e.Max).HasPrecision(28, 6);
+
+                entity.Property(e => e.Min).HasPrecision(28, 6);
+
+                entity.Property(e => e.NodeStrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
             modelBuilder.Entity<DevLoginLog>(entity =>
             {
                 entity.ToTable("dev_login_log");
@@ -731,6 +1177,100 @@ namespace Dev.WooNet.Model.Models
 
                 entity.Property(e => e.Title)
                     .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevTempNodeArea>(entity =>
+            {
+                entity.ToTable("dev_temp_node_area");
+
+                entity.Property(e => e.Height).HasColumnName("height");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(255)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevTempNodeAreaHist>(entity =>
+            {
+                entity.ToTable("dev_temp_node_area_hist");
+
+                entity.Property(e => e.Height).HasColumnName("height");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(500)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevTempNodeLine>(entity =>
+            {
+                entity.ToTable("dev_temp_node_line");
+
+                entity.Property(e => e.From)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.M).HasColumnType("float(255,5)");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.To)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevTempNodeLineHist>(entity =>
+            {
+                entity.ToTable("dev_temp_node_line_hist");
+
+                entity.Property(e => e.From)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.M).HasColumnType("float(255,5)");
+
+                entity.Property(e => e.Name)
+                    .HasColumnType("varchar(2000)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.StrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.To)
                     .HasColumnType("varchar(50)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");

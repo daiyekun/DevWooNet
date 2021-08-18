@@ -554,6 +554,9 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
+              "E:\\WooCode\\WooSolution\\Dev.WooNet.AutoMapper\\Dev.WooNet.AutoMapper.csproj": {
+                "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.AutoMapper\\Dev.WooNet.AutoMapper.csproj"
+              },
               "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj": {
                 "projectPath": "E:\\WooCode\\WooSolution\\Dev.WooNet.Common\\Dev.WooNet.Common.csproj"
               },

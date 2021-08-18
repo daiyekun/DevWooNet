@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>基本介绍</title>
+    <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/devcommon.css" rel="stylesheet" />
+    
+</head>
+<body class="winui-window-body">
+    <div class="layui-form" lay-filter="Dev-FlowGroupForm">
+        <input  type="hidden" id="Id" name="Id"  />
+        <div class="layui-card ">
+            <div class="layui-card-body" style="padding: 15px;">
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">组名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Name" lay-verify="required"   class="layui-input devview" />
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">说明</label>
+                        <div class="layui-input-block">
+                            <textarea name="Remark"  class="layui-textarea devview"></textarea>
+                           
+                        </div>
+                    </div> 
+
+                </div>
+                <div class="layui-form-item">
+                    </div>
+                
+               
+            </div>
+        </div>
+        
+    </div>
+    
+ 
+    
+    <script src="../../lib/layui/layui.js"></script>
+
+    <script> 
+        layui.config({
+            base: '../../js/'
+        }).extend({
+            flowgroupview:'devflowset/flowgroupview'
+        })
+        .use('flowgroupview');
+    </script>
+    
+</body>
+</html>

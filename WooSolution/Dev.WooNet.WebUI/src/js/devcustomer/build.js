@@ -338,7 +338,7 @@ table.on('tool(Dev-CustomerFiles)', function (obj) {
 table.render({
        elem: '#Dev-CustomerContact'
        ,id:'Dev-CustomerContact'
-      ,url:devsetter.devuserurl + 'api/DevCompContact/list?otherId='+$devId + '&rand=' + wooutil.getRandom()
+      ,url:devsetter.devbaseurl + 'api/DevCompContact/list?otherId='+$devId + '&rand=' + wooutil.getRandom()
       , toolbar: '#tooCustomerContact'
        , defaultToolbar: ['filter']
         ,method: 'POST'
@@ -406,7 +406,7 @@ var contactEvent={
             //向服务端发送删除指令
             wooutil.devajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevCompContact/deletecontact',
+                url: devsetter.devbaseurl+ 'api/DevCompContact/deletecontact',
                 data: { Ids: ids.toString() },
                 dataType: 'json',
                 success: function (res) {
@@ -501,7 +501,7 @@ table.on('tool(Dev-CustomerContact)', function (obj) {
 table.render({
     elem: '#Dev-CustomerDesc'
     ,id:'Dev-CustomerDesc'
-   ,url:devsetter.devuserurl + 'api/DevCompDesc/list?otherId='+$devId + '&rand=' + wooutil.getRandom()
+   ,url:devsetter.devbaseurl+ 'api/DevCompDesc/list?otherId='+$devId + '&rand=' + wooutil.getRandom()
    , toolbar: '#toolCustomerDesc'
     , defaultToolbar: ['filter']
      ,method: 'POST'

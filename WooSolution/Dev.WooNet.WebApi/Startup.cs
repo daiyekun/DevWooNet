@@ -152,6 +152,7 @@ namespace Dev.WooNet.WebApi
             }
             //app.UsePreOptionsRequest();
             //跨域
+            app.UseStateAutoMapper();
             app.UseCors("default");
 
             #region jwt授权,放在Cors后面，不然存在跨域问题

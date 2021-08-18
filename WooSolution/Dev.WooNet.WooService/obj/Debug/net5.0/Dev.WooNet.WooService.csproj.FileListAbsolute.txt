@@ -18,3 +18,5 @@ E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.IWooSer
 E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.Model.pdb
 E:\WooCode\WooSolution\Dev.WooNet.WooService\obj\Debug\net5.0\Dev.WooNet.WooService.csproj.CopyComplete
 E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Interop.Microsoft.Office.Interop.Word.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.AutoMapper.dll
+E:\WooCode\WooSolution\Dev.WooNet.WooService\bin\Debug\net5.0\Dev.WooNet.AutoMapper.pdb

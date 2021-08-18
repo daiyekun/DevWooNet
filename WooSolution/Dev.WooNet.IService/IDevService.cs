@@ -13,6 +13,71 @@ using System.Threading.Tasks;
 namespace Dev.WooNet.IWooService
 {
  
+public partial interface IDevAppGroupUserService : IBaseService<DevAppGroupUser>
+{ }
+    
+   
+     
+public partial interface IDevAppinstService : IBaseService<DevAppinst>
+{ }
+    
+   
+     
+public partial interface IDevAppinstHistService : IBaseService<DevAppinstHist>
+{ }
+    
+   
+     
+public partial interface IDevAppInstNodeService : IBaseService<DevAppInstNode>
+{ }
+    
+   
+     
+public partial interface IDevAppInstNodeAreaService : IBaseService<DevAppInstNodeArea>
+{ }
+    
+   
+     
+public partial interface IDevAppInstNodeAreaHistService : IBaseService<DevAppInstNodeAreaHist>
+{ }
+    
+   
+     
+public partial interface IDevAppInstNodeHistService : IBaseService<DevAppInstNodeHist>
+{ }
+    
+   
+     
+public partial interface IDevAppInstNodeInfoService : IBaseService<DevAppInstNodeInfo>
+{ }
+    
+   
+     
+public partial interface IDevAppInstNodeinfoHistService : IBaseService<DevAppInstNodeinfoHist>
+{ }
+    
+   
+     
+public partial interface IDevAppInstNodeLineService : IBaseService<DevAppInstNodeLine>
+{ }
+    
+   
+     
+public partial interface IDevAppInstNodeLineHistService : IBaseService<DevAppInstNodeLineHist>
+{ }
+    
+   
+     
+public partial interface IDevAppInstOpinService : IBaseService<DevAppInstOpin>
+{ }
+    
+   
+     
+public partial interface IDevAppInstOpinHistService : IBaseService<DevAppInstOpinHist>
+{ }
+    
+   
+     
 public partial interface IDevCityService : IBaseService<DevCity>
 { }
     
@@ -68,6 +133,46 @@ public partial interface IDevDeptmainService : IBaseService<DevDeptmain>
     
    
      
+public partial interface IDevFlowGroupService : IBaseService<DevFlowGroup>
+{ }
+    
+   
+     
+public partial interface IDevFlowGroupuserService : IBaseService<DevFlowGroupuser>
+{ }
+    
+   
+     
+public partial interface IDevFlowTempService : IBaseService<DevFlowTemp>
+{ }
+    
+   
+     
+public partial interface IDevFlowTempHistService : IBaseService<DevFlowTempHist>
+{ }
+    
+   
+     
+public partial interface IDevFlowTempNodeService : IBaseService<DevFlowTempNode>
+{ }
+    
+   
+     
+public partial interface IDevFlowTempNodeHistService : IBaseService<DevFlowTempNodeHist>
+{ }
+    
+   
+     
+public partial interface IDevFlowTempNodeInfoService : IBaseService<DevFlowTempNodeInfo>
+{ }
+    
+   
+     
+public partial interface IDevFlowTempNodeInfoHistService : IBaseService<DevFlowTempNodeInfoHist>
+{ }
+    
+   
+     
 public partial interface IDevLoginLogService : IBaseService<DevLoginLog>
 { }
     
@@ -114,6 +219,26 @@ public partial interface IDevSysemailService : IBaseService<DevSysemail>
    
      
 public partial interface IDevSysmodelService : IBaseService<DevSysmodel>
+{ }
+    
+   
+     
+public partial interface IDevTempNodeAreaService : IBaseService<DevTempNodeArea>
+{ }
+    
+   
+     
+public partial interface IDevTempNodeAreaHistService : IBaseService<DevTempNodeAreaHist>
+{ }
+    
+   
+     
+public partial interface IDevTempNodeLineService : IBaseService<DevTempNodeLine>
+{ }
+    
+   
+     
+public partial interface IDevTempNodeLineHistService : IBaseService<DevTempNodeLineHist>
 { }
     
    

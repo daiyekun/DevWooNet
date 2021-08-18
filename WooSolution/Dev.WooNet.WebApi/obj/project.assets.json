@@ -2985,6 +2985,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
+          "Dev.WooNet.AutoMapper": "1.0.0",
           "Dev.WooNet.Common": "1.0.0",
           "Dev.WooNet.IWooService": "1.0.0",
           "Dev.WooNet.Model": "1.0.0"
