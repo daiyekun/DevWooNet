@@ -124,7 +124,7 @@ layui.config({
                     , tempId: fTempId
                 },
                 success: function (res){
-                    debugger;
+                    
                    
                     $("#nodeId").text(_id);
                     $("#tdnodeName").text(objdata.name);
@@ -270,14 +270,14 @@ layui.config({
                         , btnAlign: 'c'
                         , skin: "layer-ext-myskin"
                         , yes: function (index, layero) {
-                            debugger;
+                           
                             var iframeWindow = window['layui-layer-iframe' + index];
                            var  checkData= iframeWindow.layui.table.checkStatus("flowgrouptableid").data;
                            
                             if (checkData.length !== 1) {
                                 return layer.msg('请选择一条数据');
                             }
-                              debugger;
+                              
                             $("#GroupName").val(checkData[0].Name);
                             $("#groUserNames").text(checkData[0].UserNames);
                             $("#GroupId").val(checkData[0].Id);

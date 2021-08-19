@@ -309,6 +309,31 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             });
         }
 
+        /// <summary>
+        /// 修改字段
+        /// </summary>
+        /// <param name="Id">修改对象ID</param>
+        /// <param name="fieldName">修改字段名称</param>
+        /// <param name="fieldVal">修改值，如果不是String后台人为判断</param>
+        /// <returns></returns>
+        [Route("UpdateField")]
+        [HttpPost]
+        public IActionResult UpdateField([FromBody]UpdateFieldInfo info)
+        {
+            var res = _IDevFlowTempService.UpdateField(info);
+            AjaxResult reqInfo = reqInfo = new AjaxResult()
+            {
+                msg = "修改成功",
+                code = 0,
+            };
+            if (res <= 0)
+            {
+                reqInfo.msg = "修改失败";
+            }
+
+            return new DevResultJson(reqInfo);
+        }
+
 
 
 

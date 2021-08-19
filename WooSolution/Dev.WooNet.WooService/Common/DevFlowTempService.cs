@@ -256,6 +256,30 @@ namespace Dev.WooNet.WooService
 
         }
 
+        /// <summary>
+        /// 修改字段
+        /// </summary>
+        /// <param name="info">修改的字段对象</param>
+        /// <returns>返回受影响行数</returns>
+        public int UpdateField(UpdateFieldInfo info)
+        {
+            string sqlstr = "";
+            switch (info.Field)
+            {
+                case "IsValid"://状态
+                    var state = Convert.ToByte(info.FieldVal);
+                    sqlstr = $"update  dev_flow_temp set IsValid={state} where Id={info.Id}";
+                    break;
+
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(sqlstr))
+                return ExecuteSqlCommand(sqlstr);
+            return 0;
+
+        }
+
 
     }
 }

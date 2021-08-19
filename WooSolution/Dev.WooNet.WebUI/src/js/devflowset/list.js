@@ -8,12 +8,13 @@ layui.config({
     window: 'winui/js/winui.window',
    devindex: 'devextend/devindex',
    
-}).define(['table', 'jquery', 'winui', 'window', 'layer', 'devindex'], function (exports) {
+}).define(['table', 'jquery', 'winui', 'window', 'layer', 'devindex','form'], function (exports) {
     winui.renderColor();
     var table = layui.table,
         $ = layui.$,
         devsdevindexetter = layui.devindex,
          msg = winui.window.msg,
+         form=layui.form,
          tableId = 'flowlisttableid';
     //表格渲染
    
@@ -145,7 +146,7 @@ layui.config({
             //向服务端发送删除指令
             wooutil.devajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevFlowTemp/delete',
+                url: devsetter.devbaseurl + 'api/DevFlowTemp/delete',
                 data: { Ids: ids.toString() },
                 dataType: 'json',
                 success: function (res) {
@@ -247,6 +248,23 @@ layui.config({
         });
 
     }
+
+     //监听状态操作
+     form.on('switch(IsValid)', function (obj) {
+        var state = obj.elem.checked ? 1 : 0;//状态
+        wooutil.devajax({
+                type: 'POST',
+                url: devsetter.devbaseurl + 'api/DevFlowTemp/UpdateField',
+                data: JSON.stringify( { Id: this.value, Field: "IsValid", FieldVal: state }),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+               success: function (res) {
+                layer.msg('修改成功！');
+
+            }
+
+        });
+    });
     
  
     exports('flowsetlist', {});
