@@ -19,6 +19,10 @@ namespace Dev.WooNet.Model
         /// 状态
         /// </summary>
         public string GstateDic { get; set; }
+        /// <summary>
+        /// 组下用户
+        /// </summary>
+        public string UserNames { get; set; }
 
     }
 }

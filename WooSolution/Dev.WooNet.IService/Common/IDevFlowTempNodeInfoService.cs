@@ -1,4 +1,5 @@
 ﻿using Dev.WooNet.Model;
+using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,13 @@ namespace Dev.WooNet.IWooService
         /// <param name="nodeStrId">节点ID</param>
         /// <returns></returns>
         FlowTempNodeInfoViewDTO GetNodeInfoByStrId(string nodeStrId, int tempId);
-        
+        /// <summary>
+        /// 保存节点信息
+        /// </summary>
+        /// <param name="flowTempNodeInfo">模板节点信息表</param>
+        /// <returns></returns>
+        int SaveFlowTempNodeInfo(DevFlowTempNodeInfo flowTempNodeInfo);
+
+
         }
 }

@@ -2,6 +2,7 @@
 using Dev.WooNet.Common.Utility;
 using Dev.WooNet.Model;
 using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.FlowModel;
 using Dev.WooNet.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -46,6 +47,13 @@ namespace Dev.WooNet.WooService
                 tempquery = tempquery.Skip<DevFlowGroup>((pageInfo.PageIndex - 1) * pageInfo.PageSize).Take<DevFlowGroup>(pageInfo.PageSize);
             }
 
+            IList<UserTemp> listUser = DevDb.Set<DevUserinfo>().Where(a => a.IsDelete != 1).Select(a => new UserTemp
+            {
+                Id = a.Id,
+                Name = a.Name,
+                ShowName = a.ShowName
+            }).ToList();
+            IList<DevFlowGroupuser> groupUsers = DevDb.Set<DevFlowGroupuser>().ToList();
 
             var query = from a in tempquery
                         select new
@@ -71,7 +79,7 @@ namespace Dev.WooNet.WooService
                             AddDateTime = a.AddDateTime,
                             AddUserName = RedisDevCommUtility.GetUserName(a.AddUserId),
                             GstateDic = EmunUtility.GetDesc(typeof(IsYesNOEnum), a.Gstate),
-                           
+                            UserNames = GetGroupUsers(a.Id, listUser, groupUsers)
 
 
 
@@ -122,6 +130,18 @@ namespace Dev.WooNet.WooService
         }
 
         /// <summary>
+        /// 返回组里所有用户
+        /// </summary>
+        /// <returns></returns>
+        private string GetGroupUsers(int groupId, IList<UserTemp> listUser, IList<DevFlowGroupuser> groups)
+        {
+
+            var userIds = groups.Where(a => a.GroupId == groupId).Select(a => a.UserId).ToList();
+            var userNames = listUser.Where(a => userIds.Contains(a.Id)).Select(a => a.ShowName).ToList();
+            return StringHelper.ArrayString2String(userNames);
+        }
+
+        /// <summary>
         /// 保存组用户
         /// </summary>
         /// <param name="Ids">当前用户ID</param>
@@ -149,4 +169,6 @@ namespace Dev.WooNet.WooService
 
         }
     }
+
+   
 }

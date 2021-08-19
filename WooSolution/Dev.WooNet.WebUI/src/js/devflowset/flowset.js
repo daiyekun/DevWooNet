@@ -124,18 +124,19 @@ layui.config({
                     , tempId: fTempId
                 },
                 success: function (res){
+                    debugger;
                    
                     $("#nodeId").text(_id);
                     $("#tdnodeName").text(objdata.name);
                     $("#NodeStrId").val(_id);
                    
-                     form.val('nodeInfo', res.Data);
-                     $("#GroupName").val(res.Data.GroupName);
-                     $("#groUserNames").text(res.Data.UserNames);
+                     form.val('nodeInfo', res.data);
+                     $("#GroupName").val(res.data.GroupName);
+                     $("#groUserNames").text(res.data.UserNames);
 
-                     if (res.Data.Nrule == 0) {
+                     if (res.data.Nrule == 0) {
                          $("#Nrule0").attr("checked", true);
-                     } else if (res.Data.Nrule == 1) {//审批规则
+                     } else if (res.data.Nrule == 1) {//审批规则
                          $("#Nrule1").attr("checked", true);
                      }
                      form.render();//这样checkbox显示才正常
@@ -221,7 +222,7 @@ layui.config({
     lhflow.onBtnNewClick = function () {
         layer.confirm('你确定清除当前流程图重新绘制？请慎重考虑！', { icon: 3, title: '提示信息' }, function (index) {
             wooutil.devajax({
-                url: devsetter.devbaseurl +"/WorkFlow/FlowTempNode/ClearNodeData",
+                url: devsetter.devbaseurl +"api/DevFlowTemp/ClearNodeData",
                 data: { tempId: fTempId },
                 done: function (res) {
                     lhflow.clearData();
@@ -241,9 +242,12 @@ layui.config({
                 //lhflow.setName('1552037583910', '设置节点测试', 'node');
                var submitbtn = $("#nodeInfoFromBtn");
                form.on('submit(nodeInfoFromBtn)', function (data) {
-                   admin.req({
-                           url: "/WorkFlow/FlowTempNode/SaveNodeInfo",
-                                data: data.field
+                        wooutil.devajax({
+                            type: 'POST',
+                            url: devsetter.devbaseurl +"api/DevFlowTemp/SaveNodeInfo",
+                            data: JSON.stringify(data.field),
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8"
                               , done: function (res) {
                                   layer.alert("保存成功", function (_index2) {
                                       layer.close(_index2);
@@ -259,20 +263,21 @@ layui.config({
             layer.open({
                 type: 2
                         , title: '选择组'
-                        , content: '/WorkFlow/GroupInfo/SelectGroups'
+                        , content: '/views/devflowset/selectgroup.html'
                         , maxmin: true
-                        , area: ['60%', '90%']
+                        , area: ['60%', '80%']
                         , btn: ['确定', '取消']
                         , btnAlign: 'c'
                         , skin: "layer-ext-myskin"
                         , yes: function (index, layero) {
+                            debugger;
                             var iframeWindow = window['layui-layer-iframe' + index];
-                            var checkStatus = iframeWindow.layui.table.checkStatus('FlowTemp-selectGroup')
-                            checkData = checkStatus.data; //得到选中的数据
+                           var  checkData= iframeWindow.layui.table.checkStatus("flowgrouptableid").data;
+                           
                             if (checkData.length !== 1) {
                                 return layer.msg('请选择一条数据');
                             }
-
+                              debugger;
                             $("#GroupName").val(checkData[0].Name);
                             $("#groUserNames").text(checkData[0].UserNames);
                             $("#GroupId").val(checkData[0].Id);

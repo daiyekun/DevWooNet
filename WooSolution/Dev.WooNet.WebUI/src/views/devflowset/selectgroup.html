@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/devcommon.css" rel="stylesheet"/>
+    <link href="../../lib/devextend/formSelects/formSelects-v4.css" rel="stylesheet" />
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body">
+            <table id="FlowTemp-selectGroup" lay-filter="FlowTemp-selectGroup"></table>
+         
+           
+            <script type="text/html" id="grouptateTpl">
+                {{#  if(d.Ustart ==1){ }}
+                <span style="color:blue;">启用</span>
+                {{#  } else { }}
+                <span style="color:red;">禁用</span>
+                {{#  } }}
+
+            </script>
+            <script id="toolSelectGroup" type="text/html">
+                <div class="layui-inline">
+                    <input type="hidden" name="hide_keyWord" />
+                    <input class="layui-input" type="text" name="keyWord" placeholder="组名称" style="width:300px;" autocomplete="off" />
+
+                </div>
+                <div class="layui-inline">
+                    <button class="layui-btn layuiadmin-btn-useradmin " lay-submit lay-filter="NF-Flow-SelectGroup-search">
+                        <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                    </button>
+                </div>
+            </script>
+
+        </div>
+    </div>
+</div>
+
+<script src="/lib/layui/layui.js"></script>
+<script>
+    layui.config({
+            base: '../../js/'
+        }).extend({
+            selectgroup:'devflowset/selectgroup'
+            
+        })
+        .use('selectgroup');
+</script>
+
+
+
+</body>
+</html>

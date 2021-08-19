@@ -272,6 +272,43 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             });
         }
 
+        /// <summary>
+        /// 保存节点信息
+        /// 选择节点组的时候调用
+        /// </summary>
+        /// <returns></returns>
+        [Route("SaveNodeInfo")]
+        [HttpPost]
+        public IActionResult SaveNodeInfo([FromBody]FlowTempNodeInfoDTO tempNodeInfoDTO)
+        {
+
+            var saveInfo = _IMapper.Map<DevFlowTempNodeInfo>(tempNodeInfoDTO);
+            _IDevFlowTempNodeInfoService.SaveFlowTempNodeInfo(saveInfo);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "保存成功",
+                code = 0,
+            });
+        }
+
+        /// <summary>
+        /// 新建流程图清除当前节点所有数据
+        /// </summary>
+        /// <returns></returns>
+        [Route("ClearNodeData")]
+        [HttpGet]
+        public IActionResult ClearNodeData(int tempId)
+        {
+            _IDevFlowTempNodeService.ClearFlowNodes(tempId);
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "保存成功",
+                code = 0,
+
+
+            });
+        }
+
 
 
 
