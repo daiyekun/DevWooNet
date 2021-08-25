@@ -1,7 +1,9 @@
 ﻿using Dev.WooNet.Common.Models;
 using Dev.WooNet.Common.Utility;
+using Dev.WooNet.Model;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.FlowModel;
 using Dev.WooNet.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -279,6 +281,216 @@ namespace Dev.WooNet.WooService
             return 0;
 
         }
+
+        /// <summary>
+        /// 根据参数获取流程模板及审批实例
+        /// 用于判断当前是否能够提交流程
+        /// </summary>
+        /// <param name="requestTemp">请求对象</param>
+        /// <returns></returns>
+        public ResponTempData GetFlowInfoByWhere(GetTempFlowRequestData requestTemp)
+        {
+            var tempId = 0;
+            var query = from a in DevDb.Set<DevFlowTemp>().AsNoTracking()
+                        where a.ObjType == requestTemp.ObjType
+                        && a.IsDelete == 0 && a.IsValid == 1
+                        select new
+                        {
+                            Id = a.Id,
+                            Name = a.Name,
+                            FlowItems = a.FlowItems,
+                            CategoryIds = a.CategoryIds,
+                            DeptIds = a.DeptIds
+                        };
+
+            var list = query.ToList();
+            foreach (var item in list)
+            {
+                var arrflowitem = StringHelper.String2ArrayInt(item.FlowItems);
+                var arrcateIds = StringHelper.String2ArrayInt(item.CategoryIds);
+                var deptIdsIds = StringHelper.String2ArrayInt(item.DeptIds);
+                if (requestTemp.ObjType == (int)FlowObjEnums.Contract
+                    || requestTemp.ObjType == (int)FlowObjEnums.InvoiceIn
+                    || requestTemp.ObjType == (int)FlowObjEnums.InvoiceOut
+                    || requestTemp.ObjType == (int)FlowObjEnums.payment)
+                {
+                    if (arrflowitem.Contains(requestTemp.FlowItem)
+                    && arrcateIds.Contains(requestTemp.ObjCateId)
+                    && (deptIdsIds.Contains(requestTemp.DeptId)))
+                    {
+                        tempId = item.Id;
+                        break;
+                    }
+                }
+                else
+                {
+                    if (arrflowitem.Contains(requestTemp.FlowItem)
+                   && arrcateIds.Contains(requestTemp.ObjCateId)
+                   )
+                    {
+                        tempId = item.Id;
+                        break;
+                    }
+                }
+
+
+
+            }
+            var tempHist = DevDb.Set<DevFlowTempHist>().AsNoTracking().Where(a => a.TempId == tempId).OrderByDescending(a => a.Id).FirstOrDefault();
+            var tempHistId = tempHist == null ? 0 : tempHist.Id;
+
+            var appinst = DevDb.Set<DevAppInst>().AsNoTracking().Where(a => a.Mission == requestTemp.FlowItem && a.ObjType == requestTemp.ObjType && a.AppObjId == requestTemp.ObjId).OrderByDescending(a => a.Id).FirstOrDefault();
+            return new ResponTempData()
+            {
+                TempId = tempId,
+                TempHistId = tempHistId,
+                InstId = (appinst == null || (appinst.AppState == 3)) ? 0 : appinst.Id
+
+
+            };
+
+
+
+        }
+
+        /// <summary>
+        /// 判断流程节点是否匹配完成
+        /// </summary>
+        /// <param name="tempId">模板ID</param>
+        /// <param name="amount">金额</param>
+        /// <param name="flowType">流程类型</param>
+        /// <returns></returns>
+        public int SubmitCheckFlow(RequestCheckFlow requestCheckFlow)
+        {
+            if ((requestCheckFlow.TempId ?? 0) <= 0 || (requestCheckFlow.FlowType ?? 0) <= 0)
+            {
+                return -1;
+            }
+            else
+            {
+                var FlowTempNodes = DevDb.Set<DevFlowTempNode>()
+                     .Where(a => a.TempId == requestCheckFlow.TempId).ToList();
+                var FlowTempNodeInfos = DevDb.Set<DevFlowTempNodeInfo>()
+                    .Where(a => a.TempId == requestCheckFlow.TempId).ToList();
+                var TempNodeLines = DevDb.Set<DevTempNodeLine>()
+                    .Where(a => a.TempId == requestCheckFlow.TempId).ToList();
+                var startnode = FlowTempNodes.Where(a => a.Type == (int)NodeTypeEnum.NType0).FirstOrDefault();
+                var endnode = FlowTempNodes.Where(a => a.Type == (int)NodeTypeEnum.NType1).FirstOrDefault();
+
+                if (startnode == null || endnode == null)
+                {
+                    return -2;
+                }
+                else
+                {
+                    //需要节点校验金额的
+                    if (requestCheckFlow.FlowType == (int)FlowObjEnums.Contract
+                        || requestCheckFlow.FlowType == (int)FlowObjEnums.InvoiceIn
+                        || requestCheckFlow.FlowType == (int)FlowObjEnums.InvoiceOut
+                        || requestCheckFlow.FlowType == (int)FlowObjEnums.payment)
+                    {
+                        var nodeId = FindNode(TempNodeLines, FlowTempNodeInfos, startnode.StrId, endnode.StrId, (requestCheckFlow.Amount ?? 0));
+                        var isest = TempNodeLines.Any(a => a.From == nodeId && a.To == endnode.StrId);
+                        if (!isest)
+                        {
+                            return -3;//流程节点没有匹配完成
+                        }
+                    }
+                    else
+                    {
+                        var existnode = FlowTempNodes.Where(a =>
+                          a.StrId != startnode.StrId &&
+                          a.StrId != endnode.StrId).Any();
+                        var existnodeinfo = FlowTempNodeInfos
+                            .Where(a => a.NodeStrId != startnode.StrId &&
+                        a.NodeStrId != endnode.StrId).Any();
+                        if (!existnode || !existnodeinfo)
+                        {
+                            return -4;//
+                        }
+
+
+                    }
+
+
+
+                }
+
+            }
+
+            return 0;
+
+        }
+        /// <summary>
+        /// 查找当前满足条件的节点
+        /// </summary>
+        /// <param name="tempNodeLines">节点连接线</param>
+        /// <param name="flowTempNodeInfos">节点集合</param>
+        /// <param name="FromNode">上级节点</param>
+        /// <param name="endnodestr">结束节点</param>
+        /// <param name="amount">金额</param>
+        /// <returns></returns>
+        private string FindNode
+            (IList<DevTempNodeLine> tempNodeLines, IList<DevFlowTempNodeInfo> flowTempNodeInfos,
+            string FromNode, string endnodestr, decimal amount)
+        {
+            //下级节点ID
+            var tonodes = tempNodeLines.Where(a => a.From == FromNode)
+                   .Select(a => a.To).ToList();
+            //下级节点信息
+            var tonodeinfos = flowTempNodeInfos.Where(a =>
+            tonodes.Contains(a.NodeStrId) && a.NodeStrId != endnodestr).ToList();
+            var nodestr = "";
+            foreach (var item in tonodeinfos)
+            {
+                if ((item.IsMin ?? 0) == 1 && (item.IsMax ?? 0) == 1)
+                {
+                    if (amount >= (item.Min ?? 0) && amount <= (item.Max ?? 0))
+                    {
+                        nodestr = item.NodeStrId;
+                        break;
+                    }
+                }
+                else if ((item.IsMin ?? 0) == 1 && (item.IsMax ?? 0) == 0)
+                {
+                    if (amount >= (item.Min ?? 0) && amount < (item.Max ?? 0))
+                    {
+                        nodestr = item.NodeStrId;
+                        break;
+                    }
+                }
+                else if ((item.IsMin ?? 0) == 0 && (item.IsMax ?? 0) == 1)
+                {
+                    if (amount > (item.Min ?? 0) && amount <= (item.Max ?? 0))
+                    {
+                        nodestr = item.NodeStrId;
+                        break;
+                    }
+                }
+                else if ((item.IsMin ?? 0) == 0 && (item.IsMax ?? 0) == 0)
+                {
+                    if (amount > (item.Min ?? 0) && amount < (item.Max ?? 0))
+                    {
+                        nodestr = item.NodeStrId;
+                        break;
+                    }
+                }
+
+
+
+            }
+            if (!string.IsNullOrEmpty(nodestr))
+            {
+                FindNode(tempNodeLines, flowTempNodeInfos
+                    , nodestr, endnodestr, amount);
+            }
+
+            return FromNode;//返回最后满足条件的节点
+
+
+
+        }
+
 
 
     }

@@ -219,9 +219,12 @@ layui.config({
             });
             return false;
         }
-        var url="/views/devuser/selstate.html?Id=" + checkStatus.data[0].Id+"&ustate="+checkStatus.data[0].Ustate;
+        var url="/views/devcustomer/selstate.html?Id=" 
+        + checkStatus.data[0].Id+"&ustate="+checkStatus.data[0].Dstatus
+        +"&objtype=0&objcate="+checkStatus.data[0].CompClassId
+        +"&dname="+encodeURI(encodeURI(checkStatus.data[0].Name));
         top.winui.window.open({
-            id: 'win_userstate',
+            id: 'win_customerstate',
             type: 2,
             title: '修改状态',
             maxmin:true,

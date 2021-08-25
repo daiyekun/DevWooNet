@@ -55,7 +55,7 @@ layui.config({
         /// <summary>数据字典下拉框赋值</summary>  
         /// <param name="param" type="Object">selectEl:select的ID带#，dataenum数据字典类别的enum值。</param>
             $.ajax({
-                url: devsetter.devuserurl+'api/DataDic/GetDataByType?rand=' + wooutil.getRandom(),
+                url: devsetter.devbaseurl+'api/DataDic/GetDataByType?rand=' + wooutil.getRandom(),
                 data: { typeint: param.dataenum }
                 , async: false//取消异步
                 , success: function (res) {
@@ -101,7 +101,7 @@ layui.config({
                 // debugger;
                 // $.download(devsetter.devuserurl, 'post', 'Uploads/ExcelExport', '系统用户.xlsx');
               // window.open(devsetter.devuserurl+'Uploads/ExcelExport'+'/系统用户.xlsx');
-              window.open(devsetter.devuserurl+json.data.filePath+'/'+json.data.fileName);
+              window.open(devsetter.devbaseurl+json.data.filePath+'/'+json.data.fileName);
 
             },
             error: function (xml) {
@@ -285,10 +285,143 @@ layui.config({
             // window.open(loadurl);
             wooutil.subitexel(param);
         },
+
         
     };
     //一些工具类结束----------------------------------------------------------------
-             
+       
+    //流程相关-------------------------flow-begin-----------------------------------------------------
+     flowtool={
+         getFlowInfo:function(param){
+             /// <summary>获取流程模板及流程情况</summary>
+             var $data;
+             wooutil.devajax({
+                  url: devsetter.devbaseurl+'api/DevFlowInstance/getflowinfo'
+                , async: false//取消异步
+                ,method: 'POST'
+                ,contentType: 'application/json'
+                , data: JSON.stringify({
+                    FlowItem: param.flowitem,
+                    DeptId: param.deptId,
+                    ObjType: param.objType,
+                    ObjCateId: param.objCateId,
+                    ObjId: param.objId
+    
+                })
+                , success: function (res) {
+                    $data = res.data;
+                }
+             });
+             return $data;
+
+
+         },
+         submitflow:function(flowdata){
+             /// <summary>提交流程</summary>
+             var tempdata = flowtool.getFlowInfo({
+                flowitem:flowdata.flowitem
+                ,deptId: flowdata.deptId
+                , objType: flowdata.objType
+                , objCateId: flowdata.objCateId
+                ,objId:flowdata.objId
+            });
+            if(tempdata.InstId!==0){
+                return layer.alert("流程已经提交,不能重复提交！");
+
+            }else if(tempdata.TempId===0){
+                return -1;//没有流程模板
+
+            }else{//开始准备提交
+                var opurl = "/views/devworkflow/flowcview.html?tempId="
+                + tempdata.TempId + "&ftitle=" + encodeURI(encodeURI(flowdata.objName))
+                + "&ftype=" + flowdata.objType + "&famt=" + flowdata.objamt;
+                var $title = flowdata.objName + "--提交流程"
+                layer.open({
+                    type: 2
+               , title: $title
+               , content: opurl
+               , maxmin: true
+                    // , area: ['60%', '80%']
+               , btn: ['提交流程', '取消']
+               , btnAlign: 'c'
+               , skin: "layer-ext-myskin"
+               , yes: function (index, layero) {
+                   var logdindextp = layer.load(0, { shade: false });
+                   var flowitem = flowdata.flowitem;
+                   wooutil.devajax({
+                       async: false,
+                       url: devsetter.devbaseurl+'api/DevFlowInstance/CheckSubmitFlow'
+                      , data: JSON.stringify({
+                        tempId: tempdata.TempId
+                       , amount: param.objamt
+                       , flowType: param.objType
+                       }) ,
+                       type: 'POST',
+                       success: function (res) {
+                           if (res === -1 || res === -2 || res === -3 || res === -4) {
+                               layer.close(logdindextp);
+                           }
+                           if (res === -1) {
+                               return layer.alert("提交异常！"); 
+                           } else if (res === -2) {
+                               return layer.alert("没有开始，结束节点！");
+                           }
+                           else if (res === -3) {
+                               return layer.alert("没有完整的流程，可能是金额不匹配！");
+                           }
+                           else if (res === -4) {
+                               return layer.alert("没有节点信息或者节点图");
+                           } else {
+                               admin.req({
+                                   url: '/WorkFlow/AppInst/SubmitWorkFlow'
+                                                    , data: {
+                                                        ObjType: param.objType//审批对象类型（客户，合同。。）
+                                                        , AppObjId: checkData[0].Id//对象ID
+                                                        , AppObjName: param.objName//名称
+                                                        , AppObjNo: param.objCode//编号
+                                                        , AppObjCateId: param.objCateId//类别ID
+                                                        , TempId: tempdata.TempId//模板ID
+                                                        , AppObjAmount: param.objamt//金额
+                                                        , Mission: flowitem
+                                                        , TempHistId: tempdata.TempHistId
+                                                        , FinceType: param.finceType//资金性质，合同使用
+                                                        , AppSecObjId: param.AppSecObjId
+                                                    }, done: function (res) {
+                                                        layer.close(logdindextp);
+                                                        layer.msg("提交成功", { icon: 6, time: 500 }, function (msgindex) {
+                                                            table.reload(param.tableId, {
+                                                                where: { rand: wooutil.getRandom() }
+
+                                                            });
+                                                            layer.close(index);
+                                                        });
+
+                                                    }
+                               });
+                           }
+
+                       }
+
+                   });
+
+
+               },
+                    success: function (layero, index) {
+                        layer.full(index);
+
+
+                    }
+                })
+
+
+            }
+
+            alert(JSON.stringify(tempdata));
+
+         }
+
+    };
+    //流程相关-------------------------flow-end---------------------------------------------------------
            
 
     

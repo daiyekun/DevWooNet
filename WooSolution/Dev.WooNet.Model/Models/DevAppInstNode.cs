@@ -9,7 +9,7 @@ namespace Dev.WooNet.Model.Models
     {
         public int Id { get; set; }
         public int InstId { get; set; }
-        public int NodeStrId { get; set; }
+        public string NodeStrId { get; set; }
         public int TempHistId { get; set; }
         public string Name { get; set; }
         public int Left { get; set; }

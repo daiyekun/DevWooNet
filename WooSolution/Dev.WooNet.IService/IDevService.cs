@@ -18,12 +18,12 @@ public partial interface IDevAppGroupUserService : IBaseService<DevAppGroupUser>
     
    
      
-public partial interface IDevAppinstService : IBaseService<DevAppinst>
+public partial interface IDevAppInstService : IBaseService<DevAppInst>
 { }
     
    
      
-public partial interface IDevAppinstHistService : IBaseService<DevAppinstHist>
+public partial interface IDevAppInstHistService : IBaseService<DevAppInstHist>
 { }
     
    

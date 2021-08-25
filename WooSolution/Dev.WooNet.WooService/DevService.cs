@@ -28,28 +28,28 @@ namespace Dev.WooNet.WooService
     
    
      
- public partial class DevAppinstService : BaseService<DevAppinst>, IDevAppinstService
+ public partial class DevAppInstService : BaseService<DevAppInst>, IDevAppInstService
     {
-        public DevAppinstService(DevDbContext DevDb)
+        public DevAppInstService(DevDbContext DevDb)
            : base(DevDb)
         {
            
         }
 		
-		public DevAppinstService(){}
+		public DevAppInstService(){}
     }
     
    
      
- public partial class DevAppinstHistService : BaseService<DevAppinstHist>, IDevAppinstHistService
+ public partial class DevAppInstHistService : BaseService<DevAppInstHist>, IDevAppInstHistService
     {
-        public DevAppinstHistService(DevDbContext DevDb)
+        public DevAppInstHistService(DevDbContext DevDb)
            : base(DevDb)
         {
            
         }
 		
-		public DevAppinstHistService(){}
+		public DevAppInstHistService(){}
     }
     
    

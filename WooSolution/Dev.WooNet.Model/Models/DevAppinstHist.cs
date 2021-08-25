@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dev.WooNet.Model.Models
 {
-    public partial class DevAppinstHist
+    public partial class DevAppInstHist
     {
         public int Id { get; set; }
         public int? InstId { get; set; }
@@ -27,5 +27,6 @@ namespace Dev.WooNet.Model.Models
         public string CurrentNodeName { get; set; }
         public DateTime? CompleteDateTime { get; set; }
         public int? NewInstId { get; set; }
+        public string CurrentNodeStrId { get; set; }
     }
 }

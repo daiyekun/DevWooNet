@@ -1,5 +1,7 @@
 ﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Model;
 using Dev.WooNet.Model.DevDTO;
+using Dev.WooNet.Model.FlowModel;
 using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -50,6 +52,19 @@ namespace Dev.WooNet.IWooService
         /// <param name="info">修改的字段对象</param>
         /// <returns>返回受影响行数</returns>
         int UpdateField(UpdateFieldInfo info);
+        /// <summary>
+        /// 根据参数获取流程模板及审批实例
+        /// 用于判断当前是否能够提交流程
+        /// </summary>
+        /// <param name="requestTemp">请求对象</param>
+        /// <returns></returns>
+        ResponTempData GetFlowInfoByWhere(GetTempFlowRequestData requestTemp);
+        /// <summary>
+        /// 判断流程节点是否匹配完成
+        /// </summary>
+        /// <param name="requestCheckFlow">判断流程模板条件对象</param>
+        /// <returns></returns>
+        int SubmitCheckFlow(RequestCheckFlow requestCheckFlow);
 
     }
 }

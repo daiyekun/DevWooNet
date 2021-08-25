@@ -9,8 +9,8 @@ namespace Dev.WooNet.Model.Models
     {
         public int Id { get; set; }
         public int GroupId { get; set; }
-        public string UserIds { get; set; }
+        public int? UserId { get; set; }
         public int? InstId { get; set; }
-        public int? NodeStrId { get; set; }
+        public string NodeStrId { get; set; }
     }
 }
