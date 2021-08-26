@@ -69,9 +69,9 @@ layui.config({
             { field: 'AddUserName', title: '创建人', width: 100},
             { field: 'AddDateTime', title: '创建日期', width: 100},
             { field: 'Id', width: 80, title: 'ID', hide: true },
-            // { field: 'WnodeName', title: '流程节点', width: 140},
-            // { field: 'Ustate', title: '流程状态', width: 120},
-            // { field: 'Ustate', title: '审批事项', width: 130},
+            { field: 'WnodeName', title: '流程节点', width: 140},
+            { field: 'WstatusDesc', title: '流程状态', width: 120},
+            { field: 'FlowItemDic', title: '审批事项', width: 160},
             { title: '操作', fixed: 'right', align: 'center', toolbar: '#devtablebar', width: 120 }
         ]],
         done:function(res, curr, count){
@@ -222,7 +222,8 @@ layui.config({
         var url="/views/devcustomer/selstate.html?Id=" 
         + checkStatus.data[0].Id+"&ustate="+checkStatus.data[0].Dstatus
         +"&objtype=0&objcate="+checkStatus.data[0].CompClassId
-        +"&dname="+encodeURI(encodeURI(checkStatus.data[0].Name));
+        +"&dname="+encodeURI(encodeURI(checkStatus.data[0].Name))
+        +"&dno="+encodeURI(encodeURI(checkStatus.data[0].Code));
         top.winui.window.open({
             id: 'win_customerstate',
             type: 2,

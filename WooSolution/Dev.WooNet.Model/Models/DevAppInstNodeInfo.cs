@@ -10,7 +10,7 @@ namespace Dev.WooNet.Model.Models
         public int Id { get; set; }
         public int InstId { get; set; }
         public int InstNodeId { get; set; }
-        public int NodeStrId { get; set; }
+        public string NodeStrId { get; set; }
         public int Nrule { get; set; }
         public int ReviseText { get; set; }
         public int GroupId { get; set; }

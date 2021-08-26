@@ -13,7 +13,7 @@ namespace Dev.WooNet.Model.Models
         public int ObjType { get; set; }
         public int AppObjId { get; set; }
         public string AppObjName { get; set; }
-        public int AppObjNo { get; set; }
+        public string AppObjNo { get; set; }
         public decimal? AppObjAmount { get; set; }
         public int? AppObjCateId { get; set; }
         public int AppState { get; set; }
@@ -25,9 +25,10 @@ namespace Dev.WooNet.Model.Models
         public int? CurrentNodeId { get; set; }
         public string CurrentNodeName { get; set; }
         public DateTime? CompleteDateTime { get; set; }
-        public string NewInstId { get; set; }
+        public int? NewInstId { get; set; }
         public string FinceType { get; set; }
         public int? AppSecObjId { get; set; }
         public string CurrentNodeStrId { get; set; }
+        public int TempId { get; set; }
     }
 }

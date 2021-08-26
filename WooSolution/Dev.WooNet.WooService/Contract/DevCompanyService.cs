@@ -1,5 +1,6 @@
 ﻿using Dev.WooNet.Common.Models;
 using Dev.WooNet.Common.Utility;
+using Dev.WooNet.Model;
 using Dev.WooNet.Model.DevDTO;
 using Dev.WooNet.Model.Enums;
 using Dev.WooNet.Model.Models;
@@ -131,7 +132,7 @@ namespace Dev.WooNet.WooService
                             Dstatus = a.Dstatus,//状态
                             Wstatus = a.Wstatus,//流程状态
                             FlowTo = a.FlowTo,//审批事项
-                            WnodeName = a.WnodeName,//流程节点名称
+                           
                             AddUserId = a.AddUserId,//创建人
                             AddDateTime = a.AddDateTime,//创建时间
                             FaceUserId = a.FaceUserId,//负责人
@@ -148,6 +149,9 @@ namespace Dev.WooNet.WooService
                             LevelName = RedisDevCommUtility.GetHashDataDic(a.LevelId ?? 0),
                             CareditName = RedisDevCommUtility.GetHashDataDic(a.CareditId ?? 0),
                             FaceUserName= RedisDevCommUtility.GetUserName(a.FaceUserId ?? 0),
+                            WnodeName = a.WnodeName,//流程节点名称
+                            FlowItemDic = FlowUtility.GetMessionDic(a.FlowTo ?? -1, 0),
+                            WstatusDesc = EmunUtility.GetDesc(typeof(WfStateEnum), a.Wstatus ?? -1),
 
 
 

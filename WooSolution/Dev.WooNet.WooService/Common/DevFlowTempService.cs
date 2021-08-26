@@ -362,7 +362,7 @@ namespace Dev.WooNet.WooService
         /// <returns></returns>
         public int SubmitCheckFlow(RequestCheckFlow requestCheckFlow)
         {
-            if ((requestCheckFlow.TempId ?? 0) <= 0 || (requestCheckFlow.FlowType ?? 0) <= 0)
+            if ((requestCheckFlow.TempId ?? 0) <= 0 || (requestCheckFlow.FlowType ?? 0) < 0)
             {
                 return -1;
             }

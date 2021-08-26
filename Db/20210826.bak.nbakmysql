@@ -7,7 +7,7 @@
     "Host": "localhost",
     "Catalog": "",
     "Schema": "devdb",
-    "Comment": "完成了菜单初步功能",
+    "Comment": "能够正常提交客户审批结构表",
     "ServerType": "MYSQL",
     "SpecifiedFileName": "",
     "IsLockTable": false,

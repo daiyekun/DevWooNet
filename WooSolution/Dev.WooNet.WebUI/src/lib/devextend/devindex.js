@@ -7,7 +7,9 @@ layui.config({
    , version: '1.0.0-beta'
 }).extend({
     devsetter:'devextend/devsetter',//配置模块
+   
   }).define(['form','devsetter','table'], function(exports){
+    winui.renderColor();
     var $ = layui.$
     ,form=layui.form
     , layer = layui.layer
@@ -309,9 +311,11 @@ layui.config({
     
                 })
                 , success: function (res) {
+                   
                     $data = res.data;
                 }
              });
+            
              return $data;
 
 
@@ -325,8 +329,13 @@ layui.config({
                 , objCateId: flowdata.objCateId
                 ,objId:flowdata.objId
             });
+            debugger;
             if(tempdata.InstId!==0){
-                return layer.alert("流程已经提交,不能重复提交！");
+                top.winui.window.msg('流程已经提交,不能重复提交！', {
+                    icon: 2,
+                    time: 2000
+                });
+                return false;//layer.alert("流程已经提交,不能重复提交！");
 
             }else if(tempdata.TempId===0){
                 return -1;//没有流程模板
@@ -334,89 +343,108 @@ layui.config({
             }else{//开始准备提交
                 var opurl = "/views/devworkflow/flowcview.html?tempId="
                 + tempdata.TempId + "&ftitle=" + encodeURI(encodeURI(flowdata.objName))
-                + "&ftype=" + flowdata.objType + "&famt=" + flowdata.objamt;
+                + "&ftype=" + flowdata.objType + "&famt="+ flowdata.objamt
+                +"&dno="+encodeURI(encodeURI(flowdata.objNo))
+                +"&mission="+flowdata.flowitem+"&objId="+flowdata.objId
+                +"&cateId="+flowdata.objCateId
+                +"&tempHistId="+tempdata.TempHistId
+                ;
                 var $title = flowdata.objName + "--提交流程"
-                layer.open({
-                    type: 2
-               , title: $title
-               , content: opurl
-               , maxmin: true
-                    // , area: ['60%', '80%']
-               , btn: ['提交流程', '取消']
-               , btnAlign: 'c'
-               , skin: "layer-ext-myskin"
-               , yes: function (index, layero) {
-                   var logdindextp = layer.load(0, { shade: false });
-                   var flowitem = flowdata.flowitem;
-                   wooutil.devajax({
-                       async: false,
-                       url: devsetter.devbaseurl+'api/DevFlowInstance/CheckSubmitFlow'
-                      , data: JSON.stringify({
-                        tempId: tempdata.TempId
-                       , amount: param.objamt
-                       , flowType: param.objType
-                       }) ,
-                       type: 'POST',
-                       success: function (res) {
-                           if (res === -1 || res === -2 || res === -3 || res === -4) {
-                               layer.close(logdindextp);
-                           }
-                           if (res === -1) {
-                               return layer.alert("提交异常！"); 
-                           } else if (res === -2) {
-                               return layer.alert("没有开始，结束节点！");
-                           }
-                           else if (res === -3) {
-                               return layer.alert("没有完整的流程，可能是金额不匹配！");
-                           }
-                           else if (res === -4) {
-                               return layer.alert("没有节点信息或者节点图");
-                           } else {
-                               admin.req({
-                                   url: '/WorkFlow/AppInst/SubmitWorkFlow'
-                                                    , data: {
-                                                        ObjType: param.objType//审批对象类型（客户，合同。。）
-                                                        , AppObjId: checkData[0].Id//对象ID
-                                                        , AppObjName: param.objName//名称
-                                                        , AppObjNo: param.objCode//编号
-                                                        , AppObjCateId: param.objCateId//类别ID
-                                                        , TempId: tempdata.TempId//模板ID
-                                                        , AppObjAmount: param.objamt//金额
-                                                        , Mission: flowitem
-                                                        , TempHistId: tempdata.TempHistId
-                                                        , FinceType: param.finceType//资金性质，合同使用
-                                                        , AppSecObjId: param.AppSecObjId
-                                                    }, done: function (res) {
-                                                        layer.close(logdindextp);
-                                                        layer.msg("提交成功", { icon: 6, time: 500 }, function (msgindex) {
-                                                            table.reload(param.tableId, {
-                                                                where: { rand: wooutil.getRandom() }
 
-                                                            });
-                                                            layer.close(index);
-                                                        });
-
-                                                    }
-                               });
-                           }
-
-                       }
-
-                   });
-
-
-               },
-                    success: function (layero, index) {
-                        layer.full(index);
-
-
+                top.winui.window.open({
+                    id: 'win_submitflow',
+                    type: 2,
+                    title: $title,
+                    btn: ['提交流程', '取消'],
+                    content: opurl,
+                    area: ['80%', '90%']
+                    // offset: ['15vh', '25vw']
+                    ,success: function (layero, index) {
+                      parent.parent.layer.full(index);
                     }
-                })
+                });
+
+            //     parent.parent.layer.open({
+            //         type: 2
+            //    , title: $title
+            //    , content: opurl
+            //    , maxmin: true
+            //         // , area: ['60%', '80%']
+            //    , btn: ['提交流程', '取消']
+            //    , btnAlign: 'c'
+            //    , skin: "layer-ext-myskin"
+            //    , yes: function (index, layero) {
+            //        var logdindextp = layer.load(0, { shade: false });
+            //        var flowitem = flowdata.flowitem;
+            //        wooutil.devajax({
+            //            async: false,
+            //            url: devsetter.devbaseurl+'api/DevFlowInstance/CheckSubmitFlow'
+            //           , data: JSON.stringify({
+            //             tempId: tempdata.TempId
+            //            , amount: param.objamt
+            //            , flowType: param.objType
+            //            }) ,
+            //            type: 'POST',
+            //            success: function (res) {
+            //                if (res === -1 || res === -2 || res === -3 || res === -4) {
+            //                    layer.close(logdindextp);
+            //                }
+            //                if (res === -1) {
+            //                    return layer.alert("提交异常！"); 
+            //                } else if (res === -2) {
+            //                    return layer.alert("没有开始，结束节点！");
+            //                }
+            //                else if (res === -3) {
+            //                    return layer.alert("没有完整的流程，可能是金额不匹配！");
+            //                }
+            //                else if (res === -4) {
+            //                    return layer.alert("没有节点信息或者节点图");
+            //                } else {
+            //                    admin.req({
+            //                        url: '/WorkFlow/AppInst/SubmitWorkFlow'
+            //                                         , data: {
+            //                                             ObjType: param.objType//审批对象类型（客户，合同。。）
+            //                                             , AppObjId: checkData[0].Id//对象ID
+            //                                             , AppObjName: param.objName//名称
+            //                                             , AppObjNo: param.objCode//编号
+            //                                             , AppObjCateId: param.objCateId//类别ID
+            //                                             , TempId: tempdata.TempId//模板ID
+            //                                             , AppObjAmount: param.objamt//金额
+            //                                             , Mission: flowitem
+            //                                             , TempHistId: tempdata.TempHistId
+            //                                             , FinceType: param.finceType//资金性质，合同使用
+            //                                             , AppSecObjId: param.AppSecObjId
+            //                                         }, done: function (res) {
+            //                                             layer.close(logdindextp);
+            //                                             layer.msg("提交成功", { icon: 6, time: 500 }, function (msgindex) {
+            //                                                 table.reload(param.tableId, {
+            //                                                     where: { rand: wooutil.getRandom() }
+
+            //                                                 });
+            //                                                 layer.close(index);
+            //                                             });
+
+            //                                         }
+            //                    });
+            //                }
+
+            //            }
+
+            //        });
+
+
+            //    },
+            //         success: function (layero, index) {
+            //             parent.parent.layer.full(index);
+
+
+            //         }
+            //     })
 
 
             }
 
-            alert(JSON.stringify(tempdata));
+          
 
          }
 

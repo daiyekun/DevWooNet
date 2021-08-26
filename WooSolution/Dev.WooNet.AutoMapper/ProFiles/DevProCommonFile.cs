@@ -234,6 +234,179 @@ namespace Dev.WooNet.AutoMapper.ProFiles
 
             #endregion 流程相关
 
+            #region 审批实例相关
+            CreateMap<SubDevAppInst, DevAppInst>()
+             .ForMember(a => a.Id, opt => opt.Ignore());
+            #endregion
+            #region 流程提交
+
+            #region 实例->实例历史
+            CreateMap<DevAppInst, DevAppInstHist>()
+           .ForMember(a => a.Id, opt => opt.Ignore())
+           .ForMember(a => a.InstId, opt => opt.Ignore())
+           .ForMember(a => a.AddDatetime, opt => opt.Ignore());
+            #endregion
+
+            #region 模板节点->实例节点
+            CreateMap<DevFlowTempNode, DevAppInstNode>()
+           .ForMember(a => a.Id, opt => opt.Ignore())
+           .ForMember(a => a.InstId, opt => opt.Ignore())
+           .ForMember(a => a.TempHistId, opt => opt.Ignore())
+           .ForMember(a => a.Norder, opt => opt.Ignore())
+           .ForMember(a => a.NodeState, opt => opt.Ignore())
+           .ForMember(a => a.NodeStrId, opt =>
+           {
+               opt.MapFrom(s => s.StrId);
+           });
+            #endregion
+
+            #region 模板节点->实例历史节点
+            CreateMap<DevFlowTempNode, DevAppInstNodeHist>()
+           .ForMember(a => a.Id, opt => opt.Ignore())
+           .ForMember(a => a.InstHistId, opt => opt.Ignore())
+           .ForMember(a => a.TempHistId, opt => opt.Ignore())
+           .ForMember(a => a.Norder, opt => opt.Ignore())
+           .ForMember(a => a.NodeState, opt => opt.Ignore())
+            .ForMember(a => a.NodeStrId, opt =>
+            {
+                opt.MapFrom(s => s.StrId);
+            });
+            #endregion
+
+            #region 模板节点信息->实例节点信息
+            CreateMap<DevFlowTempNodeInfo, DevAppInstNodeInfo>()
+           .ForMember(a => a.Id, opt => opt.Ignore())
+            .ForMember(a => a.InstId, opt => opt.Ignore())
+           .ForMember(a => a.InstNodeId, opt => opt.Ignore());
+            #endregion
+
+            #region 模板节点信息->实例节点历史信息
+            CreateMap<DevFlowTempNodeInfo, DevFlowTempNodeInfoHist>()
+           .ForMember(a => a.Id, opt => opt.Ignore());
+          
+            #endregion
+
+            #region 模板节点连线->实例节点连线信息
+            CreateMap<DevTempNodeLine, DevAppInstNodeLine>()
+           .ForMember(a => a.Id, opt => opt.Ignore())
+            .ForMember(a => a.InstId, opt => opt.Ignore());
+            #endregion
+
+            #region 模板节点连线->实例节点连线历史信息
+            CreateMap<DevTempNodeLine, DevAppInstNodeLineHist>()
+           .ForMember(a => a.Id, opt => opt.Ignore())
+            .ForMember(a => a.InstHistId, opt => opt.Ignore());
+            #endregion
+
+            #region 模板节点区域->实例节点区域信息
+            CreateMap<DevTempNodeArea, DevAppInstNodeArea>()
+           .ForMember(a => a.Id, opt => opt.Ignore())
+            .ForMember(a => a.InstId, opt => opt.Ignore());
+            #endregion
+
+            #region 模板节点连线->实例节点连线历史信息
+            CreateMap<DevTempNodeArea, DevAppInstNodeAreaHist>()
+           .ForMember(a => a.Id, opt => opt.Ignore())
+            .ForMember(a => a.InstHistId, opt => opt.Ignore());
+            #endregion
+
+            #region 审批实例DTO->审批实例
+            CreateMap<DevAppInstDTO, DevAppInst>()
+            .ForMember(a => a.Id, opt => opt.Ignore())
+           .ForMember(a => a.Version, opt => opt.Ignore())
+           .ForMember(a => a.AppState, opt => opt.Ignore())
+           .ForMember(a => a.StartUserId, opt => opt.Ignore())
+           .ForMember(a => a.StartDateTime, opt => opt.Ignore())
+           .ForMember(a => a.AddDateTime, opt => opt.Ignore())
+           .ForMember(a => a.AddUserId, opt => opt.Ignore())
+           .ForMember(a => a.CurrentNodeId, opt => opt.Ignore())
+           .ForMember(a => a.CurrentNodeName, opt => opt.Ignore())
+           .ForMember(a => a.CompleteDateTime, opt => opt.Ignore());
+            #endregion
+
+
+            #region 实例流程图
+
+            //实例显示节点-实例数据节点
+           // CreateMap<DevAppInstNode, DevAppInstNodeViwDTO>()
+           // .ForMember(d => d.name, opt =>
+           // {
+           //     opt.MapFrom(s => s.Name);
+           // }).ForMember(d => d.strid, opt =>
+           // {
+           //     opt.MapFrom(s => s.NodeStrId);
+           // }).ForMember(d => d.height, opt =>
+           // {
+           //     opt.MapFrom(s => s.Height);
+           // }).ForMember(d => d.width, opt =>
+           // {
+           //     opt.MapFrom(s => s.Width);
+           // })
+           //.ForMember(d => d.left, opt =>
+           //{
+           //    opt.MapFrom(s => s.Left);
+           //}).ForMember(d => d.top, opt =>
+           //{
+           //    opt.MapFrom(s => s.Top);
+           //})
+           // .ForMember(a => a.type, opt => opt.Ignore())
+           //  .ForMember(a => a.alt, opt => opt.Ignore())
+           //  .ForMember(a => a.marked, opt => opt.Ignore());
+
+           // //实例区域数据节点->实例显示区域
+           // CreateMap<DevAppInstNodeArea, DevAppInstNodeAreaViewDTO>()
+           // .ForMember(d => d.name, opt =>
+           // {
+           //     opt.MapFrom(s => s.Name);
+           // }).ForMember(d => d.strid, opt =>
+           // {
+           //     opt.MapFrom(s => s.StrId);
+           // }).ForMember(d => d.height, opt =>
+           // {
+           //     opt.MapFrom(s => s.Height);
+           // }).ForMember(d => d.width, opt =>
+           // {
+           //     opt.MapFrom(s => s.Width);
+           // })
+           // .ForMember(d => d.left, opt =>
+           // {
+           //     opt.MapFrom(s => s.Left);
+           // }).ForMember(d => d.top, opt =>
+           // {
+           //     opt.MapFrom(s => s.Top);
+           // })
+
+           //  .ForMember(a => a.alt, opt => opt.Ignore())
+           // .ForMember(a => a.color, opt => opt.Ignore());
+
+           // //实例节点线实体->实例节点显示线
+           // CreateMap<DevAppInstNodeLine, DevAppInstNodeLineViwDTO>()
+           // .ForMember(d => d.name, opt =>
+           // {
+           //     opt.MapFrom(s => s.Name);
+           // }).ForMember(d => d.strid, opt =>
+           // {
+           //     opt.MapFrom(s => s.StrId);
+           // }).ForMember(d => d.from, opt =>
+           // {
+           //     opt.MapFrom(s => s.From);
+           // }).ForMember(d => d.to, opt =>
+           // {
+           //     opt.MapFrom(s => s.To);
+           // })
+           // .ForMember(a => a.type, opt => opt.Ignore())
+           //  .ForMember(a => a.alt, opt => opt.Ignore())
+           //  .ForMember(a => a.marked, opt => opt.Ignore())
+           //  .ForMember(a => a.dash, opt => opt.Ignore());
+
+
+            #endregion
+
+
+
+
+            #endregion
+
 
 
         }

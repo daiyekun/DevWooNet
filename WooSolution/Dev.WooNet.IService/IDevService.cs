@@ -18,7 +18,7 @@ public partial interface IDevAppGroupUserService : IBaseService<DevAppGroupUser>
     
    
      
-public partial interface IDevAppInstService : IBaseService<DevAppInst>
+public partial interface IDevAppinstService : IBaseService<DevAppInst>
 { }
     
    
@@ -53,7 +53,7 @@ public partial interface IDevAppInstNodeInfoService : IBaseService<DevAppInstNod
     
    
      
-public partial interface IDevAppInstNodeinfoHistService : IBaseService<DevAppInstNodeinfoHist>
+public partial interface IDevAppInstNodeInfoHistService : IBaseService<DevAppInstNodeInfoHist>
 { }
     
    

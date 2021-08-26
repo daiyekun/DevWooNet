@@ -73,13 +73,13 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// <param name="submitWfRes">请求对象</param>
         /// <returns></returns>
         /// 
-        [Route("SubmitFlowNodeLoad")]
-        [HttpGet]
+        
         public IActionResult SubmitFlowNodeLoad(SubmitWfRequest submitWfRes)
         {
             var data = _IDevFlowTempNodeService.LoadNodes(submitWfRes);
             return new DevResultJson(data);
         }
+        
 
         /// <summary>
         /// 根据节点ID查询节点信息
@@ -137,10 +137,11 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// <summary>
         /// 保存审批实例
         /// </summary>
+        /// <param name="appInstdto">审批实例对象</param>
         /// <returns></returns>
         [Route("SubmitWorkFlow")]
         [HttpPost]
-        public async Task<IActionResult> SubmitWorkFlow([FromBody] DevAppInstDTO appInstdto)
+        public async Task<IActionResult> SubmitWorkFlow([FromBody]SubDevAppInst appInstdto)
         {
             DevAppInst instInfo = null;
 

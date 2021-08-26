@@ -28,5 +28,6 @@ namespace Dev.WooNet.Model.Models
         public DateTime? CompleteDateTime { get; set; }
         public int? NewInstId { get; set; }
         public string CurrentNodeStrId { get; set; }
+        public int TempId { get; set; }
     }
 }

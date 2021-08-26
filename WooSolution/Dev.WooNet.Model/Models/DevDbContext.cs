@@ -25,9 +25,9 @@ namespace Dev.WooNet.Model.Models
         public virtual DbSet<DevAppInstNodeAreaHist> DevAppInstNodeAreaHists { get; set; }
         public virtual DbSet<DevAppInstNodeHist> DevAppInstNodeHists { get; set; }
         public virtual DbSet<DevAppInstNodeInfo> DevAppInstNodeInfos { get; set; }
+        public virtual DbSet<DevAppInstNodeInfoHist> DevAppInstNodeInfoHists { get; set; }
         public virtual DbSet<DevAppInstNodeLine> DevAppInstNodeLines { get; set; }
         public virtual DbSet<DevAppInstNodeLineHist> DevAppInstNodeLineHists { get; set; }
-        public virtual DbSet<DevAppInstNodeinfoHist> DevAppInstNodeinfoHists { get; set; }
         public virtual DbSet<DevAppInstOpin> DevAppInstOpins { get; set; }
         public virtual DbSet<DevAppInstOpinHist> DevAppInstOpinHists { get; set; }
         public virtual DbSet<DevCity> DevCities { get; set; }
@@ -103,6 +103,12 @@ namespace Dev.WooNet.Model.Models
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
+                entity.Property(e => e.AppObjNo)
+                    .IsRequired()
+                    .HasColumnType("varchar(100)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
                 entity.Property(e => e.CompleteDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.CurrentNodeName)
@@ -116,11 +122,6 @@ namespace Dev.WooNet.Model.Models
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.FinceType)
-                    .HasColumnType("varchar(255)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
-
-                entity.Property(e => e.NewInstId)
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
@@ -144,7 +145,7 @@ namespace Dev.WooNet.Model.Models
 
                 entity.Property(e => e.AppObjNo)
                     .IsRequired()
-                    .HasColumnType("varchar(50)")
+                    .HasColumnType("varchar(100)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
 
@@ -252,6 +253,31 @@ namespace Dev.WooNet.Model.Models
                 entity.Property(e => e.Max).HasPrecision(28, 6);
 
                 entity.Property(e => e.Min).HasPrecision(28, 6);
+
+                entity.Property(e => e.NodeStrId)
+                    .IsRequired()
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+            });
+
+            modelBuilder.Entity<DevAppInstNodeInfoHist>(entity =>
+            {
+                entity.ToTable("dev_app_inst_node_info_hist");
+
+                entity.Property(e => e.GroupName)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Max).HasPrecision(28, 6);
+
+                entity.Property(e => e.Min).HasPrecision(28, 6);
+
+                entity.Property(e => e.NodeStrId)
+                    .HasColumnType("varchar(50)")
+                    .HasCharSet("utf8")
+                    .HasCollation("utf8_general_ci");
             });
 
             modelBuilder.Entity<DevAppInstNodeLine>(entity =>
@@ -302,25 +328,6 @@ namespace Dev.WooNet.Model.Models
                     .HasCollation("utf8_general_ci");
 
                 entity.Property(e => e.To)
-                    .HasColumnType("varchar(50)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
-            });
-
-            modelBuilder.Entity<DevAppInstNodeinfoHist>(entity =>
-            {
-                entity.ToTable("dev_app_inst_nodeinfo_hist");
-
-                entity.Property(e => e.GroupName)
-                    .HasColumnType("varchar(50)")
-                    .HasCharSet("utf8")
-                    .HasCollation("utf8_general_ci");
-
-                entity.Property(e => e.Max).HasPrecision(28, 6);
-
-                entity.Property(e => e.Min).HasPrecision(28, 6);
-
-                entity.Property(e => e.NodeStrId)
                     .HasColumnType("varchar(50)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");

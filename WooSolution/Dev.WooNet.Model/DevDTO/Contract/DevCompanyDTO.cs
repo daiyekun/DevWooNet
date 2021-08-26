@@ -55,6 +55,16 @@ namespace Dev.WooNet.Model.DevDTO
         /// </summary>
 
         public string FaceUserName { get; set; }
+        /// <summary>
+        /// 审批事项
+        /// </summary>
+
+        public  string FlowItemDic { get; set; }
+        /// <summary>
+        /// 状态
+        /// </summary>
+
+        public string WstatusDesc { get; set; }
 
         public FieldInfo GetPropValue(string propName)
         {

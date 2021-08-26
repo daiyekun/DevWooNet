@@ -21,6 +21,7 @@ layui.config({
     var $objtype = wooutil.getUrlVar('objtype');//0:客户，1：供应商，2合同对方
     var $objcateId= wooutil.getUrlVar('objcate');//对方类别ID
     var $dname= decodeURI(decodeURI(wooutil.getUrlVar('dname')));//名称
+    var $dno= decodeURI(decodeURI(wooutil.getUrlVar('dno')));//编号
    
     function initview() {
         if ($state == 0) {//未审核
@@ -44,6 +45,8 @@ layui.config({
     $(".btn-toostate").on('click',function(e){
         var $upstate=$(this).attr('tostate');
         var $flowitem=$(this).attr('flowitem');
+        //获取以后再关闭
+        top.winui.window.close('win_customerstate');
         var result=flowtool.submitflow({
             flowitem:$flowitem
             ,deptId: -1 //不传递后台获取登录人的部门ID
@@ -51,7 +54,8 @@ layui.config({
             , objCateId: $objcateId
             ,objId:$devId
             ,objName:$dname//流程名称
-            ,objamt:0,//金额/
+            ,objamt:0//金额
+            ,objNo:$dno//编号
 
         });
         if(result==-1){//没有匹配上流程
@@ -61,6 +65,8 @@ layui.config({
             });
 
         }
+
+       
       
         // wooutil.devajax({
         //     type: 'POST',

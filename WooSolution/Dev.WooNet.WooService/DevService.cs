@@ -119,7 +119,7 @@ namespace Dev.WooNet.WooService
     
    
      
- public partial class DevAppInstNodeinfoHistService : BaseService<DevAppInstNodeinfoHist>, IDevAppInstNodeinfoHistService
+ public partial class DevAppInstNodeinfoHistService : BaseService<DevAppInstNodeInfoHist>, IDevAppInstNodeInfoHistService
     {
         public DevAppInstNodeinfoHistService(DevDbContext DevDb)
            : base(DevDb)

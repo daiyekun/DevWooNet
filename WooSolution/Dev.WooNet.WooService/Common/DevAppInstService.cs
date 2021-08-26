@@ -25,15 +25,15 @@ namespace Dev.WooNet.WooService
         /// <returns>审批实例</returns>
         public DevAppInst SubmitWorkFlow(DevAppInst appInst)
         {
-            var temphist = DevDb.Set<DevFlowTempHist>().AsNoTracking().Where(a => a.TempId == appInst.TempHistId).OrderByDescending(a => a.Id).FirstOrDefault();
-             appInst.TempHistId = appInst.TempHistId;
-            appInst.TempHistId = temphist != null ? temphist.Id : 0;
+             var temphist = DevDb.Set<DevFlowTempHist>().AsNoTracking().Where(a => a.Id == appInst.TempHistId).OrderByDescending(a => a.Id).FirstOrDefault();
+           //  appInst.TempHistId = appInst.TempHistId;
+             //appInst.TempHistId = temphist != null ? temphist.Id : 0;
             var info = Add(appInst);
         //查询打回的审批实例
            var oldinstInfo = this.DevDb.Set<DevAppInst>().Where(a => a.AppObjId == info.AppObjId && a.ObjType == info.ObjType && a.AppState == 3).OrderByDescending(a => a.Id).FirstOrDefault();
             if (oldinstInfo != null)
             {
-               // oldinstInfo.NewInstId = info.Id;
+               oldinstInfo.NewInstId = info.Id;
             }
             this.SaveChanges();
             SaveWfNode(info, temphist);
@@ -135,7 +135,7 @@ namespace Dev.WooNet.WooService
         /// <param name="temphist">模板历史</param>
         private void AddNode(DevAppInst appInst, DevFlowTempHist temphist)
         {
-            var list = this.DevDb.Set<DevFlowTempNode>().AsNoTracking().Where(a => a.TempId == appInst.TempHistId).ToList();
+            var list = this.DevDb.Set<DevFlowTempNode>().AsNoTracking().Where(a => a.TempId == appInst.TempId).ToList();
             IList<DevAppInstNode> listnodes = new List<DevAppInstNode>();
             foreach (var item in list)
             {
@@ -161,13 +161,13 @@ namespace Dev.WooNet.WooService
             int ntype0 = (int)NodeTypeEnum.NType0;
             int ntype1 = (int)NodeTypeEnum.NType1;
             var arrayIds = nodeStrIds.ToArray();
-            var list = this.DevDb.Set<DevFlowTempNode>().AsNoTracking()
-                .Where(a => (a.TempId == appInst.TempHistId && arrayIds.Contains(a.StrId))
-                || (a.TempId == appInst.TempHistId && (a.Type == ntype0 || a.Type == ntype1))).ToList();
+            var list = this.DevDb.Set<DevFlowTempNodeHist>().AsNoTracking()
+                .Where(a => (a.TempHistId == appInst.TempHistId && arrayIds.Contains(a.StrId))
+                || (a.TempHistId == appInst.TempHistId && (a.Type == ntype0 || a.Type == ntype1))).ToList();
             IList<DevAppInstNode> listnodes = new List<DevAppInstNode>();
             foreach (var item in list)
             {
-                var node = AutoMapperHelper.MapTo<DevFlowTempNode, DevAppInstNode>(item);
+                var node = AutoMapperHelper.MapTo<DevFlowTempNodeHist, DevAppInstNode>(item);
                 
                 node.InstId = appInst.Id;
                 node.TempHistId = temphist != null ? temphist.Id : 0;
@@ -185,7 +185,7 @@ namespace Dev.WooNet.WooService
         {
             var listgroups = DevDb.Set<DevFlowGroup>().ToList();
 
-            var listnodeinfos = DevDb.Set<DevFlowTempNodeInfo>().AsNoTracking().Where(a => a.TempId == appInst.TempHistId).ToList();
+            var listnodeinfos = DevDb.Set<DevFlowTempNodeInfo>().AsNoTracking().Where(a => a.TempId == appInst.TempId).ToList();
             IList<DevAppInstNodeInfo> listnodeInfo = new List<DevAppInstNodeInfo>();
             foreach (var nInfo in listnodeinfos)
             {
@@ -211,7 +211,7 @@ namespace Dev.WooNet.WooService
         private void AddNodeInfo(DevAppInst appInst, IList<string> nodeStrIds)
         {
             var listgroups = DevDb.Set<DevFlowGroup>().ToList();
-            var tempId = appInst.TempHistId;
+            var tempId = appInst.TempId;
             var tempIds = nodeStrIds.ToArray();
             var listnodeinfos = this.DevDb.Set<DevFlowTempNodeInfo>().AsNoTracking()
                 .Where(a => a.TempId == tempId && tempIds.Contains(a.NodeStrId)).ToList();
@@ -270,7 +270,7 @@ namespace Dev.WooNet.WooService
         /// <param name="appInst">实例对象</param>
         private void AddLine(DevAppInst appInst)
         {
-            var listlines = DevDb.Set<DevTempNodeLine>().AsNoTracking().Where(a => a.TempId == appInst.TempHistId).ToList();
+            var listlines = DevDb.Set<DevTempNodeLine>().AsNoTracking().Where(a => a.TempId == appInst.TempId).ToList();
             IList<DevAppInstNodeLine> listline = new List<DevAppInstNodeLine>();
             foreach (var line in listlines)
             {
@@ -289,7 +289,7 @@ namespace Dev.WooNet.WooService
         /// <param name="nodeStrIds">满足条件的节点集合</param>
         private void AddLine(DevAppInst appInst, IList<string> nodeStrIds)
         {
-            var tempId = appInst.TempHistId;
+            var tempId = appInst.TempId;
             var nodeIds = nodeStrIds.ToArray();
 
             var listlines = this.DevDb.Set<DevTempNodeLine>().AsNoTracking()
@@ -311,7 +311,7 @@ namespace Dev.WooNet.WooService
         /// <param name="appInst">审批实例对象</param>
         private void AddArea(DevAppInst appInst)
         {
-            var listAreas = DevDb.Set<DevTempNodeArea>().AsNoTracking().Where(a => a.TempId == appInst.TempHistId).ToList();
+            var listAreas = DevDb.Set<DevTempNodeArea>().AsNoTracking().Where(a => a.TempId == appInst.TempId).ToList();
             IList<DevAppInstNodeArea> listareas = new List<DevAppInstNodeArea>();
             foreach (var arra in listAreas)
             {
@@ -341,22 +341,22 @@ namespace Dev.WooNet.WooService
                     case (int)FlowObjEnums.Customer:
                     case (int)FlowObjEnums.Supplier:
                     case (int)FlowObjEnums.Other:
-                        strsql.Append($"update dev_company set WfState=1,WfItem={appInst.Mission},WfCurrNodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
+                        strsql.Append($"update dev_company set Wstatus=1,FlowTo={appInst.Mission},WnodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
                         break;
                     case (int)FlowObjEnums.project:
-                        strsql.Append($"update ProjectManager set WfState=1,WfItem={appInst.Mission},WfCurrNodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
+                        strsql.Append($"update ProjectManager set Wstatus=1,FlowTo={appInst.Mission},WnodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
                         break;
                     case (int)FlowObjEnums.Contract:
-                        strsql.Append($"update ContractInfo set WfState=1,WfItem={appInst.Mission},WfCurrNodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
+                        strsql.Append($"update ContractInfo set Wstatus=1,FlowTo={appInst.Mission},WnodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
                         break;
                     case (int)FlowObjEnums.payment:
-                        strsql.Append($"update ContActualFinance set WfState=1,WfItem={appInst.Mission},WfCurrNodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
+                        strsql.Append($"update ContActualFinance set Wstatus=1,FlowTo={appInst.Mission},WnodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
                         break;
                     case (int)FlowObjEnums.InvoiceIn:
-                        strsql.Append($"update ContInvoice set WfState=1,WfItem={appInst.Mission},WfCurrNodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
+                        strsql.Append($"update ContInvoice set Wstatus=1,FlowTo={appInst.Mission},WnodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
                         break;
                     case (int)FlowObjEnums.InvoiceOut:
-                        strsql.Append($"update ContInvoice set WfState=1,WfItem={appInst.Mission},WfCurrNodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
+                        strsql.Append($"update ContInvoice set Wstatus=1,FlowTo={appInst.Mission},WnodeName='{appInst.CurrentNodeName}'  where Id={appInst.AppObjId}");
                         break;
                   
                 }

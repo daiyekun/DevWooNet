@@ -28,8 +28,10 @@ namespace Dev.WooNet.WebAPI.Extend
             services.AddTransient<IDevFlowTempNodeInfoService, DevFlowTempNodeInfoService>();
             services.AddTransient<IDevFlowGroupService, DevFlowGroupService>();
             services.AddTransient<IDevFlowGroupuserService, DevFlowGroupuserService>();
+            services.AddTransient<IDevAppInstService, DevAppInstService>();
+           
 
-            
+
 
 
 

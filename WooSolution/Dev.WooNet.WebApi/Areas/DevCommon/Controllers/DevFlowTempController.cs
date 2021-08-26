@@ -209,10 +209,25 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         /// </summary>
         /// <param name="submitWfRes">请求对象</param>
         /// <returns></returns>
-        [Route("SubmitFlowNodeLoad")]
+        //[Route("SubmitFlowNodeLoad")]
         [HttpGet]
         public IActionResult SubmitFlowNodeLoad(SubmitWfRequest submitWfRes)
         {
+            var data = _IDevFlowTempNodeService.LoadNodes(submitWfRes);
+            return new DevResultJson(data);
+        }
+        /// <summary>
+        /// 加载节点
+        /// </summary>
+        /// <param name="submitWfRes"></param>
+        /// <returns></returns>
+        [Route("SubmitFlowNodeLoad")]
+        [HttpGet]
+        public IActionResult SubmitFlowNodeLoad(int? TempId, decimal? Amount)
+        {
+            SubmitWfRequest submitWfRes = new SubmitWfRequest();
+            submitWfRes.Amount = Amount ?? 0;
+            submitWfRes.TempId = TempId ?? 0;
             var data = _IDevFlowTempNodeService.LoadNodes(submitWfRes);
             return new DevResultJson(data);
         }

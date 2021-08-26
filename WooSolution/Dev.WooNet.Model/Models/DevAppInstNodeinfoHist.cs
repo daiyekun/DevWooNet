@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dev.WooNet.Model.Models
 {
-    public partial class DevAppInstNodeinfoHist
+    public partial class DevAppInstNodeInfoHist
     {
         public int Id { get; set; }
         public int InstHistId { get; set; }

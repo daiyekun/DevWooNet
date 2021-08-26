@@ -19,9 +19,14 @@
     <div class="layui-fluid">
         <div class="layui-row layui-col-space5">
             <div class="layui-col-xs12 layui-col-md9">
-                @*<div id="flowdesignser" style="width:1024px;height:768px;"></div>*@
+               
                 <div class="layui-card ">
-                    <div class="layui-card-header">流程图</div>
+                    <div class="layui-card-header">
+                        <div style="float: left;">流程图</div>
+                        <div style="float:right;">
+                           <button type="button" class="layui-btn layui-btn-normal" id="btn_submitflow">提交流程</button>
+                        </div>
+                    </div>
                     <div class="layui-card-body" id="flowpanel">
                         <div id="flowdesignser" style="width:100%;height:868px;"></div>
                     </div>
@@ -35,9 +40,9 @@
                     </div>
                     <div class="layui-card-body layui-form" style="padding:3px;" lay-filter="nodeInfo">
     
-                        @*节点ID*@
+                       
                         <input type="hidden" name="NodeStrId" id="NodeStrId" />
-                        @*模板ID*@
+                       
                         <input type="hidden" name="TempId" id="TempId" />
     
                         <table class="layui-table wfnodeTb">
@@ -66,13 +71,10 @@
                                 <tr class="fnode">
                                     <td>节点名称</td>
                                     <td  id="tdnodeName">
-                                        @*<input class="layui-input" type="text" id="nodeName"  />*@
+                                       
                                     </td>
                                 </tr>
-                                @*<tr class="fnode">
-                                        <td>节点类型</td>
-                                        <td id="nodeType"></td>
-                                    </tr>*@
+                               
                                 <tr class="fnode">
                                     <td>审批组</td>
                                     <td id="groupId" style="padding:1px;">
@@ -80,7 +82,7 @@
                                             <input type="text" name="GroupName" id="GroupName" lay-verify="required" class="layui-input" readonly="readonly" />
                                             <input type="hidden" name="GroupId" id="GroupId" />
                                         </span>
-                                        @*<span style="float:right;width:30%" class="layui-btn layui-btn-normal  tempnode-btn" data-type="addUsers">选择</span>*@
+                                       
     
                                     </td>
                                 </tr>
@@ -158,10 +160,10 @@
     layui.config({
             base: '../../js/'
         }).extend({
-            flowset:'devflowset/flowset',
+            flowcview:'devworkflow/flowcview',
             
         })
-        .use('flowset');
+        .use('flowcview');
 </script>
 </body>
 </html>
