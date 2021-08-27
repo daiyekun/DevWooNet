@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dev.WooNet.Model;
 using Dev.WooNet.Model.DevDTO;
+using Dev.WooNet.Model.FlowModel;
 using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -328,76 +329,76 @@ namespace Dev.WooNet.AutoMapper.ProFiles
             #region 实例流程图
 
             //实例显示节点-实例数据节点
-           // CreateMap<DevAppInstNode, DevAppInstNodeViwDTO>()
-           // .ForMember(d => d.name, opt =>
-           // {
-           //     opt.MapFrom(s => s.Name);
-           // }).ForMember(d => d.strid, opt =>
-           // {
-           //     opt.MapFrom(s => s.NodeStrId);
-           // }).ForMember(d => d.height, opt =>
-           // {
-           //     opt.MapFrom(s => s.Height);
-           // }).ForMember(d => d.width, opt =>
-           // {
-           //     opt.MapFrom(s => s.Width);
-           // })
-           //.ForMember(d => d.left, opt =>
-           //{
-           //    opt.MapFrom(s => s.Left);
-           //}).ForMember(d => d.top, opt =>
-           //{
-           //    opt.MapFrom(s => s.Top);
-           //})
-           // .ForMember(a => a.type, opt => opt.Ignore())
-           //  .ForMember(a => a.alt, opt => opt.Ignore())
-           //  .ForMember(a => a.marked, opt => opt.Ignore());
+            CreateMap<DevAppInstNode, AppInstNodeViwDTO>()
+            .ForMember(d => d.name, opt =>
+            {
+                opt.MapFrom(s => s.Name);
+            }).ForMember(d => d.strid, opt =>
+            {
+                opt.MapFrom(s => s.NodeStrId);
+            }).ForMember(d => d.height, opt =>
+            {
+                opt.MapFrom(s => s.Height);
+            }).ForMember(d => d.width, opt =>
+            {
+                opt.MapFrom(s => s.Width);
+            })
+           .ForMember(d => d.left, opt =>
+           {
+               opt.MapFrom(s => s.Left);
+           }).ForMember(d => d.top, opt =>
+           {
+               opt.MapFrom(s => s.Top);
+           })
+            .ForMember(a => a.type, opt => opt.Ignore())
+             .ForMember(a => a.alt, opt => opt.Ignore())
+             .ForMember(a => a.marked, opt => opt.Ignore());
 
-           // //实例区域数据节点->实例显示区域
-           // CreateMap<DevAppInstNodeArea, DevAppInstNodeAreaViewDTO>()
-           // .ForMember(d => d.name, opt =>
-           // {
-           //     opt.MapFrom(s => s.Name);
-           // }).ForMember(d => d.strid, opt =>
-           // {
-           //     opt.MapFrom(s => s.StrId);
-           // }).ForMember(d => d.height, opt =>
-           // {
-           //     opt.MapFrom(s => s.Height);
-           // }).ForMember(d => d.width, opt =>
-           // {
-           //     opt.MapFrom(s => s.Width);
-           // })
-           // .ForMember(d => d.left, opt =>
-           // {
-           //     opt.MapFrom(s => s.Left);
-           // }).ForMember(d => d.top, opt =>
-           // {
-           //     opt.MapFrom(s => s.Top);
-           // })
+            // //实例区域数据节点->实例显示区域
+            CreateMap<DevAppInstNodeArea, AppInstNodeAreaViewDTO>()
+            .ForMember(d => d.name, opt =>
+            {
+                opt.MapFrom(s => s.Name);
+            }).ForMember(d => d.strid, opt =>
+            {
+                opt.MapFrom(s => s.StrId);
+            }).ForMember(d => d.height, opt =>
+            {
+                opt.MapFrom(s => s.Height);
+            }).ForMember(d => d.width, opt =>
+            {
+                opt.MapFrom(s => s.Width);
+            })
+            .ForMember(d => d.left, opt =>
+            {
+                opt.MapFrom(s => s.Left);
+            }).ForMember(d => d.top, opt =>
+            {
+                opt.MapFrom(s => s.Top);
+            })
 
-           //  .ForMember(a => a.alt, opt => opt.Ignore())
-           // .ForMember(a => a.color, opt => opt.Ignore());
+             .ForMember(a => a.alt, opt => opt.Ignore())
+            .ForMember(a => a.color, opt => opt.Ignore());
 
-           // //实例节点线实体->实例节点显示线
-           // CreateMap<DevAppInstNodeLine, DevAppInstNodeLineViwDTO>()
-           // .ForMember(d => d.name, opt =>
-           // {
-           //     opt.MapFrom(s => s.Name);
-           // }).ForMember(d => d.strid, opt =>
-           // {
-           //     opt.MapFrom(s => s.StrId);
-           // }).ForMember(d => d.from, opt =>
-           // {
-           //     opt.MapFrom(s => s.From);
-           // }).ForMember(d => d.to, opt =>
-           // {
-           //     opt.MapFrom(s => s.To);
-           // })
-           // .ForMember(a => a.type, opt => opt.Ignore())
-           //  .ForMember(a => a.alt, opt => opt.Ignore())
-           //  .ForMember(a => a.marked, opt => opt.Ignore())
-           //  .ForMember(a => a.dash, opt => opt.Ignore());
+            // //实例节点线实体->实例节点显示线
+            CreateMap<DevAppInstNodeLine, AppInstNodeLineViwDTO>()
+            .ForMember(d => d.name, opt =>
+            {
+                opt.MapFrom(s => s.Name);
+            }).ForMember(d => d.strid, opt =>
+            {
+                opt.MapFrom(s => s.StrId);
+            }).ForMember(d => d.from, opt =>
+            {
+                opt.MapFrom(s => s.From);
+            }).ForMember(d => d.to, opt =>
+            {
+                opt.MapFrom(s => s.To);
+            })
+            .ForMember(a => a.type, opt => opt.Ignore())
+             .ForMember(a => a.alt, opt => opt.Ignore())
+             .ForMember(a => a.marked, opt => opt.Ignore())
+             .ForMember(a => a.dash, opt => opt.Ignore());
 
 
             #endregion

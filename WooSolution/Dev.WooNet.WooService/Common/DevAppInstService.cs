@@ -1,11 +1,15 @@
 ﻿using Dev.WooNet.AutoMapper.Extend;
+using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
 using Dev.WooNet.Model;
 using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.FlowModel;
 using Dev.WooNet.Model.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -367,5 +371,74 @@ namespace Dev.WooNet.WooService
         }
 
         #endregion 提交流程
+
+
+        #region 审批历史
+       /// <summary>
+       /// 审批历史
+       /// </summary>
+       /// <typeparam name="s"></typeparam>
+       /// <param name="pageInfo">分页对象</param>
+       /// <param name="sessionUserId">当前登录人员</param>
+       /// <param name="whereLambda">where条件</param>
+       /// <param name="orderbyLambda">排序条件</param>
+       /// <param name="isAsc">是否正序</param>
+       /// <returns></returns>
+        public AjaxListResult<DevApproveHistListDTO> GetAppHistList<s>(PageInfo<DevAppInst> pageInfo, int sessionUserId, Expression<Func<DevAppInst, bool>> whereLambda, Expression<Func<DevAppInst, s>> orderbyLambda, bool isAsc)
+        {
+            var tempquery = DevDb.Set<DevAppInst>().AsTracking().Where(whereLambda.Compile()).AsQueryable();
+              pageInfo.TotalCount = tempquery.Count();
+            if (isAsc)
+            {
+                tempquery = tempquery.OrderBy(orderbyLambda);
+            }
+            else
+            {
+                tempquery = tempquery.OrderByDescending(orderbyLambda);
+            }
+            if (pageInfo is not NoPageInfo<DevAppInst>)
+            { //分页
+                tempquery = tempquery.Skip<DevAppInst>((pageInfo.PageIndex - 1) * pageInfo.PageSize).Take<DevAppInst>(pageInfo.PageSize);
+            }
+            
+
+            var query = from a in tempquery
+                        select new
+                        {
+                            Id = a.Id,
+                            Mission = a.Mission,
+                            CurrentNodeName = a.CurrentNodeName,
+                            StartDateTime = a.StartDateTime,
+                            AppState = a.AppState,
+                            StartUserId = a.StartUserId,
+                            ObjType = a.ObjType,
+                            CompleteDateTime = a.CompleteDateTime
+
+
+                        };
+            var local = from a in query.AsEnumerable()
+                        select new DevApproveHistListDTO
+                        {
+                            Id = a.Id,
+                            Mission = a.Mission,
+                            MissionDic = FlowUtility.GetMessionDic(a.Mission, a.ObjType),//审批事项
+                            CurrentNodeName = a.CurrentNodeName,
+                            StartDateTime = a.StartDateTime,
+                            AppState = a.AppState,
+                            AppStateDic = EmunUtility.GetDesc(typeof(AppInstEnum), a.AppState),
+                            StartUserName = RedisDevCommUtility.GetUserName(a.StartUserId),
+                            CompleteDateTime = a.CompleteDateTime
+                        };
+            return new AjaxListResult<DevApproveHistListDTO>()
+            {
+                data = local.ToList(),
+                count = pageInfo.TotalCount,
+                code = 0
+
+
+            };
+        }
+        #endregion
+
     }
 }

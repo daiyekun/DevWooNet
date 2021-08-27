@@ -8,8 +8,10 @@ layui.config({
     address: 'devextend/address',
     tableSelect: 'devextend/tableSelect',
     devselitem: 'devextend/devselitem',
+    flowapplist:'devextend/flowutility/flowapplist'
+  
    
-}).define(['table', 'winui', 'window', 'layer', 'devindex', 'laydate','address','tableSelect','devselitem'], function (exports) {
+}).define(['table', 'winui', 'window', 'layer', 'devindex', 'laydate','address','tableSelect','devselitem','flowapplist'], function (exports) {
     winui.renderColor();
     var table = layui.table,
         $ = layui.$,
@@ -20,6 +22,7 @@ layui.config({
         ,address=layui.address()
         ,tableSelect=layui.tableSelect
         ,devselitem=layui.devselitem
+        ,flowapplist=layui.flowapplist
         , tableId = 'useridtableid'
         ;
     var $devId = wooutil.getUrlVar('Id');
@@ -32,7 +35,7 @@ layui.config({
 function cleardata(){
     wooutil.devajax({
         type: 'GET',
-        url: devsetter.devuserurl + 'api/DevCompany/cleardata',
+        url: devsetter.devbaseurl + 'api/DevCompany/cleardata',
         // data: JSON.stringify(postdata),
         dataType: "json",
         success: function (res) {
@@ -59,7 +62,7 @@ function cleardata(){
         if (winui.verifyForm(data.elem)) {
            wooutil.devajax({
             type: 'POST',
-            url: devsetter.devuserurl + 'api/DevCompany/companySave',
+            url: devsetter.devbaseurl + 'api/DevCompany/companySave',
             data: JSON.stringify(postdata),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
@@ -119,7 +122,7 @@ function cleardata(){
         if ($devId !== "" && $devId !== undefined) {
             wooutil.devajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevCompany/showView',
+                url: devsetter.devbaseurl + 'api/DevCompany/showView',
                 //async: false,
                 data: { Id: $devId },
                 dataType: 'json',
@@ -168,7 +171,7 @@ function cleardata(){
 table.render({
     elem: '#Dev-CustomerFiles'
     ,id:'Dev-CustomerFiles'
-   ,url:devsetter.devuserurl + 'api/DevCompFile/list?otherId='+$devId+'&rand=' + wooutil.getRandom()
+   ,url:devsetter.devbaseurl + 'api/DevCompFile/list?otherId='+$devId+'&rand=' + wooutil.getRandom()
    , toolbar: '#toolCustomerFiles'
     , defaultToolbar: ['filter']
      ,method: 'POST'
@@ -231,7 +234,7 @@ reloadtable:function(){
          //向服务端发送删除指令
          wooutil.devajax({
              type: 'GET',
-             url: devsetter.devuserurl + 'api/DevCompFile/delete',
+             url: devsetter.devbaseurl + 'api/DevCompFile/delete',
              data: { Ids: ids.toString() },
              dataType: 'json',
              success: function (res) {
@@ -265,7 +268,7 @@ reloadtable:function(){
  tooldownload: function (obj) {
 
     wooutil.download({
-        url: devsetter.devuserurl + 'api/DevFileCommon/download',
+        url: devsetter.devbaseurl + 'api/DevFileCommon/download',
         Id: obj.data.Id,
         folder: 0//标识客户附件
 
@@ -406,7 +409,7 @@ table.on('tool(Dev-CustomerFiles)', function (obj) {
 table.render({
        elem: '#Dev-CustomerContact'
        ,id:'Dev-CustomerContact'
-      ,url:devsetter.devuserurl + 'api/DevCompContact/list?rand=' + wooutil.getRandom()
+      ,url:devsetter.devbaseurl + 'api/DevCompContact/list?rand=' + wooutil.getRandom()
       , toolbar: '#tooCustomerContact'
        , defaultToolbar: ['filter']
         ,method: 'POST'
@@ -474,7 +477,7 @@ var contactEvent={
             //向服务端发送删除指令
             wooutil.devajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevCompContact/deletecontact',
+                url: devsetter.devbaseurl + 'api/DevCompContact/deletecontact',
                 data: { Ids: ids.toString() },
                 dataType: 'json',
                 success: function (res) {
@@ -569,7 +572,7 @@ table.on('tool(Dev-CustomerContact)', function (obj) {
 table.render({
     elem: '#Dev-CustomerDesc'
     ,id:'Dev-CustomerDesc'
-   ,url:devsetter.devuserurl + 'api/DevCompDesc/list?rand=' + wooutil.getRandom()
+   ,url:devsetter.devbaseurl + 'api/DevCompDesc/list?rand=' + wooutil.getRandom()
    , toolbar: '#toolCustomerDesc'
     , defaultToolbar: ['filter']
      ,method: 'POST'
@@ -630,7 +633,7 @@ reloadtable:function(){
          //向服务端发送删除指令
          wooutil.devajax({
              type: 'GET',
-             url: devsetter.devuserurl + 'api/DevCompDesc/delete',
+             url: devsetter.devbaseurl + 'api/DevCompDesc/delete',
              data: { Ids: ids.toString() },
              dataType: 'json',
              success: function (res) {
@@ -718,6 +721,8 @@ table.on('tool(Dev-CustomerDesc)', function (obj) {
 });
 
 /***********************备忘录-end***************************************************************************************************/
+ //审批历史
+ flowapplist.applistInit({ Id: $devId, objType: 0 });
 
 exports('customerview', {});
 });

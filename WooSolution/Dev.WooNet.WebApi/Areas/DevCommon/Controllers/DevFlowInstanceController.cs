@@ -9,6 +9,7 @@ using Dev.WooNet.WebCore.Extend;
 using Dev.WooNet.WebCore.FilterExtend;
 using Dev.WooNet.WebCore.Utility;
 using Microsoft.AspNetCore.Mvc;
+using NF.Common.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,17 +31,20 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
         private IDevFlowTempNodeInfoService _IDevFlowTempNodeInfoService;
         private IMapper _IMapper;
         private IDevAppInstService _IDevAppInstService;
+        private IDevAppInstNodeService _IDevAppInstNodeService;
         public DevFlowInstanceController(IDevFlowTempService iDevFlowTempService
             , IDevFlowTempNodeService iDevFlowTempNodeService
             , IDevFlowTempNodeInfoService iDevFlowTempNodeInfoService
             , IMapper iMapper
-            , IDevAppInstService iDevAppInstService)
+            , IDevAppInstService iDevAppInstService
+            , IDevAppInstNodeService iDevAppInstNodeService)
         {
             _IDevFlowTempService = iDevFlowTempService;
             _IDevFlowTempNodeService = iDevFlowTempNodeService;
             _IDevFlowTempNodeInfoService = iDevFlowTempNodeInfoService;
             _IMapper = iMapper;
             _IDevAppInstService = iDevAppInstService;
+            _IDevAppInstNodeService = iDevAppInstNodeService;
 
         }
         /// <summary>
@@ -167,6 +171,57 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
                 msg = "操作成功",
                 code = 0,
                 OtherValue = 0
+
+            });
+        }
+
+        /// <summary>
+        /// 审批历史
+        /// </summary>
+        /// <returns></returns>
+        [Route("GetAppHistList")]
+        [HttpGet]
+        public IActionResult GetAppHistList(int appObjId, int objType)
+        {
+            var pageInfo = new NoPageInfo<DevAppInst>();
+            var predicateAnd = PredBuilder.True<DevAppInst>();
+            var userId = HttpContext.User.Claims.GetTokenUserId();
+            predicateAnd = predicateAnd.And(a => a.ObjType == objType && a.AppObjId == appObjId);
+            var layPage = _IDevAppInstService.GetAppHistList(pageInfo, userId, predicateAnd, a => a.Id, true);
+            return new DevResultJson(layPage);
+        }
+
+        
+
+
+        /// <summary>
+        /// 查看流程图时根据节点ID查询节点信息
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        [Route("ShowNodeInfoView")]
+        [HttpGet]
+        public IActionResult ShowNodeInfoView(string nodeStr, int instId)
+        {
+            var info = _IDevAppInstNodeService.GetNodeInfoByStrId(nodeStr, instId);
+            if (info == null)
+            {
+                info = new AppInstNodeInfoViewDTO()
+                {
+                    Id = 0,
+                    NodeStrId = nodeStr,
+                    InstId = instId,
+                    UserNames = "",
+                    GroupName = ""
+
+                };
+            }
+            return new DevResultJson(new AjaxResult<AppInstNodeInfoViewDTO>()
+            {
+                msg = "",
+                code = 0,
+                data = info
+
 
             });
         }

@@ -1,7 +1,10 @@
-﻿using Dev.WooNet.Model.Models;
+﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Model.FlowModel;
+using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,5 +29,16 @@ namespace Dev.WooNet.IWooService
         /// <param name="appInst">审批实例</param>
         /// <returns></returns>
         int SubmitWfUpdateObjWfInfo(DevAppInst appInst);
+        /// <summary>
+        /// 审批历史
+        /// </summary>
+        /// <typeparam name="s"></typeparam>
+        /// <param name="pageInfo">分页对象</param>
+        /// <param name="sessionUserId">当前登录人员</param>
+        /// <param name="whereLambda">where条件</param>
+        /// <param name="orderbyLambda">排序条件</param>
+        /// <param name="isAsc">是否正序</param>
+        /// <returns></returns>
+         AjaxListResult<DevApproveHistListDTO> GetAppHistList<s>(PageInfo<DevAppInst> pageInfo, int sessionUserId, Expression<Func<DevAppInst, bool>> whereLambda, Expression<Func<DevAppInst, s>> orderbyLambda, bool isAsc);
     }
 }

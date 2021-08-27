@@ -22,7 +22,7 @@ layui.config({
          tableId = 'customertableid';
     //表格渲染
    
-    var tburl=devsetter.devuserurl+"api/DevCompany/list?ctype=0";
+    var tburl=devsetter.devbaseurl+"api/DevCompany/list?ctype=0";
     var localdata=wooutil.devlocaldata();
     var woocustomer=table.render({
         id: tableId,
@@ -126,8 +126,9 @@ layui.config({
             type: 2,
             title: wintitle,
             content: url,
-            area: ['50vw', '70vh'],
-            offset: ['15vh', '25vw']
+            area: ['90%', '90%']
+            //area: ['50vw', '70vh']
+            //offset: ['15vh', '25vw']
         });
     }
 
@@ -145,7 +146,7 @@ layui.config({
             //向服务端发送删除指令
             wooutil.devajax({
                 type: 'GET',
-                url: devsetter.devuserurl + 'api/DevCompany/delete',
+                url: devsetter.devbaseurl + 'api/DevCompany/delete',
                 data: { Ids: ids.toString() },
                 dataType: 'json',
                 success: function (res) {
@@ -252,7 +253,7 @@ layui.config({
     }
     //导出
     $("#excelexport").on('click',function(){
-       var $url= devsetter.devuserurl+"api/DevCompany/exportexcel";
+       var $url= devsetter.devbaseurl+"api/DevCompany/exportexcel";
 
         wooutil.exportexcel(woocustomer, { url: $url});
     });

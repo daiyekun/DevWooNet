@@ -102,8 +102,9 @@ layui.config({
             type: 2,
             title: wintitle,
             content: url,
-            area: ['50vw', '70vh'],
-            offset: ['15vh', '25vw']
+            area: ['90%', '90%']
+            // area: ['50vw', '70vh'],
+            // offset: ['15vh', '25vw']
         });
     }
 

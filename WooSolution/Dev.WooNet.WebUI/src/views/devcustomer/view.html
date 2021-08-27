@@ -396,8 +396,39 @@
                     </div>
   
                 </div>
+            </div>
+            <div class="layui-colla-item">
+                <h2 class="layui-colla-title">审批历史</h2>
+                <div class="layui-colla-content">
+                    <div class="layui-card">
+                        <div class="layui-card-body" style="padding: 15px;">
+                            <table id="NF-workFlow-approveList" lay-filter="NF-workFlow-approveList"></table>
+                            <script id="toolworkflowhist" type="text/html">
+                            <div class="winui-toolbar">
+                                <div class="winui-tool">
+                                <div class="layui-inline">
+                                    <button  lay-event="reloadTable" id="custdescrefresh" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                </div>
+                                </div>
+                              </div>
+                              </script>
+                              <script type="text/html" id="applisthist-bar">
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="viewapp"><i class="layui-icon layui-icon-edit"></i>查看</a>
+                                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="printapp"><i class="layui-icon layui-icon-delete"></i>审批单</a>
+                            </script>
+                        </div>
+                      
+                    </div>
+    
+                </div>
               </div>
+
+
+
+
           </div>
+        
+      </div>
 
 
       
@@ -419,10 +450,16 @@
     layui.config({
             base: '../../js/'
         }).extend({
-            customerview:'devcustomer/view',
+            
+            customerview:'devcustomer/view'
+          
             
         })
-        .use('customerview');
+        .use(['customerview'],function(){
+            
+           
+
+        });
 </script>
 </body>
 </html>

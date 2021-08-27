@@ -12,3 +12,4 @@ E:\WooCode\WooSolution\Dev.WooNet.Common\obj\Debug\net5.0\Dev.WooNet.Common.pdb
 E:\WooCode\WooSolution\Dev.WooNet.Common\bin\Debug\net5.0\Interop.Microsoft.Office.Interop.Word.dll
 E:\WooCode\WooSolution\Dev.WooNet.Common\obj\Debug\net5.0\Dev.WooNet.Common.csproj.ResolveComReference.cache
 E:\WooCode\WooSolution\Dev.WooNet.Common\obj\Debug\net5.0\Interop.Microsoft.Office.Interop.Word.dll
+E:\WooCode\WooSolution\Dev.WooNet.Common\obj\Debug\net5.0\Dev.WooNet.Common.csprojAssemblyReference.cache
