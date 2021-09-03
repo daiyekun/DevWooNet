@@ -48,5 +48,11 @@ namespace Dev.WooNet.Common.Models
         /// 选择项
         /// </summary>
         public int selItem { get; set; } = 0;
+        /// <summary>
+        /// 其他word条件
+        /// </summary>
+        public string otherstr { get; set; }
+
+        
     }
 }

@@ -337,6 +337,8 @@ namespace Dev.WooNet.Model.Models
             {
                 entity.ToTable("dev_app_inst_opin");
 
+                entity.HasIndex(e => e.NodeId, "instoption_node");
+
                 entity.Property(e => e.AddDateTime).HasColumnType("datetime");
 
                 entity.Property(e => e.NodeStrId)
@@ -350,6 +352,11 @@ namespace Dev.WooNet.Model.Models
                     .HasColumnType("varchar(1000)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
+
+                entity.HasOne(d => d.Node)
+                    .WithMany(p => p.DevAppInstOpins)
+                    .HasForeignKey(d => d.NodeId)
+                    .HasConstraintName("instoption_node");
             });
 
             modelBuilder.Entity<DevAppInstOpinHist>(entity =>

@@ -225,6 +225,23 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 
             });
         }
+        [Route("getAppFlowInfo")]
+        [HttpPost]
+        public IActionResult GetAppFlowInfo([FromBody] ReqFlowInfoData reqFlowInfo)
+        {
+            var userId = HttpContext.User.Claims.GetTokenUserId();
+            reqFlowInfo.CurrUserId = userId;
+            var reqdata = _IDevAppInstService.GetAppFlowInceInfo(reqFlowInfo);
+            return new DevResultJson(new AjaxResult<AppFlowInceInfo>()
+            {
+                msg = "",
+                code = 0,
+                data = reqdata
+
+
+            });
+            
+        }
 
     }
 }

@@ -7,6 +7,11 @@ namespace Dev.WooNet.Model.Models
 {
     public partial class DevAppInstNode
     {
+        public DevAppInstNode()
+        {
+            DevAppInstOpins = new HashSet<DevAppInstOpin>();
+        }
+
         public int Id { get; set; }
         public int InstId { get; set; }
         public string NodeStrId { get; set; }
@@ -23,5 +28,7 @@ namespace Dev.WooNet.Model.Models
         public int NodeState { get; set; }
         public DateTime ReceDateTime { get; set; }
         public DateTime CompDateTime { get; set; }
+
+        public virtual ICollection<DevAppInstOpin> DevAppInstOpins { get; set; }
     }
 }

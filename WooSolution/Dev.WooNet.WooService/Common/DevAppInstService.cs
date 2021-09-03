@@ -440,5 +440,46 @@ namespace Dev.WooNet.WooService
         }
         #endregion
 
+        #region  审批相关操作begin
+        /// <summary>
+        /// 根据用户和审批对象ID获取当前数据审批权限
+        /// 
+        /// </summary>
+        /// <param name="reqFlowInfo"></param>
+        /// <returns></returns>
+        public AppFlowInceInfo GetAppFlowInceInfo(ReqFlowInfoData reqFlowInfo)
+        {
+            AppFlowInceInfo appFlowInce = new AppFlowInceInfo();
+            //查询当前对象审批中实例
+            var InceInfo = DevDb.Set<DevAppInst>().Where(a => a.AppObjId == reqFlowInfo.AppObjId && a.AppState == 1&&a.ObjType== reqFlowInfo.ObjType).OrderByDescending(a=>a.Id).FirstOrDefault();
+            if (InceInfo!=null)
+            {
+                appFlowInce.InstId = InceInfo.Id;
+                appFlowInce.NodeName = InceInfo.CurrentNodeName;//审批节点名称
+                appFlowInce.NodeStrId = InceInfo.CurrentNodeStrId;//审批节点ID
+                appFlowInce.NodeId = InceInfo.CurrentNodeId??0;//节点ID
+                var nodeinfo = DevDb.Set<DevAppInstNodeInfo>().Where(a => a.InstId == InceInfo.Id
+                  && a.NodeStrId == InceInfo.CurrentNodeStrId).FirstOrDefault();
+                if (nodeinfo != null&& nodeinfo.NodeState==1)
+                {//节点在审批中
+                    var groupUserIds = DevDb.Set<DevAppGroupUser>()
+                        .Where(a => a.GroupId == nodeinfo.GroupId
+                        &&a.InstId== InceInfo.Id&&a.NodeStrId== InceInfo.CurrentNodeStrId).Select(a => a.UserId).ToList();
+
+                    if(groupUserIds!=null&& groupUserIds.Contains(reqFlowInfo.CurrUserId))
+                    {
+
+                        appFlowInce.AppAuth = 1;//有审批权限
+                    }
+                    
+
+                }
+            }
+            return appFlowInce;
+
+        }
+
+        #endregion 审批相关操作end
+
     }
 }

@@ -15,5 +15,7 @@ namespace Dev.WooNet.Model.Models
         public DateTime AddDateTime { get; set; }
         public string Opinion { get; set; }
         public int Result { get; set; }
+
+        public virtual DevAppInstNode Node { get; set; }
     }
 }

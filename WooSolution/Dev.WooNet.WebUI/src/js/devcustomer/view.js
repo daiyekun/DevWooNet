@@ -24,6 +24,7 @@ layui.config({
         ,devselitem=layui.devselitem
         ,flowapplist=layui.flowapplist
         , tableId = 'useridtableid'
+        ,appflowdata=null;
         ;
     var $devId = wooutil.getUrlVar('Id');
     var localdata=wooutil.devlocaldata();
@@ -723,6 +724,24 @@ table.on('tool(Dev-CustomerDesc)', function (obj) {
 /***********************备忘录-end***************************************************************************************************/
  //审批历史
  flowapplist.applistInit({ Id: $devId, objType: 0 });
+ /******************************************************审批按钮begin*******************************************/
+
+ appflowdata=flowapplist.getappflowinfo({ AppObjId: $devId, ObjType: 0 ,CurrUserId:0});
+ if(appflowdata.AppAuth===1){//有审批权限
+  $("#Dev-AppSavebtn").removeClass("layui-hide");
+ }
+ //弹出审批框
+ $("#Dev-AppSavebtn").on("click",function(){//审批按钮
+    var optiondata={};
+    optiondata.prefix="customer";//前缀
+    optiondata.objtype=0;//审批类型
+    optiondata.objId=$devId;
+    optiondata.instId=appflowdata.InstId;//审批实例ID
+   
+    flowapplist.showflowoption(optiondata);
+
+ });
+ /******************************************************审批按钮-end********************************************* */
 
 exports('customerview', {});
 });

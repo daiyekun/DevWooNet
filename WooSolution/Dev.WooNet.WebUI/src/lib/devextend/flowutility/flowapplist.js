@@ -56,6 +56,51 @@ layui.config({
             });
 
 
+        },
+        getappflowinfo:function(param){
+            var resdata;
+            //获取流程信息
+            wooutil.devajax({
+                type: 'POST',
+                 async: false,//取消异步
+                url: devsetter.devbaseurl + 'api/DevFlowInstance/getAppFlowInfo',
+                data: JSON.stringify(param),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (res) {
+                    wooutil.devloginout(res);
+                   
+                    resdata=res.data;
+                   
+    
+                },
+                error: function (xml) {
+                  
+                }
+    
+               });
+
+               return resdata;
+
+
+        },showflowoption:function(param){
+              /// <summary>审批意见框</summary>
+            /// <param name="prefix" type="String">前缀</param>
+            /// <param name="objtype" type="number">审批对象：0：客户,....</param>
+            /// <param name="objId" type="number">审批对象ID</param>
+            /// <param name="instId" type="number">审批实例ID</param>
+            //弹出审批意见
+            var url='/views/devworkflow/flowoption.html?objtype='
+            +param.objtype+'&objId='+param.objId+'&instId='+param.instId+'&prefix='+param.prefix;
+            top.winui.window.open({
+                id: param.prefix+'-win-option',
+                type: 2,
+                title: '审批窗口',
+                content: url,
+                area: ['50vw', '35vh'],
+                // area: ['50vw', '70vh'],
+                // offset: ['15vh', '25vw']
+            });
         }
 
 

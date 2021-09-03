@@ -40,5 +40,13 @@ namespace Dev.WooNet.IWooService
         /// <param name="isAsc">是否正序</param>
         /// <returns></returns>
          AjaxListResult<DevApproveHistListDTO> GetAppHistList<s>(PageInfo<DevAppInst> pageInfo, int sessionUserId, Expression<Func<DevAppInst, bool>> whereLambda, Expression<Func<DevAppInst, s>> orderbyLambda, bool isAsc);
+
+         /// <summary>
+        /// 根据用户和审批对象ID获取当前数据审批权限
+        /// 
+        /// </summary>
+        /// <param name="reqFlowInfo"></param>
+        /// <returns>审批实例ID以及当前用户的权限</returns>
+         AppFlowInceInfo GetAppFlowInceInfo(ReqFlowInfoData reqFlowInfo);
     }
 }

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="winui-toolbar">
+        <div class="winui-tool">
+            <button id="excelexport" class="winui-toolbtn layui-hide" lay-event="excelexport"><i class="fa fa-refresh" aria-hidden="true"></i>excel导出</button>
+        </div>
+    </div>
+    <div style="margin:auto 10px;">
+        <table id="wooflowoptions" lay-filter="wooflowoptions"></table>
+    
+    </div>
+    <script src="/lib/layui/layui.js"></script>
+    <script> 
+        layui.config({
+            base: '../../js/'
+        }).extend({
+            flowoptionview:'devworkflow/flowoptionview'
+        })
+        .use('flowoptionview');
+    </script>
+</body>
+</html>

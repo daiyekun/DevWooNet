@@ -329,7 +329,7 @@ layui.config({
                 , objCateId: flowdata.objCateId
                 ,objId:flowdata.objId
             });
-            debugger;
+            
             if(tempdata.InstId!==0){
                 top.winui.window.msg('流程已经提交,不能重复提交！', {
                     icon: 2,

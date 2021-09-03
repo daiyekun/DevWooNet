@@ -104,9 +104,9 @@ layui.config({
                         $("#StateDic").text(res.data.StateDic);
                         $("#GroupName").val(res.data.GroupName);
                         $("#groUserNames").text(res.data.UserNames);
-                        if (res.Data.Nrule == 0) {
+                        if (res.data.Nrule == 0) {
                             $("#Nrule0").attr("checked", true);
-                        } else if (res.Data.Nrule == 1) {//审批规则
+                        } else if (res.data.Nrule == 1) {//审批规则
                             $("#Nrule1").attr("checked", true);
                         }
                        
@@ -172,43 +172,33 @@ layui.config({
         var active = {
             //查看所有意见
             showAllOpinion: function () {
-                layer.open({
-                   type: 2
-                  , title: '查看审批意见'
-                  , content: '/WorkFlow/AppInst/ShowAllOpinion?instId=' + $instId
-                  , maxmin: true
-                  , area: ['70%', '85%']
-                  , btn: ['关闭']
-                  , btnAlign: 'c'
-                  , skin: "layer-ext-myskin"
-                  , yes: function (index, layero) {
-                      layer.close(index);
-                  },
-                    success: function (layero, index) {
-                        
-                    }
+                
+                var url='/views/devworkflow/flowoptionview.html?instId=' + $instId;
+                top.winui.window.open({
+                    id: 'win-flowoption',
+                    type: 2,
+                    title: '查看审批意见',
+                    content: url,
+                    area: ['90%', '90%']
+                    //area: ['50vw', '70vh']
+                    //offset: ['15vh', '25vw']
                 });
     
                
             },
             showNodeOpinion: function () {//节点意见
                 var nodestrId = $("#NodeStrId").val();
-                layer.open({
-                    type: 2
-                  , title: '查看节点审批意见'
-                  , content: '/WorkFlow/AppInst/ShowAllOpinion?instId=' + $instId + '&nodestrId=' + nodestrId
-                  , maxmin: true
-                  , area: ['70%', '85%']
-                  , btn: ['关闭']
-                  , btnAlign: 'c'
-                  , skin: "layer-ext-myskin"
-                  , yes: function (index, layero) {
-                      layer.close(index);
-                  },
-                    success: function (layero, index) {
-    
-                    }
+                var url='/views/devworkflow/flowoptionview.html?instId=' + $instId + '&nodestrId=' + nodestrId;
+                top.winui.window.open({
+                    id: 'win-flownodeoption',
+                    type: 2,
+                    title: '查看节点意见',
+                    content: url,
+                    area: ['90%', '90%']
+                    //area: ['50vw', '70vh']
+                    //offset: ['15vh', '25vw']
                 });
+               
             }
         };
     
