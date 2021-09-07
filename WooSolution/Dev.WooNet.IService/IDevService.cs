@@ -18,7 +18,7 @@ public partial interface IDevAppGroupUserService : IBaseService<DevAppGroupUser>
     
    
      
-public partial interface IDevAppinstService : IBaseService<DevAppInst>
+public partial interface IDevAppInstService : IBaseService<DevAppInst>
 { }
     
    

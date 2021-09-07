@@ -14,7 +14,7 @@ namespace Dev.WooNet.IWooService
     /// <summary>
     /// 审批实例
     /// </summary>
-    public partial interface IDevAppInstService
+    public partial  interface IDevAppInstService
     {
 
         /// <summary>

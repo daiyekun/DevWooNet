@@ -65,6 +65,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             var userId = HttpContext.User.Claims.GetTokenUserId();
             optionInfo.SubmitUserId = userId;
             _IAppInstOpinService.SubmintOption(optionInfo);
+            
             return new DevResultJson(new AjaxResult()
             {
                 msg = "success",

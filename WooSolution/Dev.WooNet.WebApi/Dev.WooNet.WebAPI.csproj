@@ -18,11 +18,11 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.10.2" />
+    <PackageReference Include="Wkhtmltopdf.NetCore" Version="5.0.2-preview" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\DevCommon\Models\" />
-    <Folder Include="Areas\DevCommon\Views\" />
     <Folder Include="Areas\DevContract\Data\" />
     <Folder Include="Areas\DevContract\Models\" />
     <Folder Include="Areas\DevContract\Views\" />
@@ -36,6 +36,12 @@
     <ProjectReference Include="..\Dev.WooNet.Model\Dev.WooNet.Model.csproj" />
     <ProjectReference Include="..\Dev.WooNet.WebCore\Dev.WooNet.WebCore.csproj" />
     <ProjectReference Include="..\Dev.WooNet.WooService\Dev.WooNet.WooService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Rotativa\Windows\wkhtmltopdf.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

@@ -133,7 +133,8 @@ layui.config({
                 break;
             case "printapp"://审批单
                 if (obj.data.AppState == 2) {
-                    var opurl = '/WorkFlow/FlowDocToPdf/FlowinceToPdf?WfInceId=' + obj.data.Id;
+                    var opurl = devsetter.devbaseurl+'Flow/DevFlowPdf/ConverToPdf?InceId=' + obj.data.Id;
+                    //var opurl = devsetter.devbaseurl+'Flow/DevFlowPdf/PdfViewTest';
                     window.open(opurl);
                 } else {
                     layer.alert("只有审批通过才允许打印");

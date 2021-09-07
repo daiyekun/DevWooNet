@@ -31,10 +31,10 @@ namespace Dev.WooNet.WebAPI.Extend
             services.AddTransient<IDevAppInstService, DevAppInstService>();
             services.AddTransient<IDevAppInstNodeService, DevAppInstNodeService>();
             services.AddTransient<IDevAppInstOpinService, DevAppInstOpinService>();
+            services.AddTransient<IDevFlowPdfService, DevFlowPdfService>();
+
+
             
-
-
-
 
 
 

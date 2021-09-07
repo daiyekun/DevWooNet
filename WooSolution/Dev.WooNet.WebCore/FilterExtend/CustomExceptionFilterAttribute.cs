@@ -25,13 +25,17 @@ namespace Dev.WooNet.WebCore.FilterExtend
         {
             if (context.ExceptionHandled == false)
             {
-                context.Result = new JsonResult(new AjaxResult()
+                
+                    context.Result = new JsonResult(new AjaxResult()
                 {
                     msg = "操作失败",
                     OtherValue = context.Exception.Message,
                     Result = false
                     
                 });
+                
+               
+               
                 this._logger.LogError(context.Exception.Message);
             }
             context.ExceptionHandled = true;

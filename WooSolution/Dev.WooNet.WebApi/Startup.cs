@@ -24,13 +24,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Wkhtmltopdf.NetCore;
 
 namespace Dev.WooNet.WebApi
 {
@@ -79,6 +80,9 @@ namespace Dev.WooNet.WebApi
             services.AddHttpContextAccessor();
 
             #region jwt校验  HS
+
+            //pdf生成
+            services.AddWkhtmltopdf();
 
             JWTTokenOptions tokenOptions = new JWTTokenOptions();
             Configuration.Bind("JWTTokenOptions", tokenOptions);
@@ -160,8 +164,8 @@ namespace Dev.WooNet.WebApi
             #endregion
 
             app.UseRouting();
-           
-          
+            //pdf生成文件exe
+           // RotativaConfiguration.Setup(env.ContentRootPath);
             app.UseAuthorization();
            
             app.UseStaticFiles(new StaticFileOptions
@@ -171,6 +175,7 @@ namespace Dev.WooNet.WebApi
                  Path.Combine(Directory.GetCurrentDirectory(), "Uploads")),
                 RequestPath = "/Uploads",
             });
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
