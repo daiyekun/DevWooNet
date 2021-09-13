@@ -7,6 +7,12 @@ namespace Dev.WooNet.Model.Models
 {
     public partial class DevUserinfo
     {
+        public DevUserinfo()
+        {
+            DevCompanyAddUsers = new HashSet<DevCompany>();
+            DevCompanyFaceUsers = new HashSet<DevCompany>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Pwd { get; set; }
@@ -28,5 +34,8 @@ namespace Dev.WooNet.Model.Models
         public sbyte IsDelete { get; set; }
         public sbyte Mstart { get; set; }
         public string WxCode { get; set; }
+
+        public virtual ICollection<DevCompany> DevCompanyAddUsers { get; set; }
+        public virtual ICollection<DevCompany> DevCompanyFaceUsers { get; set; }
     }
 }

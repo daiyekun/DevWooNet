@@ -51,5 +51,8 @@ namespace Dev.WooNet.Model.Models
         public DateTime? AddDateTime { get; set; }
         public int? UpdateUserId { get; set; }
         public DateTime? UpdateDateTime { get; set; }
+
+        public virtual DevUserinfo AddUser { get; set; }
+        public virtual DevUserinfo FaceUser { get; set; }
     }
 }

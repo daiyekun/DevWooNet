@@ -400,6 +400,10 @@ namespace Dev.WooNet.Model.Models
             {
                 entity.ToTable("dev_company");
 
+                entity.HasIndex(e => e.AddUserId, "Commpany_AddUser");
+
+                entity.HasIndex(e => e.FaceUserId, "Commpany_FaceUser");
+
                 entity.Property(e => e.Account)
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
@@ -527,6 +531,16 @@ namespace Dev.WooNet.Model.Models
                     .HasColumnType("varchar(50)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
+
+                entity.HasOne(d => d.AddUser)
+                    .WithMany(p => p.DevCompanyAddUsers)
+                    .HasForeignKey(d => d.AddUserId)
+                    .HasConstraintName("Commpany_AddUser");
+
+                entity.HasOne(d => d.FaceUser)
+                    .WithMany(p => p.DevCompanyFaceUsers)
+                    .HasForeignKey(d => d.FaceUserId)
+                    .HasConstraintName("Commpany_FaceUser");
             });
 
             modelBuilder.Entity<DevCompcontact>(entity =>
