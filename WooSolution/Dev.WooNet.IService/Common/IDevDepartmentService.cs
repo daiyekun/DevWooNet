@@ -66,5 +66,11 @@ namespace Dev.WooNet.IWooService
         /// </summary>
         /// <returns></returns>
         IList<LayTree> GetLayUITree();
+
+        /// <summary>
+        /// 返回LayUI Tree需要数据格式
+        /// </summary>
+        /// <returns></returns>
+        IList<XTree> GetXtTree(IList<int> Ids);
     }
 }

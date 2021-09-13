@@ -252,6 +252,21 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
 
 
         }
+        /// <summary>
+        /// 系统菜单
+        /// </summary>
+        /// <returns></returns>
+        [Route("getlayuitree")]
+        [HttpGet]
+        public IActionResult GetLayuiTree()
+        {
+            return new DevResultJson(new AjaxResult<IList<LayuiTree>>
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
+                data = _IDevSysmodelService.GetLayuiTreeData()
+            });
+        }
 
     }
 }

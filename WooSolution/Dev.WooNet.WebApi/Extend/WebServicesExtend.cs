@@ -32,10 +32,10 @@ namespace Dev.WooNet.WebAPI.Extend
             services.AddTransient<IDevAppInstNodeService, DevAppInstNodeService>();
             services.AddTransient<IDevAppInstOpinService, DevAppInstOpinService>();
             services.AddTransient<IDevFlowPdfService, DevFlowPdfService>();
+            services.AddTransient<IDevRolePessionService, DevRolePessionService>();
 
 
             
-
 
 
             #region 合同系统相关注册

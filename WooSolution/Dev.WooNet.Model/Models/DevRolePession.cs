@@ -13,5 +13,6 @@ namespace Dev.WooNet.Model.Models
         public string FuncCode { get; set; }
         public int FuncType { get; set; }
         public string DeptIds { get; set; }
+        public int? Mid { get; set; }
     }
 }

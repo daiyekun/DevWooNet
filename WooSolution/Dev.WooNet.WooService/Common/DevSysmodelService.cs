@@ -484,6 +484,63 @@ namespace Dev.WooNet.WooService
 
         #endregion
 
+        #region layui Tree 递归
+        /// <summary>
+        /// 系统菜单  layuiTree
+        /// </summary>
+        /// <returns>返回系统菜单 Layui Tree</returns>
+        public IList<LayuiTree> GetLayuiTreeData()
+        {
+
+            IList<LayuiTree> layuitrees = new List<LayuiTree>();
+            var listAll = GetListAll();
+           
+            var list = listAll.Where(a => a.IsDelete == 0).ToList();
+            foreach (var item in list.Where(a => a.Pid == 1))//排除pid=0的菜单。从实际一级菜单开始
+            {
+                var laytree = new LayuiTree();
+                laytree.id = item.Id;
+                laytree.title = item.Name;
+
+                LayTreeDiGui(list, laytree, item);
+                layuitrees.Add(laytree);
+
+            }
+            return layuitrees;
+
+        }
+
+        /// <summary>
+        /// 递归
+        /// </summary>
+        /// <param name="listmodels">菜单集合</param>
+        /// <param name="Info">循环对象</param>
+        /// <param name="item">父类对象</param>
+        public void LayTreeDiGui(IList<DevSysmodelDTO> listmodels,
+            LayuiTree Info, DevSysmodelDTO item)
+        {
+            var listchren = listmodels.Where(a => a.Pid == item.Id);
+            var listchrennode = new List<LayuiTree>();
+            if (listchren.Any())
+            {
+                foreach (var chrenItem in listchren.ToList())
+                {
+                    LayuiTree chckmodel = new LayuiTree();
+                    chckmodel.id = chrenItem.Id;
+                    chckmodel.title = chrenItem.Name;
+                  
+                    LayTreeDiGui(listmodels, chckmodel, chrenItem);
+                    listchrennode.Add(chckmodel);
+                }
+                Info.children = listchrennode;
+
+            }
+
+
+
+        }
+        #endregion
+
 
 
     }

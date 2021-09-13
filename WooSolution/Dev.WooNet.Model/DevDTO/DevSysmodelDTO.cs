@@ -78,5 +78,24 @@ namespace Dev.WooNet.Model.DevDTO
         
 
 
-    } 
+    }
+    /// <summary>
+    /// layui tree 菜单
+    /// </summary>
+    public class LayuiTree
+    {
+        /// <summary>
+        /// 菜单名称
+        /// </summary>
+        public string title { get; set; }
+        /// <summary>
+        /// 菜单ID
+        /// </summary>
+        public int id { get; set; }
+        /// <summary>
+        /// 子项
+        /// </summary>
+        public IList<LayuiTree> children { get; set; }
+
+    }
 }

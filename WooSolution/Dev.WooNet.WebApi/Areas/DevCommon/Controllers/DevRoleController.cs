@@ -25,10 +25,13 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
     {
         private IMapper _IMapper;
         private IDevRoleService _IDevRoleService;
-        public DevRoleController(IMapper iMapper, IDevRoleService iDevRoleService)
+        private IDevRolePessionService _IDevRolePessionService;
+        public DevRoleController(IMapper iMapper, IDevRoleService iDevRoleService
+            , IDevRolePessionService iDevRolePessionService)
         {
             _IMapper = iMapper;
             _IDevRoleService = iDevRoleService;
+            _IDevRolePessionService = iDevRolePessionService;
 
         }
         /// <summary>
@@ -156,9 +159,30 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             });
 
         }
-       
 
-        
+        /// <summary>
+        /// 根据角色模块获取权限
+        /// </summary>
+        /// <param name="roleId">角色ID</param>
+        /// <param name="modeId">模块菜单ID</param>
+        /// <returns></returns>
+        [Route("GetRolePermission")]
+        [HttpGet]
+        public IActionResult GetRolePermission(int roleId, int modeId)
+        {
+            var predicateAnd = PredBuilder.True<DevRolePession>();
+            predicateAnd = predicateAnd.And(a => a.RoleId == roleId && a.Mid == modeId);
+            var Iquery = _IDevRolePessionService.GetQueryable(predicateAnd);
+            return new DevResultJson(new AjaxResult<IList<DevRolePession>>()
+            {
+                msg = "",
+                code = 0,
+                data = Iquery.ToList()
+            });
+        }
+
+
+
 
     }
 }

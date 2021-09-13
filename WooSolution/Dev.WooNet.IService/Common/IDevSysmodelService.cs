@@ -73,6 +73,11 @@ namespace Dev.WooNet.IWooService
         /// <param name="userId">当前用户ID</param>
         /// <returns>系统菜单</returns>
         IList<WinuiMenu> GetWinStartMenus(int userId);
+        /// <summary>
+        /// 系统菜单  layuiTree
+        /// </summary>
+        /// <returns>返回系统菜单 Layui Tree</returns>
+        IList<LayuiTree> GetLayuiTreeData();
 
 
         }

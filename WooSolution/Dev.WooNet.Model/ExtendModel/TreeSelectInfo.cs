@@ -53,4 +53,27 @@ namespace Dev.WooNet.Model.ExtendModel
         public int id { get; set; }
 
     }
+
+    /// <summary>
+    /// XTree显示需要对象
+    /// </summary>
+    public class XTree
+    {
+        /// <summary>
+        /// 显示名称
+        /// </summary>
+        public string title { get; set; }
+        /// <summary>
+        /// 值
+        /// </summary>
+        public string value { get; set; }
+        /// <summary>
+        /// 子节点
+        /// </summary>
+        public IList<XTree> data = new List<XTree>();
+        /// <summary>
+        /// 是否选中
+        /// </summary>
+        public bool Checked { get; set; } = false;
+    }
 }

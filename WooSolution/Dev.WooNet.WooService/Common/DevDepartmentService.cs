@@ -470,5 +470,65 @@ namespace Dev.WooNet.WooService
 
         #endregion
 
+        #region 递归XTree-主要用于功能权限分配
+
+        /// <summary>
+        /// 返回LayUI Tree需要数据格式
+        /// </summary>
+        /// <returns></returns>
+        public IList<XTree> GetXtTree(IList<int> Ids)
+        {
+
+            IList<XTree> listTree = new List<XTree>();
+            var listAll = GetAll();
+            var list = listAll.Where(a => a.IsDelete == 0 && a.Dstatus == 1).ToList();
+            foreach (var item in list.Where(a => a.Pid == 0))
+            {
+                XTree treeInfo = new XTree();
+                treeInfo.value = item.Id.ToString();
+                treeInfo.title = item.Name;
+                treeInfo.Checked = (Ids != null && Ids.Contains(item.Id)) ? true : false;
+
+                RecursionChrenNodeXt(list, treeInfo, item, Ids);
+                listTree.Add(treeInfo);
+
+            }
+            return listTree;
+        }
+
+        /// <summary>
+        /// 递归
+        /// </summary>
+        /// <param name="listDepts">数据列表</param>
+        /// <param name="treeInfo">Tree对象</param>
+        /// <param name="item">父类对象</param>
+        public void RecursionChrenNodeXt(IList<DevDepartmentDTO> listDepts, XTree treeInfo, DevDepartmentDTO item, IList<int> Ids)
+        {
+            var listchren = listDepts.Where(a => a.Pid == item.Id);
+            var listchrennode = new List<XTree>();
+            if (listchren.Any())
+            {
+                foreach (var chrenItem in listchren.ToList())
+                {
+                    XTree treeInfotmp = new XTree();
+                    treeInfotmp.value = chrenItem.Id.ToString();
+                    treeInfotmp.title = chrenItem.Name;
+                    treeInfotmp.Checked = (Ids != null && Ids.Contains(chrenItem.Id)) ? true : false;
+
+                    RecursionChrenNodeXt(listDepts, treeInfotmp, chrenItem, Ids);
+                    listchrennode.Add(treeInfotmp);
+                }
+
+                treeInfo.data = listchrennode;
+
+            }
+
+
+        }
+
+       
+
+        #endregion
+
     }
 }

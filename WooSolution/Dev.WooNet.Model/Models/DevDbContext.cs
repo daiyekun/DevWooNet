@@ -1111,6 +1111,8 @@ namespace Dev.WooNet.Model.Models
                     .HasColumnType("varchar(255)")
                     .HasCharSet("utf8")
                     .HasCollation("utf8_general_ci");
+
+                entity.Property(e => e.Mid).HasColumnName("MId");
             });
 
             modelBuilder.Entity<DevSealmanager>(entity =>

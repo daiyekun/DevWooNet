@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>菜单权限设置</title>
+    <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../lib/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+    <style>
+        ol {
+            padding-left: 20px;
+        }
+
+            ol > li {
+                list-style-type: decimal;
+                font-size: 13px;
+                color: #444
+            }
+    </style>
+</head>
+<body class="winui-window-body">
+    <div class="winui-tab" style="height:100%">
+        <div class="winui-tab-left">
+            <div class="winui-scroll-y" style="height:auto;position:absolute;top:0;bottom:0;">
+                <div id="devsysmodeltree" class="demo-tree"></div>
+            </div>
+           
+        </div>
+        <div class="winui-tab-right">
+            <div class="winui-scroll-y">
+                <div class="winui-toolbar">
+                    <div class="winui-tool">
+                        <button id="saverolepermssion" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>保存权限</button>
+                    </div>
+                </div>
+                <div style="margin:auto 10px;">
+                    <table id="woomodelList" lay-filter="woomodelList"></table>
+                    <!-- 用户、角色、岗位ID -->
+                    <input type="hidden" name="Id" />
+                    <!-- 菜单ID -->
+                    <input type="hidden" name="Mid" />
+                    <script type="text/html" id="functionLx">
+                      
+                        {{#  if(d.FunType ==0){ }}
+                        <input type="radio" name="premssion_{{d.Id}}" value="4" funcId="{{d.Id}}" funccode="{{d.FunStr}}" modelId="{{d.Mid}}" title="是" />
+                        <input type="radio" name="premssion_{{d.Id}}" value="5" funcId="{{d.Id}}" funccode="{{d.FunStr}}" modelId="{{d.Mid}}" title="否" />
+                        {{#  } else if(d.FunType ==1) { }}
+                        <input type="radio" name="premssion_{{d.Id}}" value="1" funcId="{{d.Id}}" funccode="{{d.FunStr}}" modelId="{{d.Mid}}" title="个人" />
+                        <input type="radio" name="premssion_{{d.Id}}" value="2" funcId="{{d.Id}}" funccode="{{d.FunStr}}" modelId="{{d.Mid}}" title="机构" lay-filter="showdepttree" />
+                        <input type="radio" name="premssion_{{d.Id}}" value="3" funcId="{{d.Id}}" funccode="{{d.FunStr}}" modelId="{{d.Mid}}" title="全部" />
+                        <input type="radio" name="premssion_{{d.Id}}" value="6" funcId="{{d.Id}}" funccode="{{d.FunStr}}" modelId="{{d.Mid}}" title="本部门" />
+                        <input type="radio" name="premssion_{{d.Id}}" value="7" funcId="{{d.Id}}" funccode="{{d.FunStr}}" modelId="{{d.Mid}}" title="本部门及子机构" />
+                        <input type="radio" name="premssion_{{d.Id}}" value="8" funcId="{{d.Id}}" funccode="{{d.FunStr}}" modelId="{{d.Mid}}" title="无权限" />
+                         {{#  } }}
+                        <input type="hidden" name="modeIds_{{d.Id}}" value="0" />
+
+                        
+                </script>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <script src="../../lib/layui/layui.js"></script>
+
+    <script> 
+        layui.config({
+            base: '../../js/'
+        }).extend({
+            setmodelfunction:'devrole/setmodelfunction'
+        })
+        .use('setmodelfunction');
+    </script>
+    
+</body>
+</html>

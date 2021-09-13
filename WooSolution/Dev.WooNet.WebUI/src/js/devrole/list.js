@@ -90,8 +90,19 @@ layui.config({
                 type: 2,
                 title: '菜单设置',
                 content: url,
-                area: ['50vw', '70vh'],
-                offset: ['15vh', '25vw']
+                area: ['80%', '80%']
+               // offset: ['15vh', '25vw']
+            });
+
+        }else if(layEvent==='addsysfunction'){
+            var url='/views/devrole/setmodelfunction.html?Id='+data.Id;
+            top.winui.window.open({
+                id: 'win_setmodelfunction',
+                type: 2,
+                title: '权限设置',
+                content: url,
+                area: ['80%', '80%']
+               // offset: ['15vh', '25vw']
             });
 
         }
