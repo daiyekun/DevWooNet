@@ -733,7 +733,7 @@ table.on('tool(Dev-CustomerDesc)', function (obj) {
         dataType: 'json',
         success: function (res) {
             if(res.Tag==0){
-            var secfilds=["InvoiceTitle","InvAddress","BankName","Account"];
+            var secfilds=["InvTitle","InvAddress","BankName","Account"];
             $.each(secfilds, function (index, fieldId) {
 
                 switch (fieldId) {

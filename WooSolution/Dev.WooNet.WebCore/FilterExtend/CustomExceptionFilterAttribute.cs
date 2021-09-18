@@ -1,4 +1,5 @@
 ﻿using Dev.WooNet.Common.Models;
+using Dev.WooNet.Common.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
@@ -33,9 +34,9 @@ namespace Dev.WooNet.WebCore.FilterExtend
                     Result = false
                     
                 });
-                
-               
-               
+
+
+                Log4netHelper.Error(context.Exception.Message);
                 this._logger.LogError(context.Exception.Message);
             }
             context.ExceptionHandled = true;

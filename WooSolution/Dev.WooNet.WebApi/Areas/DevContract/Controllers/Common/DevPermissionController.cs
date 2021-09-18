@@ -49,7 +49,9 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers.Common
             switch (funcode)
             {
                 case "CustomerAdd"://客户新建
-                    res= _IDevRolePessionService.GetCompanyAddPermission(funcode, userId);
+                case "SupplierAdd"://供应商
+                case "OtherPartyAdd"://其他对方
+                    res = _IDevRolePessionService.GetCompanyAddPermission(funcode, userId);
                     
                     break;
 
@@ -87,6 +89,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers.Common
             switch (funcode)
             {
                 case "CustomerDelete"://删除客户
+                case "SupplierDelete"://删除供应商
+                case "OtherPartyDelete"://删除其他对方
                     res = _IDevRolePessionService.GetCompanyDeletePermission(funcode, userId, departId, listIds);
 
                     break;
@@ -125,6 +129,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers.Common
             switch (funcode)
             {
                 case "CustomerUpdate"://修改客户
+                case "SupplierUpdate"://修改供应商
+                case "OtherPartyUpdate"://其他对方
                     res = _IDevRolePessionService.GetCompanyUpdatePermission(funcode, userId, departId, Id);
 
                     break;
@@ -161,6 +167,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers.Common
             switch (funcode)
             {
                 case "CustomerView"://客户
+                case "SupplierView"://供应商
+                case "OtherPartyView"://其他对方
                     res = _IDevRolePessionService.GetCompanyDetailPermission(funcode, userId, departId, Id);
 
                     break;
@@ -196,6 +204,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers.Common
             switch (funcode)
             {
                 case "CustomerSecondaryField"://客户
+                case "SupplierSecondaryField"://供应商
+                case "OtherPartySecondaryField"://其他对方
                     res = _IDevRolePessionService.GetCompanySecFieldUpdatePermission(funcode, userId, departId, Id);
 
                     break;

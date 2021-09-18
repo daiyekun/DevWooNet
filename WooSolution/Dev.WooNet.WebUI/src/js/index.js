@@ -195,7 +195,8 @@
     $('.logout').on('click', function () {
         winui.hideStartMenu();
         winui.window.confirm('确认注销吗?', { icon: 3, title: '提示' }, function (index) {
-            winui.window.msg('执行注销操作，返回登录界面');
+            //winui.window.msg('执行注销操作，返回登录界面');
+            location.href="/login2.html"
             layer.close(index);
         });
     });
