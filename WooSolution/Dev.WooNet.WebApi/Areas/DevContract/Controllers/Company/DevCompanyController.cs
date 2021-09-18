@@ -35,12 +35,14 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
         private IMapper _IMapper;
         private IDevCompanyService _IDevCompanyService;
         private IConfiguration _Configuration;
+        private IDevRolePessionService _IDevRolePessionService;
         public DevCompanyController(IMapper iMapper, IDevCompanyService iDevCompanyService
-            , IConfiguration iConfiguration)
+            , IConfiguration iConfiguration, IDevRolePessionService iDevRolePessionService)
         {
             _IMapper = iMapper;
             _IDevCompanyService = iDevCompanyService;
             _Configuration = iConfiguration;
+            _IDevRolePessionService = iDevRolePessionService;
 
         }
         /// <summary>
@@ -52,9 +54,12 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
         [HttpPost]
         public IActionResult GetList([FromBody] PgRequestInfo pgInfo)
         {
+            var userId = HttpContext.User.Claims.GetTokenUserId();
+            var departId = HttpContext.User.Claims.GetTokenDeptId();
             var pageInfo = new PageInfo<DevCompany>(pageIndex: pgInfo.page, pageSize: pgInfo.limit);
             var prdAnd = PredBuilder.True<DevCompany>();
             prdAnd = prdAnd.And(a => a.IsDelete != 1);
+            prdAnd = prdAnd.And(_IDevRolePessionService.GetCompanyListPermissionExpression("CustomerList", userId, departId));
             var prdOr = PredBuilder.False<DevCompany>();
             if (!string.IsNullOrWhiteSpace(pgInfo.kword))
             {//小心搜索时如果计算是字符串。如果存在为null情况也需要判断下。不然会报找不到对象。比如IdNo字段问题
@@ -243,6 +248,50 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
             };
             return new JsonResult(ajaxResult);
 
+        }
+
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="Id">修改对象ID</param>
+        /// <param name="fieldName">修改字段名称</param>
+        /// <param name="fieldVal">修改值，如果不是String后台人为判断</param>
+        /// <returns></returns>
+        /// 
+        [Route("UpdateField")]
+        [HttpGet]
+        public IActionResult UpdateField(int Id, string fieldName, string fieldVal)
+        {
+            var res = _IDevCompanyService.UpdateField(new UpdateFieldInfo()
+            {
+                Id = Id,
+                Field = fieldName,
+                FieldVal = fieldVal
+
+
+            });
+            AjaxResult reqInfo = null;
+            if (res > 0)
+            {
+                reqInfo = new AjaxResult()
+                {
+                    msg = "修改成功",
+                    code = 0,
+
+
+                };
+            }
+            else
+            {
+                reqInfo = new AjaxResult()
+                {
+                    msg = "修改失败",
+                    code = 0,
+
+
+                };
+            }
+            return new JsonResult(reqInfo);
         }
 
 

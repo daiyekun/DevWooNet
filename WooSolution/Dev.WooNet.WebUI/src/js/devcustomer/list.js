@@ -92,17 +92,71 @@ layui.config({
             ids.push(item.Id);
         });
         if (layEvent === 'del') { //删除
-            devdelete(ids, obj);
+            wooutil.devajax({
+                type: 'GET',
+                url: devsetter.devbaseurl + 'api/DevPermission/delpermission',
+                data: { funcode: "CustomerDelete",ids:ids.toString() },
+                dataType: 'json',
+                success: function (res) {
+                    if(res.Tag==-1){
+                        top.winui.window.msg(res.msg, {
+                            icon: 5,
+                            time: 2000
+                        });
+    
+                    }else{
+                        devdelete(ids, obj);
+                    }
+    
+              }
+           });
+            
         } else if (layEvent === 'edit') { //编辑
             if (!data.Id) return;
-            var index = layer.load(1);
-            devopenwin('win_updatecustomer', data.Id, '修改客户');
-            layer.close(index);
+            wooutil.devajax({//权限判断
+                type: 'GET',
+                url: devsetter.devbaseurl + 'api/DevPermission/updatepermission',
+                data: { funcode: "CustomerUpdate",Id:data.Id },
+                dataType: 'json',
+                success: function (res) {
+                    if(res.Tag==-1){
+                        top.winui.window.msg(res.msg, {
+                            icon: 5,
+                            time: 2000
+                        });
+    
+                    }else{
+                        var index = layer.load(1);
+                        devopenwin('win_updatecustomer', data.Id, '修改客户');
+                        layer.close(index);
+                    }
+    
+              }
+           });
+           
         }else if(layEvent === 'showview'){
             if (!data.Id) return;
-            var index = layer.load(1);
-            devopenwin('win_viewcustomer', data.Id, '查看客户',true);
-            layer.close(index);
+            wooutil.devajax({
+                type: 'GET',
+                url: devsetter.devbaseurl + 'api/DevPermission/viewpermission',
+                data: { funcode: "CustomerView",Id:data.Id},
+                dataType: 'json',
+                success: function (res) {
+                    if(res.Tag==-1){
+                        top.winui.window.msg(res.msg, {
+                            icon: 5,
+                            time: 2000
+                        });
+    
+                    }else{
+                        var index = layer.load(1);
+                         devopenwin('win_viewcustomer', data.Id, '查看客户',true);
+                         layer.close(index);
+                    }
+    
+              }
+           });
+            
 
 
         }
@@ -184,20 +238,36 @@ layui.config({
 
         });
     }
-    
-
 
     //绑定按钮事件
     $('#adddev').on('click', function () {
+          wooutil.devajax({
+            type: 'GET',
+            url: devsetter.devbaseurl + 'api/DevPermission/addpermission',
+            data: { funcode: "CustomerAdd" },
+            dataType: 'json',
+            success: function (res) {
+                if(res.Tag==-1){
+                    top.winui.window.msg(res.msg, {
+                        icon: 5,
+                        time: 2000
+                    });
 
-        devopenwin('win_addcustomer', 0, '新增客户');
+                }else{
+                    devopenwin('win_addcustomer', 0, '新增客户');
+                }
+
+          }
+       });
+
+      
     });
     //删除按钮
     $('#deletedev').on('click', function () {
         var checkStatus = table.checkStatus(tableId);
         var checkCount = checkStatus.data.length;
         if (checkCount < 1) {
-            top.winui.window.msg('请选择一条数据', {
+            top.winui.window.msg('请选择删除数据', {
                 time: 2000
             });
             return false;
@@ -206,7 +276,28 @@ layui.config({
         $(checkStatus.data).each(function (index, item) {
             ids.push(item.Id);
         });
-        devdelete(ids);
+
+        wooutil.devajax({//权限判断
+            type: 'GET',
+            url: devsetter.devbaseurl + 'api/DevPermission/delpermission',
+            data: { funcode: "CustomerDelete",ids:ids.toString() },
+            dataType: 'json',
+            success: function (res) {
+                if(res.Tag==-1){
+                    top.winui.window.msg(res.msg, {
+                        icon: 5,
+                        time: 2000
+                    });
+
+                }else{
+                    devdelete(ids);
+                }
+
+          }
+       });
+
+
+        
     });
    
     $('#reloadTable').on('click', reloadTable);

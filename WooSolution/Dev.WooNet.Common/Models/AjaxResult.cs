@@ -35,7 +35,7 @@ namespace Dev.WooNet.Common.Models
         /// <summary>
         /// 标签值
         /// </summary>
-        public int Tag { get; set; }
+        public int Tag { get; set; } = 0;
 
     }
     public class AjaxResult<T> : AjaxResult

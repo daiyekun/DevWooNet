@@ -379,6 +379,41 @@ namespace Dev.WooNet.WooService
 
         }
 
+        /// <summary>
+        /// 修改字段
+        /// </summary>
+        /// <param name="info">修改的字段对象</param>
+        /// <returns>返回受影响行数</returns>
+        public int UpdateField(UpdateFieldInfo info)
+        {
+            string sqlstr = "";
+            switch (info.Field)
+            {
+
+                case "InvoiceTitle"://发票抬头
+                case "InvAddress":
+                case "BankName":
+                case "Account":
+               
+                    sqlstr = $"update  dev_company set {info.Field}='{info.FieldVal}' where Id={info.Id}";
+                    break;
+                //case "PrincipalUserDisplayName"://负责人
+                //    sqlstr = $"update  Company set PrincipalUserId={info.FieldValue} where Id={info.Id}";
+                //    break;
+                //case "Cstate"://状态
+                //    var state = Convert.ToByte(info.FieldValue);
+                //    sqlstr = $"update  Company set Cstate={state} where Id={info.Id}";
+                //    break;
+
+                default:
+                    break;
+            }
+            if (!string.IsNullOrEmpty(sqlstr))
+                return ExecuteSqlCommand(sqlstr);
+            return 0;
+
+        }
+
 
         #endregion
 

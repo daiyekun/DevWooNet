@@ -56,7 +56,14 @@ namespace Dev.WooNet.IWooService
         /// <param name="Ids">删除Ids</param>
         /// <returns></returns>
         AjaxResult DelCompany(string Ids);
-        
+        /// <summary>
+        /// 修改字段
+        /// </summary>
+        /// <param name="info">修改的字段对象</param>
+        /// <returns>返回受影响行数</returns>
+        int UpdateField(UpdateFieldInfo info);
+
+
 
 
 

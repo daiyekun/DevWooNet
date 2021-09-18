@@ -1,4 +1,5 @@
 ﻿using Dev.WooNet.Model.Enums;
+using Dev.WooNet.Model.ExtendModel;
 using Dev.WooNet.Model.Models;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,14 @@ namespace Dev.WooNet.IWooService
         /// <param name="funcCode">功能点标识</param>
         /// <returns>True：有权限新建，False：没权限</returns>
         bool GetCompanyAddPermission(string funcCode, int userId);
+        /// <summary>
+        //获取删除合同对方权限
+        /// </summary>
+        /// <param name="userId">当前用户</param>
+        /// <param name="funcCode">功能点标识</param>
+        /// <param name="listdelIds">删除数据ID集合</param>
+        /// <returns>PermissionDicEnum</returns>
+         PermissionDataInfo GetCompanyDeletePermission(string funcCode, int userId, int deptId, IList<int> listdelIds);
         /// <summary>
         /// 判断当前用户是否有修改合同对方的权限
         /// </summary>

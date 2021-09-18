@@ -8,10 +8,11 @@ layui.config({
     address: 'devextend/address',
     tableSelect: 'devextend/tableSelect',
     devselitem: 'devextend/devselitem',
+    devviewedit: 'devextend/devviewedit/devviewedit',
     flowapplist:'devextend/flowutility/flowapplist'
   
    
-}).define(['table', 'winui', 'window', 'layer', 'devindex', 'laydate','address','tableSelect','devselitem','flowapplist'], function (exports) {
+}).define(['table', 'winui', 'window', 'layer', 'devindex', 'laydate','address','tableSelect','devselitem','flowapplist','devviewedit'], function (exports) {
     winui.renderColor();
     var table = layui.table,
         $ = layui.$,
@@ -23,6 +24,7 @@ layui.config({
         ,tableSelect=layui.tableSelect
         ,devselitem=layui.devselitem
         ,flowapplist=layui.flowapplist
+        ,devviewedit=layui.devviewedit
         , tableId = 'useridtableid'
         ,appflowdata=null;
         ;
@@ -722,7 +724,67 @@ table.on('tool(Dev-CustomerDesc)', function (obj) {
 });
 
 /***********************备忘录-end***************************************************************************************************/
- //审批历史
+ //次要字段编辑按钮
+ function secfield(){
+    wooutil.devajax({
+        type: 'GET',
+        url: devsetter.devbaseurl + 'api/DevPermission/SecFieldPermission',
+        data: { funcode: "CustomerSecondaryField",Id:$devId },
+        dataType: 'json',
+        success: function (res) {
+            if(res.Tag==0){
+            var secfilds=["InvoiceTitle","InvAddress","BankName","Account"];
+            $.each(secfilds, function (index, fieldId) {
+
+                switch (fieldId) {
+                    case "InvTitle":
+                    case 'InvAddress':
+                    case 'BankName':
+                    case 'Account':
+                  
+                        {//都是文本编辑框
+                            devviewedit.render({
+                                elem: '#' + fieldId,
+                                edittype: 'text',
+                                objid: $devId,
+                                fieldname: fieldId,
+                                verify: 'required',
+                                ckEl: '#Name',
+                                url: devsetter.devbaseurl +'api/DevCompany/UpdateField'
+
+                            });
+                        }
+
+                        break;
+                    // case "PrincipalUserDisplayName"://负责人
+                    //     {//都是文本编辑框
+                    //         viewPageEdit.render({
+                    //             elem: '#' + fieldId,
+                    //             edittype: 'selTable',
+                    //             objid: companyId,
+                    //             fieldname: fieldId,
+                    //             verify: 'required',
+                    //             selobjId: "#PrincipalUserId",
+                    //             ckEl: '#Name',
+                    //             url: '/Company/Customer/UpdateField'
+
+                    //         });
+                    //     }
+
+                    //     break;
+
+                }
+            });
+            }else {
+                devviewedit.noUpShow(updateFields);
+            }
+
+      }
+   });
+
+ }
+ secfield();
+//审批历史
  flowapplist.applistInit({ Id: $devId, objType: 0 });
  /******************************************************审批按钮begin*******************************************/
 

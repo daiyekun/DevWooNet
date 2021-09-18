@@ -99,6 +99,14 @@ namespace Dev.WooNet.Model.ExtendModel
 
             sysModelFunc = new SysModelFuncSet();
             sysModelFunc.Id = 6;
+            sysModelFunc.Name = "查看客户详情";
+            sysModelFunc.Mid = 22;
+            sysModelFunc.FunType = FunTypeEnums.FunType1;
+            sysModelFunc.FunStr = "CustomerView";
+            sysModelFuncs.Add(sysModelFunc);
+
+            sysModelFunc = new SysModelFuncSet();
+            sysModelFunc.Id = 7;
             sysModelFunc.Name = "客户次要字段权限";
             sysModelFunc.Mid = 22;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
@@ -109,7 +117,7 @@ namespace Dev.WooNet.Model.ExtendModel
 
             #region 供应商权限管理
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 7;
+            sysModelFunc.Id = 10;
             sysModelFunc.Name = "供应商列表权限";
             sysModelFunc.Mid = 23;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
@@ -117,7 +125,7 @@ namespace Dev.WooNet.Model.ExtendModel
             sysModelFuncs.Add(sysModelFunc);
 
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 8;
+            sysModelFunc.Id = 11;
             sysModelFunc.Name = "供应商新增权限";
             sysModelFunc.Mid = 23;
             sysModelFunc.FunType = FunTypeEnums.FunType0;
@@ -125,7 +133,7 @@ namespace Dev.WooNet.Model.ExtendModel
             sysModelFuncs.Add(sysModelFunc);
 
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 9;
+            sysModelFunc.Id = 12;
             sysModelFunc.Name = "供应商修改权限";
             sysModelFunc.Mid = 23;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
@@ -133,7 +141,7 @@ namespace Dev.WooNet.Model.ExtendModel
             sysModelFuncs.Add(sysModelFunc);
 
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 10;
+            sysModelFunc.Id = 13;
             sysModelFunc.Name = "供应商删除权限";
             sysModelFunc.Mid = 23;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
@@ -141,7 +149,15 @@ namespace Dev.WooNet.Model.ExtendModel
             sysModelFuncs.Add(sysModelFunc);
 
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 11;
+            sysModelFunc.Id = 14;
+            sysModelFunc.Name = "查看供应商详情";
+            sysModelFunc.Mid = 23;
+            sysModelFunc.FunType = FunTypeEnums.FunType1;
+            sysModelFunc.FunStr = "SupplierView";
+            sysModelFuncs.Add(sysModelFunc);
+
+            sysModelFunc = new SysModelFuncSet();
+            sysModelFunc.Id = 15;
             sysModelFunc.Name = "供应商次要字段权限";
             sysModelFunc.Mid = 23;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
@@ -152,7 +168,7 @@ namespace Dev.WooNet.Model.ExtendModel
 
             #region 其他对方权限管理
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 12;
+            sysModelFunc.Id = 18;
             sysModelFunc.Name = "其他对方列表权限";
             sysModelFunc.Mid = 24;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
@@ -160,7 +176,7 @@ namespace Dev.WooNet.Model.ExtendModel
             sysModelFuncs.Add(sysModelFunc);
 
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 13;
+            sysModelFunc.Id = 19;
             sysModelFunc.Name = "其他对方新增权限";
             sysModelFunc.Mid = 24;
             sysModelFunc.FunType = FunTypeEnums.FunType0;
@@ -168,7 +184,7 @@ namespace Dev.WooNet.Model.ExtendModel
             sysModelFuncs.Add(sysModelFunc);
 
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 14;
+            sysModelFunc.Id = 20;
             sysModelFunc.Name = "其他对方修改权限";
             sysModelFunc.Mid = 24;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
@@ -176,7 +192,7 @@ namespace Dev.WooNet.Model.ExtendModel
             sysModelFuncs.Add(sysModelFunc);
 
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 15;
+            sysModelFunc.Id = 21;
             sysModelFunc.Name = "其他对方删除权限";
             sysModelFunc.Mid = 24;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
@@ -184,7 +200,15 @@ namespace Dev.WooNet.Model.ExtendModel
             sysModelFuncs.Add(sysModelFunc);
 
             sysModelFunc = new SysModelFuncSet();
-            sysModelFunc.Id = 16;
+            sysModelFunc.Id = 22;
+            sysModelFunc.Name = "查看其他对方详情";
+            sysModelFunc.Mid = 24;
+            sysModelFunc.FunType = FunTypeEnums.FunType1;
+            sysModelFunc.FunStr = "OtherPartyView";
+            sysModelFuncs.Add(sysModelFunc);
+
+            sysModelFunc = new SysModelFuncSet();
+            sysModelFunc.Id = 23;
             sysModelFunc.Name = "其他对方次要字段权限";
             sysModelFunc.Mid = 24;
             sysModelFunc.FunType = FunTypeEnums.FunType1;
