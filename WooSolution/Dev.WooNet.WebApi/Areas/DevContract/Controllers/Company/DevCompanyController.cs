@@ -52,13 +52,13 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
         /// <returns></returns>
         [Route("list")]
         [HttpPost]
-        public IActionResult GetList([FromBody] PgRequestInfo pgInfo)
+        public IActionResult GetList([FromBody] PgRequestInfo pgInfo,int ctype)
         {
             var userId = HttpContext.User.Claims.GetTokenUserId();
             var departId = HttpContext.User.Claims.GetTokenDeptId();
             var pageInfo = new PageInfo<DevCompany>(pageIndex: pgInfo.page, pageSize: pgInfo.limit);
             var prdAnd = PredBuilder.True<DevCompany>();
-            prdAnd = prdAnd.And(a => a.IsDelete != 1);
+            prdAnd = prdAnd.And(a => a.IsDelete != 1&&a.Dtype== ctype);
             prdAnd = prdAnd.And(_IDevRolePessionService.GetCompanyListPermissionExpression("CustomerList", userId, departId));
             var prdOr = PredBuilder.False<DevCompany>();
             if (!string.IsNullOrWhiteSpace(pgInfo.kword))
@@ -93,8 +93,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
             };
             if (info.Id > 0)
             {//修改
-                var existname = _IDevCompanyService.GetQueryable(a => a.Name == info.Name && a.Id != info.Id).Any();
-                var existno = _IDevCompanyService.GetQueryable(a => a.Code == info.Code&&a.Id!=info.Id).Any();
+                var existname = _IDevCompanyService.GetQueryable(a => a.Name == info.Name && a.Id != info.Id&&a.Dtype==0).Any();
+                var existno = _IDevCompanyService.GetQueryable(a => a.Code == info.Code&&a.Id!=info.Id && a.Dtype == 0).Any();
                 if (existname)
                 {
                     result.code = (int)MessageEnums.IsExist;
@@ -111,6 +111,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
                     var currinfo = _IDevCompanyService.Find(info.Id);
                     var saveinfo = _IMapper.Map<DevCompanyDTO, DevCompany>(info);
                     saveinfo.Dstatus = 0;
+                    saveinfo.Dtype = 0;
                     saveinfo.AddDateTime = currinfo.AddDateTime;
                     saveinfo.AddUserId= currinfo.AddUserId;
                     _IDevCompanyService.Update(saveinfo);
@@ -124,8 +125,8 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
             }
             else
             {
-                var existname = _IDevCompanyService.GetQueryable(a => a.Name == info.Name&&a.IsDelete!=1).Any();
-                var existno = _IDevCompanyService.GetQueryable(a => a.Code == info.Code&& a.IsDelete != 1).Any();
+                var existname = _IDevCompanyService.GetQueryable(a => a.Name == info.Name&&a.IsDelete!=1 && a.Dtype == 0).Any();
+                var existno = _IDevCompanyService.GetQueryable(a => a.Code == info.Code&& a.IsDelete != 1 && a.Dtype == 0).Any();
                 if (existname)
                 {
                     result.code = (int)MessageEnums.IsExist;

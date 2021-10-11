@@ -102,10 +102,29 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
             });
 
         }
+        /// <summary>
+        /// 重置密码
+        /// </summary>
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [Route("test")]
+        [HttpGet]
+        public IActionResult Test(string name,string password)
+        {
+            
+            return new DevResultJson(new AjaxResult()
+            {
+                msg = "success",
+                code = (int)MessageEnums.success,
 
-        
 
-         [Route("list")]
+            });
+
+        }
+
+
+
+        [Route("list")]
         [HttpPost]
         public IActionResult  GetListUser([FromBody] PgRequestInfo pgInfo)
         {

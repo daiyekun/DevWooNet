@@ -12,8 +12,8 @@ E:\WooCode\WooSolution\Dev.WooNet.Model\obj\Debug\net5.0\Dev.WooNet.Model.pdb
 E:\WooCode\WooSolution\Dev.WooNet.Model\bin\Debug\net5.0\Dev.WooNet.Model.runtimeconfig.json
 E:\WooCode\WooSolution\Dev.WooNet.Model\bin\Debug\net5.0\Dev.WooNet.Model.runtimeconfig.dev.json
 E:\WooCode\WooSolution\Dev.WooNet.Model\obj\Debug\net5.0\Dev.WooNet.Model.genruntimeconfig.cache
-E:\WooCode\WooSolution\Dev.WooNet.Model\obj\Debug\net5.0\Dev.WooNet.Model.csprojAssemblyReference.cache
 E:\WooCode\WooSolution\Dev.WooNet.Model\bin\Debug\net5.0\Dev.WooNet.Common.dll
 E:\WooCode\WooSolution\Dev.WooNet.Model\bin\Debug\net5.0\Dev.WooNet.Common.pdb
 E:\WooCode\WooSolution\Dev.WooNet.Model\obj\Debug\net5.0\Dev.WooNet.Model.csproj.CopyComplete
 E:\WooCode\WooSolution\Dev.WooNet.Model\bin\Debug\net5.0\Interop.Microsoft.Office.Interop.Word.dll
+E:\WooCode\WooSolution\Dev.WooNet.Model\obj\Debug\net5.0\Dev.WooNet.Model.csproj.AssemblyReference.cache

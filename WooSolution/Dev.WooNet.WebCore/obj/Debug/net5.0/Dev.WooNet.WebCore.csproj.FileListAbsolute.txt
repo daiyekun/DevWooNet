@@ -9,10 +9,10 @@ E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.cs
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\ref\Dev.WooNet.WebCore.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.pdb
-E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.csprojAssemblyReference.cache
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\Dev.WooNet.Common.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\Dev.WooNet.Common.pdb
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.csproj.CopyComplete
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\Dev.WooNet.Model.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\Dev.WooNet.Model.pdb
 E:\WooCode\WooSolution\Dev.WooNet.WebCore\bin\Debug\net5.0\Interop.Microsoft.Office.Interop.Word.dll
+E:\WooCode\WooSolution\Dev.WooNet.WebCore\obj\Debug\net5.0\Dev.WooNet.WebCore.csproj.AssemblyReference.cache

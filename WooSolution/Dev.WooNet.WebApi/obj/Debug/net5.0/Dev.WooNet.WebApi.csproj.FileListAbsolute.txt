@@ -26,7 +26,6 @@ E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Dev.WooNet.WebApi.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\ref\Dev.WooNet.WebApi.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Dev.WooNet.WebApi.pdb
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Dev.WooNet.WebApi.genruntimeconfig.cache
-E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Dev.WooNet.WebAPI.csprojAssemblyReference.cache
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Humanizer.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
@@ -448,3 +447,6 @@ E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Razor\Areas\DevCommon\
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Razor\Views\pdftest.cshtml.g.cs
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\bin\Debug\net5.0\Rotativa\Windows\wkhtmltopdf.exe
 E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Razor\Views\CustomerPDF.cshtml.g.cs
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Dev.WooNet.WebAPI.csproj.AssemblyReference.cache
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Razor\Views\SupplierPDF.cshtml.g.cs
+E:\WooCode\WooSolution\Dev.WooNet.WebApi\obj\Debug\net5.0\Razor\Views\ThirdPDF.cshtml.g.cs

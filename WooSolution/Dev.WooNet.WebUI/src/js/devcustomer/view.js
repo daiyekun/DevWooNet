@@ -145,25 +145,25 @@ function cleardata(){
         }
     }
     
-    //客户类别
-     wooutil.getdatadic({ dataenum: 3, selectEl: "#CompClassId" });
-     //单位级别
-     wooutil.getdatadic({ dataenum: 5, selectEl: "#LevelId" });
-     //信用等级
-     wooutil.getdatadic({ dataenum: 5, selectEl: "#CareditId" });
-    //成立日期
-     laydate.render({ elem: '#EsDateTime', trigger: 'click' });
-    //证件有效期
-     laydate.render({ elem: '#ExpDateTime', trigger: 'click' });
+    // //客户类别
+    //  wooutil.getdatadic({ dataenum: 3, selectEl: "#CompClassId" });
+    //  //单位级别
+    //  wooutil.getdatadic({ dataenum: 5, selectEl: "#LevelId" });
+    //  //信用等级
+    //  wooutil.getdatadic({ dataenum: 6, selectEl: "#CareditId" });
+    // //成立日期
+    //  laydate.render({ elem: '#EsDateTime', trigger: 'click' });
+    // //证件有效期
+    //  laydate.render({ elem: '#ExpDateTime', trigger: 'click' });
      wooutil.selverpen();//下拉小笔头
      //负责人
-     devselitem.selectUserItem(
-        {
-            tableSelect: tableSelect,
-            elem: '#FaceUserName',
-            hide_elem: '#FaceUserId'
+    //  devselitem.selectUserItem(
+    //     {
+    //         tableSelect: tableSelect,
+    //         elem: '#FaceUserName',
+    //         hide_elem: '#FaceUserId'
 
-        });
+    //     });
     //执行赋值表单
     devSetValues();
     form.render(null, 'DEV-CustomerForm');
@@ -732,8 +732,9 @@ table.on('tool(Dev-CustomerDesc)', function (obj) {
         data: { funcode: "CustomerSecondaryField",Id:$devId },
         dataType: 'json',
         success: function (res) {
-            if(res.Tag==0){
             var secfilds=["InvTitle","InvAddress","BankName","Account"];
+            if(res.Tag==0){
+           
             $.each(secfilds, function (index, fieldId) {
 
                 switch (fieldId) {
@@ -776,7 +777,7 @@ table.on('tool(Dev-CustomerDesc)', function (obj) {
                 }
             });
             }else {
-                devviewedit.noUpShow(updateFields);
+                devviewedit.noUpShow(secfilds);
             }
 
       }

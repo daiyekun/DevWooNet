@@ -80,6 +80,22 @@ namespace Dev.WooNet.WebAPI.Areas.DevCommon.Controllers
                         pdfstram.Position = 0;
                     }
                     break;
+                case (int)FlowObjEnums.Supplier://供应商
+                    {
+                        CompanyInfo info = _IDevFlowPdfService.GetCompanyFlowPdfInfo(wfinfo);
+                        var pdf = await _IGeneratePdf.GetByteArray("SupplierPDF", info);
+                        pdfstram.Write(pdf, 0, pdf.Length);
+                        pdfstram.Position = 0;
+                    }
+                    break;
+                case (int)FlowObjEnums.Other://其他对方
+                    {
+                        CompanyInfo info = _IDevFlowPdfService.GetCompanyFlowPdfInfo(wfinfo);
+                        var pdf = await _IGeneratePdf.GetByteArray("ThirdPDF", info);
+                        pdfstram.Write(pdf, 0, pdf.Length);
+                        pdfstram.Position = 0;
+                    }
+                    break;
 
             }
 

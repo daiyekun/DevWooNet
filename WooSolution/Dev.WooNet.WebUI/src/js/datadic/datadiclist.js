@@ -21,70 +21,77 @@ layui.config({
         $ = layui.$,
         devindex = layui.devindex;
     /*****************************************新增可能存在的修改--begin***************************************************** */
-    //部门类别
-    var departtabcols = [
+    //常规列
+    var commcols=[
         { type: 'checkbox' },
         { field: 'Id', width: 80, title: 'ID', hide: true },
         { field: 'Name', title: '名称', width: 160, edit: 'text' },
         { field: 'Remark', title: '备注', width: 200, edit: 'text' }
     ];
-     
+    //部门类别
+    var departtabcols = commcols;
      tablerender('woodepartdic', departtabcols);
      tableEdit('woodepartdic');
     //合同类别
-    var conttabcols = [
-        { type: 'checkbox' },
-        { field: 'Id', width: 80, title: 'ID', hide: true },
-        { field: 'Name', title: '名称', width: 160, edit: 'text' },
-        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
-    ];
+    var conttabcols = commcols;
+   
     tablerender('woocontdic',  conttabcols);
     tableEdit('woocontdic');
     //客户类别
-    var customertabcols = [
-        { type: 'checkbox' },
-        { field: 'Id', width: 80, title: 'ID', hide: true },
-        { field: 'Name', title: '名称', width: 160, edit: 'text' },
-        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
-    ];
+    var customertabcols = commcols;
+   
     tablerender('woodcustomerdic',  customertabcols);
     tableEdit('woodcustomerdic');
     //客户附件类别
-    var custfiletabcols = [
-        { type: 'checkbox' },
-        { field: 'Id', width: 80, title: 'ID', hide: true },
-        { field: 'Name', title: '名称', width: 160, edit: 'text' },
-        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
-    ];
+    var custfiletabcols =commcols;
+   
     tablerender('woodcustfiledic', custfiletabcols);
     tableEdit('woodcustfiledic');
     //客户级别
-    var custLeveltabcols = [
-        { type: 'checkbox' },
-        { field: 'Id', width: 80, title: 'ID', hide: true },
-        { field: 'Name', title: '名称', width: 160, edit: 'text' },
-        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
-    ];
+    var custLeveltabcols =commcols;
+    
     tablerender('woodcustLeveldic', custLeveltabcols);
     tableEdit('woodcustLeveldic');
     //信用等级
-    var custCaredittabcols = [
-        { type: 'checkbox' },
-        { field: 'Id', width: 80, title: 'ID', hide: true },
-        { field: 'Name', title: '名称', width: 160, edit: 'text' },
-        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
-    ];
+    var custCaredittabcols = commcols;
     tablerender('woodcustCareditdic', custCaredittabcols);
     tableEdit('woodcustCareditdic');
     //公司类型
-    var custdcustTypetabcols = [
-        { type: 'checkbox' },
-        { field: 'Id', width: 80, title: 'ID', hide: true },
-        { field: 'Name', title: '名称', width: 160, edit: 'text' },
-        { field: 'Remark', title: '备注', width: 200, edit: 'text' }
-    ];
+    var custdcustTypetabcols =commcols; 
     tablerender('woodcustTypetdic', custdcustTypetabcols);
     tableEdit('woodcustTypetdic');
+    //供应商类别
+    var supplierTypetabcols =commcols; 
+    tablerender('woodsupplierdic', supplierTypetabcols);
+    tableEdit('woodsupplierdic');
+    //供应商附件类别
+    var supplierfileTypetabcols =commcols; 
+    tablerender('woodsupplierfiledic', supplierfileTypetabcols);
+    tableEdit('woodsupplierfiledic');
+    //供应商级别
+    var supplierLeveltabcols =commcols; 
+    tablerender('woodsupplierLeveldic', supplierLeveltabcols);
+    tableEdit('woodsupplierLeveldic');
+    //供应商信用等级
+    var supplierCaredittabcols =commcols; 
+    tablerender('woodsupplierCareditdic', supplierCaredittabcols);
+    tableEdit('woodsupplierCareditdic');
+    //其他对方类别
+    var thirddictabcols =commcols; 
+    tablerender('woodthirddic', thirddictabcols);
+    tableEdit('woodthirddic');
+    //其他对方附件类别
+    var thirdfiledictabcols =commcols; 
+    tablerender('woodthirdfiledic', thirdfiledictabcols);
+    tableEdit('woodthirdfiledic');
+    //其他对方级别
+    var thirdLeveldictabcols =commcols; 
+    tablerender('woodthirdLeveldic', thirdLeveldictabcols);
+    tableEdit('woodthirdLeveldic');
+    //其他对方信用等级
+    var thirdCareditdictabcols =commcols; 
+    tablerender('woodthirdCareditdic', thirdCareditdictabcols);
+    tableEdit('woodthirdCareditdic');
 
     
    
@@ -100,9 +107,14 @@ layui.config({
                 break;
                 case "woocontdic"://合同类别
                 tpId = 1;
+                case "woodsupplierdic"://供应商类别
+                tpId = 2;
                 break;
                 case "woodcustomerdic"://客户类别
                 tpId = 3;
+                break;
+                case "woodthirddic"://其他对方类别
+                tpId = 4;
                 break;
                 case "woodcustfiledic"://客户附件类别
                 tpId = 8;
@@ -115,6 +127,24 @@ layui.config({
                 break;
                 case "woodcustTypetdic"://公司类型
                 tpId = 7;
+                break;
+                case "woodsupplierfiledic"://供应商附件
+                tpId = 9;
+                break;
+                case "woodthirdfiledic"://其他对方附件
+                tpId = 10;
+                break;
+                case "woodsupplierLeveldic"://供应商级别
+                tpId = 11;
+                break;
+                case "woodthirdLeveldic"://其他对方级别
+                tpId = 12;
+                break;
+                case "woodsupplierCareditdic"://供应商信用等级
+                tpId = 33;
+                break;
+                case "woodthirdCareditdic"://其他对方信用等级
+                tpId = 34;
                 break;
 
         }

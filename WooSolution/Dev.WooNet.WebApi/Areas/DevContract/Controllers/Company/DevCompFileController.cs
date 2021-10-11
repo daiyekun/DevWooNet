@@ -54,7 +54,7 @@ namespace Dev.WooNet.WebAPI.Areas.DevContract.Controllers
             var userId = HttpContext.User.Claims.GetTokenUserId();
             var pageInfo = new NoPageInfo<DevCompfile>();
             var prdAnd = PredBuilder.True<DevCompfile>();
-            prdAnd = prdAnd.And(a => a.IsDelete == 0 && (a.CompId == pgInfo.otherId || a.CompId == -userId));
+            prdAnd = prdAnd.And(a => a.IsDelete == 0 && ((pgInfo != null && a.CompId == pgInfo.otherId) || a.CompId == -userId));
             var prdOr = PredBuilder.False<DevCompfile>();
 
             var pagelist = _IDevCompfileService.GetList(pageInfo, prdAnd, a => a.Id, false);

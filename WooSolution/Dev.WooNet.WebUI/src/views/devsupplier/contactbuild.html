@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>供应商联系人</title>
+    <link href="/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="/lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="/lib/winui/css/winui.css" rel="stylesheet" />
+    <link href="/lib/winui/css/devcommon.css" rel="stylesheet"/>
+</head>
+<body>
+<div style="margin:0 auto;padding-top:20px;">
+    <div class="layui-form" lay-filter="DEV-customercontactForm">
+        <input  type="hidden" id="Id" name="Id"  />
+        <!-- 合同对方ID -->
+        <input  type="hidden" id="CompId" name="CompId"  />
+        
+        <div >
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body" style="padding: 15px;">
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">姓名</label>
+                        <div class="layui-input-block">
+                           
+                            <input type="text" name="Name" lay-verify="required"  class="layui-input dev-input-pen" />
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">部门名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Dname" lay-verify="required"  class="layui-input dev-input-pen"  />
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">职位</label>
+                        <div class="layui-input-block">
+                            <input type="text" lay-verify="required"  name="RoleName"   class="layui-input dev-input-pen" />
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">办公电话</label>
+                        <div class="layui-input-block">
+                            <input type="text" id="PhoneTel" lay-verify="required"  name="PhoneTel"   class="layui-input dev-input-pen" />
+                           
+                        </div>
+                    </div>
+
+                </div>
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">手机号码</label>
+                        <div class="layui-input-block">
+                            <input type="text"  lay-verify="required"  name="PhoneNo"   class="layui-input dev-input-pen" />
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">E-Mail</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Email"   class="layui-input" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                    
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">传真</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Fax"  class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-col-lg6 layui-col-md6 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">其他联系方式</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Qq" class="layui-input" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+
+                    <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                        <label class="layui-form-label">备注</label>
+                        <div class="layui-input-block">
+                            <textarea name="Remark" class="layui-textarea"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+
+                </div>
+                
+
+                
+               
+            </div>
+        </div>
+        <!--基本信息end-->
+      
+        <!--按钮begin-->
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <div class="layui-footer" style="left: 0;">
+                    <button class="winui-btn" lay-submit lay-filter="dev-formSaveContact">确定</button>
+                    <button class="winui-btn" id="quxiaobtn" >取消</button>
+                </div>
+            </div>
+            </div>
+        <!--按钮begin-->
+    </div>
+    
+</div>
+<script src="/lib/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../js/'
+        }).extend({
+            Supercontactbuild:'devsupplier/contactbuild',
+            
+        })
+        .use('Supercontactbuild');
+</script>
+</body>
+</html>

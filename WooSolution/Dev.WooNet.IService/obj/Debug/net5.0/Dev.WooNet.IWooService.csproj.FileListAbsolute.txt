@@ -2,7 +2,6 @@ E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Dev.WooNet.IWooServi
 E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Dev.WooNet.IWooService.dll
 E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\ref\Dev.WooNet.IWooService.dll
 E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Dev.WooNet.IWooService.pdb
-E:\WooCode\WooSolution\Dev.WooNet.IService\obj\Debug\net5.0\Dev.WooNet.IWooService.csprojAssemblyReference.cache
 E:\WooCode\WooSolution\Dev.WooNet.IService\obj\Debug\net5.0\Dev.WooNet.IWooService.GeneratedMSBuildEditorConfig.editorconfig
 E:\WooCode\WooSolution\Dev.WooNet.IService\obj\Debug\net5.0\Dev.WooNet.IWooService.AssemblyInfoInputs.cache
 E:\WooCode\WooSolution\Dev.WooNet.IService\obj\Debug\net5.0\Dev.WooNet.IWooService.AssemblyInfo.cs
@@ -16,3 +15,4 @@ E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Dev.WooNet.Common.pd
 E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Dev.WooNet.Model.pdb
 E:\WooCode\WooSolution\Dev.WooNet.IService\obj\Debug\net5.0\Dev.WooNet.IWooService.csproj.CopyComplete
 E:\WooCode\WooSolution\Dev.WooNet.IService\bin\Debug\net5.0\Interop.Microsoft.Office.Interop.Word.dll
+E:\WooCode\WooSolution\Dev.WooNet.IService\obj\Debug\net5.0\Dev.WooNet.IWooService.csproj.AssemblyReference.cache

@@ -133,5 +133,15 @@ namespace Dev.WooNet.Model.Enums
         /// </summary>
         [EnumItem(Value = 32, Desc = "发票附件类别")]
         InvoFile = 32,
+        /// <summary>
+        /// 供应商信用等级
+        /// </summary>
+        [EnumItem(Value = 33, Desc = "供应商信用等级")]
+        GYSXinYong = 33,
+        /// <summary>
+        /// 其他对方信用等级
+        /// </summary>
+        [EnumItem(Value = 34, Desc = "其他对方信用等级")]
+        QTDFXinYong = 34,
     }
 }

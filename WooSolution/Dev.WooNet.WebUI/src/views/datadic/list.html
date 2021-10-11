@@ -31,13 +31,15 @@
                     <li><i class="fa fa-bug fa-fw"></i>客户信用等级</li>
                     <li><i class="fa fa-bug fa-fw"></i>公司类型</li>
                     <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
-                    <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
+                    <li><i class="fa fa-bug fa-fw"></i>供应商附件</li>
+                    <li><i class="fa fa-bug fa-fw"></i>供应商级别</li>
+                    <li><i class="fa fa-bug fa-fw"></i>供应商信用等级</li>
+
+                    <li><i class="fa fa-bug fa-fw"></i>其他对方类别</li>
+                    <li><i class="fa fa-bug fa-fw"></i>其他对方附件类别</li>
+                    <li><i class="fa fa-bug fa-fw"></i>其他对方级别</li>
+                    <li><i class="fa fa-bug fa-fw"></i>其他对方信用等级</li>
+
                     <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
                     <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
                     <li><i class="fa fa-bug fa-fw"></i>供应商类别</li>
@@ -94,6 +96,7 @@
                         <table id="woodcustfiledic" lay-filter="woodcustfiledic"></table>
                     </div>
                     <div class="winui-tab-item" >
+                        <!-- 客户级别 -->
                         <div class="winui-toolbar">
                             <div class="winui-tool">
                                 <button  class="winui-toolbtn reloadTable" dev-tableId="woodcustLeveldic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
@@ -102,8 +105,10 @@
                             </div>
                         </div>
                         <table id="woodcustLeveldic" lay-filter="woodcustLeveldic"></table>
+                        <!-- 客户级别 -->
                     </div>
                     <div class="winui-tab-item" >
+                        <!-- 客户信用等级 -->
                         <div class="winui-toolbar">
                             <div class="winui-tool">
                                 <button  class="winui-toolbtn reloadTable" dev-tableId="woodcustCareditdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
@@ -112,6 +117,7 @@
                             </div>
                         </div>
                         <table id="woodcustCareditdic" lay-filter="woodcustCareditdic"></table>
+                         <!-- 客户信用等级 -->
                     </div>
                     <div class="winui-tab-item" >
                         <div class="winui-toolbar">
@@ -125,8 +131,158 @@
                     </div>
 
                     <div class="winui-tab-item">
+                        <!-- 供应商类别 -->
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodsupplierdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodsupplierdic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodsupplierdic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodsupplierdic" lay-filter="woodsupplierdic"></table>
+                        <!-- 供应商类别-end -->
+                    </div>
+                    <div class="winui-tab-item">
+                        <!-- 供应商附件类别 -->
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodsupplierfiledic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodsupplierfiledic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodsupplierfiledic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodsupplierfiledic" lay-filter="woodsupplierfiledic"></table>
+                        <!-- 供应商附件类别 -->
+                    </div>
+                    <div class="winui-tab-item">
+                        <!-- 供应商级别 -->
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodsupplierLeveldic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodsupplierLeveldic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodsupplierLeveldic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodsupplierLeveldic" lay-filter="woodsupplierLeveldic"></table>
+                        <!-- 供应商级别 -->
+                    </div>
+                    <div class="winui-tab-item">
+                        <!-- 供应商信用等级 -->
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodsupplierCareditdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodsupplierCareditdic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodsupplierCareditdic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodsupplierCareditdic" lay-filter="woodsupplierCareditdic"></table>
+                         <!-- 供应商信用等级 -->
+                    </div>
+                    <div class="winui-tab-item">
+                         <!-- 其他对方类别 -->
+                         <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodthirddic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodthirddic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodthirddic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodthirddic" lay-filter="woodthirddic"></table>
+                        <!-- 其他对方类别-end -->
+                    </div>
+                    <div class="winui-tab-item">
+                         <!-- 其他对方附件类别 -->
+                         <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodthirdfiledic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodthirdfiledic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodthirdfiledic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodthirdfiledic" lay-filter="woodthirdfiledic"></table>
+                        <!-- 其他对方附件类别 -->
+                    </div>
+                    <div class="winui-tab-item">
+                          <!-- 其他对方级别 -->
+                          <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodthirdLeveldic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodthirdLeveldic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodthirdLeveldic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodthirdLeveldic" lay-filter="woodthirdLeveldic"></table>
+                        <!-- 其他对方级别 -->
+                    </div>
+                    <div class="winui-tab-item">
+                        <!-- 其他对方信用等级 -->
+                        <div class="winui-toolbar">
+                            <div class="winui-tool">
+                                <button  class="winui-toolbtn reloadTable" dev-tableId="woodthirdCareditdic"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+                                <button  class="winui-toolbtn adddatadic" dev-tableId="woodthirdCareditdic"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+                                <button  class="winui-toolbtn deletedic" dev-tableId="woodthirdCareditdic"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+                            </div>
+                        </div>
+                        <table id="woodthirdCareditdic" lay-filter="woodthirdCareditdic"></table>
+                         <!-- 其他对方信用等级 -->
+                    </div>
+                    <div class="winui-tab-item">
                         <ol>
-                            <li>最大化后改变浏览器视口大小，窗口的位置会错乱</li>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
+                            <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
+                        </ol>
+                    </div>
+                    <div class="winui-tab-item">
+                        <ol>
+                            <li>我是再测试测试</li>
                             <li>在窗口未加载完成时进行点击操作，底部任务项样式会错乱</li>
                         </ol>
                     </div>

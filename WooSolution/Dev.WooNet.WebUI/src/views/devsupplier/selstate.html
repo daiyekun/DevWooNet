@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/devcommon.css" rel="stylesheet" />
+</head>
+<body>
+<div style="margin:0 auto;padding-top:20px;">
+    <div class="layui-card ">
+        <div class="layui-card-body" style="padding: 15px;">
+            <div class="layui-row layui-col-space10 layui-form-item layui-col-lg12">
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                <button tostate='1' flowitem="1" class="winui-toolbtn btn-toostate "><i class="fa fa-refresh" aria-hidden="true"></i>未审核-->审核通过</button>
+                </div>
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                <button tostate='2' flowitem="2" class="winui-toolbtn btn-toostate"><i class="fa fa-refresh" aria-hidden="true"></i>审核通过-->已终止</button>
+                </div>
+                <div class="layui-col-lg12 layui-col-md12 layui-col-xs12 layui-col-sm12">
+                 <button tostate='1' flowitem="3" class="winui-toolbtn btn-toostate"><i class="fa fa-refresh" aria-hidden="true"></i>已终止-->审核通过</button>
+                </div>
+                
+            </div>
+            </div>
+            </div>
+            </div>
+            
+    
+</div>
+<script src="/lib/layui/layui.js"></script>
+<script>
+    layui.config({
+            base: '../../js/'
+        }).extend({
+            selstate:'devsupplier/selstate',
+            
+        })
+        .use('selstate');
+</script>
+</body>
+</html>

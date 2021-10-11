@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>客户管理</title>
+    <link href="../../lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="../../lib/font-awesome-4.7.0/css/font-awesome.css" rel="stylesheet" />
+    <link href="../../lib/winui/css/winui.css" rel="stylesheet" />
+    <link href="../../lib/soultable/soulTable.css" rel="stylesheet"/>
+    
+</head>
+<body>
+    <div class="winui-toolbar">
+        <div class="winui-tool">
+            <div class="layui-inline">
+                <input type="text" name="keyWord" placeholder="名称、编号" style="width:200px;"  class="layui-input">
+            </div>
+            <button class="winui-toolbtn" id="btnsearch" >
+                <i class="layui-icon layui-icon-search"></i>查询
+            </button>
+            <button id="reloadTable" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>刷新</button>
+            <button id="adddev" class="winui-toolbtn"><i class="fa fa-plus" aria-hidden="true"></i>新增</button>
+            <button id="deletedev" class="winui-toolbtn"><i class="fa fa-trash" aria-hidden="true"></i>删除</button>
+           
+            <button id="tostate" class="winui-toolbtn"><i class="fa fa-refresh" aria-hidden="true"></i>状态</button>
+            <button id="excelexport" class="winui-toolbtn" lay-event="excelexport"><i class="fa fa-refresh" aria-hidden="true"></i>excel导出</button>
+        </div>
+    </div>
+    <div style="margin:auto 10px;">
+        <table id="woocustomer" lay-filter="woocustomer"></table>
+        <script type="text/html" id="devtablebar">
+            <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+        </script>
+        <script type="text/html" id="stateTpl">
+            {{#  if(d.Dstatus == 0){ }}
+             <span style="color:blue">{{d.StateDic}}</span> 
+            {{#  } else if(d.Dstatus==1) { }}
+            <span style="color:limegreen">{{d.StateDic}}</span> 
+            {{#  } else if(d.Dstatus==2) { }}
+            <span style="color:steelblue">{{d.StateDic}}</span> 
+            {{#  }else{ }}
+            {{d.Ustate}}
+            {{#  } }}
+        </script>
+        <script type="text/html" id="titleTpl">
+            <a class="layui-table-link hand" lay-text="查看信息" lay-event="showview">
+                <cite>{{d.Name}}</cite>
+            </a>
+        </script>
+    </div>
+    <script src="/lib/layui/layui.js"></script>
+    <script> 
+        layui.config({
+            base: '../../js/'
+        }).extend({
+            thirdlist:'devthird/list'
+        })
+        .use('thirdlist');
+    </script>
+</body>
+</html>

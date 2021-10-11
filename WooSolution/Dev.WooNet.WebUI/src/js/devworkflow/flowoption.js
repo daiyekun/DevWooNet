@@ -75,7 +75,7 @@ layui.config({
         }else{
         top.winui.window.confirm(msg, { icon: 3, title: '审批提示' }, function (index) {
             //向服务端发送删除指令
-            debugger;
+           // debugger;
             var postdata={};
             postdata.InstId=instId;
             postdata.ObjType=objtype;
@@ -123,7 +123,7 @@ layui.config({
             top.winui.window.msg('操作成功', {
                 icon: 1
             },function(){
-                closeWin();
+                //closeWin();
                 top.winui.window.tablelaod({id:'15'});
             });
            

@@ -144,7 +144,7 @@ function cleardata(){
      //单位级别
      wooutil.getdatadic({ dataenum: 5, selectEl: "#LevelId" });
      //信用等级
-     wooutil.getdatadic({ dataenum: 5, selectEl: "#CareditId" });
+     wooutil.getdatadic({ dataenum: 6, selectEl: "#CareditId" });
     //成立日期
      laydate.render({ elem: '#EsDateTime', trigger: 'click' });
     //证件有效期
