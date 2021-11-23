@@ -141,6 +141,7 @@ function getModelChk(){
             }
             
             resultstr+='<ul>'
+            if(ditem.ChildrenItem!=null&&ditem.ChildrenItem!=undefined){
             for(var i=0;i<ditem.ChildrenItem.length;i++){
                 if(ditem.ChildrenItem[i].Chk){
 
@@ -150,6 +151,7 @@ function getModelChk(){
                 }
                
             }
+        }
            
                 resultstr+='</ul>' 
                 resultstr+='</li>'
